@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderGas">
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/compositeGas"
+        android:drawableLeft="@drawable/baseline_propane_tank_24"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="355dp"
+        android:layout_height="87dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button_border"
+        android:text="複合材料"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cylinderGas"
+        android:drawableLeft="@drawable/baseline_propane_tank_24"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="355dp"
+        android:layout_height="87dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button_border"
+        android:text="傳統鋼瓶"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="330dp"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu" />
+</LinearLayout>

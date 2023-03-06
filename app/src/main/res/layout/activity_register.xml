@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register">
+
+
+    <TextView
+        android:text="@string/name"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_name"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:minWidth="25dp"
+        android:minHeight="25dp"
+        android:autofillHints="@string/name"
+        android:hint="@string/enter_name"
+        android:inputType="textPersonName"
+        android:id="@+id/register_name_input"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="40dp" />
+
+    <RadioButton
+        android:text="@string/male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButton_male"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="90dp"
+        android:textStyle="bold"/>
+
+    <RadioButton
+        android:text="@string/female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButton_female"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="90dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:text="@string/address"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_addr"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="150dp"
+        android:textStyle="bold"/>
+
+    <Spinner
+        android:padding="5dp"
+        android:entries="@array/address_dropdown"
+        android:backgroundTint="#ffd5d5d5"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:id="@id/action_bar_spinner"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="170dp"/>
+
+    <Spinner
+        android:padding="5dp"
+        android:entries="@array/address_dropdown2"
+        android:backgroundTint="#ffd5d5d5"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:id="@+id/spinner1"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="170dp"
+        />
+
+    <EditText
+        android:id="@+id/register_addr_input"
+        android:autofillHints="@string/address"
+        android:hint="@string/enter_addr"
+        android:inputType="textPostalAddress"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="210dp"
+        android:minWidth="25dp"
+        android:minHeight="25dp" />
+
+    <TextView
+        android:text="@string/phone_string"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_phone"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="260dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:id="@+id/register_phone_input"
+        android:autofillHints="@string/phone_string"
+        android:hint="@string/enter_phone_no"
+        android:inputType="phone"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="280dp"
+        />
+
+    <TextView
+        android:text="@string/house_phone"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_housephone"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="330dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:inputType="phone"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:id="@+id/register_housephone_input"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="350dp"
+        android:autofillHints="@string/house_phone"
+        android:hint="@string/enter_housePhone"/>
+
+    <TextView
+        android:text="@string/prompt_email"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_email"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="400dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:minWidth="25dp"
+        android:minHeight="25dp"
+        android:id="@+id/register_email_input"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="420dp"
+        android:autofillHints="@string/prompt_email"
+        android:hint="@string/enter_email"
+        android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:text="密碼"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_pass"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="470dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:minWidth="25dp"
+        android:minHeight="25dp"
+        android:id="@+id/register_pass_input"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="490dp"
+        android:autofillHints="@string/prompt_password"
+        android:hint="@string/enter_password"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:text="@string/prompt_confirm_password"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_pass_con"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="540dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:minWidth="25dp"
+        android:minHeight="25dp"
+        android:id="@+id/register_pass_con_input"
+        android:layout_marginStart="47.4dp"
+        android:layout_marginTop="560dp"
+        android:autofillHints="@string/prompt_password"
+        android:hint="@string/enter_confirm_pass"
+        android:inputType="textPassword"
+        />
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms_cons"
+        android:textStyle="bold"
+        android:layout_marginTop="610dp"
+        android:layout_marginStart="47.4dp"
+        />
+
+
+    <Button
+        android:text="@string/next_string"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="240dp"
+        android:id="@+id/register_next_button"
+        android:layout_marginTop="605dp"
+        android:textStyle="bold"
+        android:backgroundTint="#ff3272d7"
+        android:textColor="#ffffffff"/>
+
+
+</RelativeLayout>

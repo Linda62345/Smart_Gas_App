@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UsageHistory">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/usageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="29dp"
+                android:layout_marginEnd="185dp"
+                android:layout_marginBottom="16dp"
+                android:text="瓦斯同歷史記錄"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="327dp"
+                android:layout_height="157dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="90dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="16dp"
+                android:background="#F4F4F4"
+                app:layout_constraintBottom_toTopOf="@+id/usageVolumeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/gas_specification"
+                    android:layout_width="114dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="48dp"
+                    android:text="近期記錄"
+                    android:textColor="#716F6F"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/gas_weight"
+                    app:layout_constraintEnd_toStartOf="@+id/changable_gas_specification"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/changable_gas_specification"
+                    android:layout_width="195dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="49dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="xxx"
+                    android:textColor="#716F6F"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/changable_gas_weight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/gas_specification"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/gas_weight"
+                    android:layout_width="114dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="瓦斯桶總重量"
+                    android:textColor="#716F6F"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/gas_emptyWeight"
+                    app:layout_constraintEnd_toStartOf="@+id/changable_gas_weight"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gas_specification" />
+
+                <TextView
+                    android:id="@+id/changable_gas_weight"
+                    android:layout_width="195dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:text="xxx"
+                    android:textColor="#716F6F"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/changable_gas_emptyWeight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/gas_weight"
+                    app:layout_constraintTop_toBottomOf="@+id/changable_gas_specification" />
+
+                <TextView
+                    android:id="@+id/gas_emptyWeight"
+                    android:layout_width="114dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="38dp"
+                    android:text="空桶重量"
+                    android:textColor="#716F6F"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/changable_gas_emptyWeight"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gas_weight" />
+
+                <TextView
+                    android:id="@+id/changable_gas_emptyWeight"
+                    android:layout_width="195dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="38dp"
+                    android:text="xxx"
+                    android:textColor="#716F6F"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/gas_emptyWeight"
+                    app:layout_constraintTop_toBottomOf="@+id/changable_gas_weight" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/usageVolumeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="228dp"
+                android:text="累計總用量："
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toTopOf="@+id/edit_start_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <TextView
+                android:id="@+id/record_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="230dp"
+                android:layout_marginBottom="140dp"
+                android:text="近期記錄"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usageTitle"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/edit_start_time"
+                android:layout_width="139sp"
+                android:layout_height="48dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginBottom="62dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="開始時間"
+                android:textAlignment="center"
+                android:textColor="#716F6F"
+                app:layout_constraintBottom_toTopOf="@+id/changable_volumeUsage"
+                app:layout_constraintEnd_toStartOf="@+id/untilTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usageVolumeTitle" />
+
+            <TextView
+                android:id="@+id/untilTime"
+                android:layout_width="45dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="90dp"
+                android:text="至"
+                android:textAlignment="center"
+                android:textColor="#716F6F"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/changable_volumeUsage"
+                app:layout_constraintEnd_toStartOf="@+id/edit_end_time"
+                app:layout_constraintStart_toEndOf="@+id/edit_start_time"
+                app:layout_constraintTop_toBottomOf="@+id/usageVolumeTitle" />
+
+            <EditText
+                android:id="@+id/edit_end_time"
+                android:layout_width="139sp"
+                android:layout_height="48dp"
+                android:layout_marginTop="107dp"
+                android:layout_marginEnd="59dp"
+                android:layout_marginBottom="137dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="結束時間"
+                android:textAlignment="center"
+                android:textColor="#716F6F"
+                app:layout_constraintBottom_toTopOf="@+id/changab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/untilTime"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <TextView
+                android:id="@+id/changable_volumeUsage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="202dp"
+                android:text="x/x 至x/x 總用量："
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/changab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_start_time" />
+
+            <TextView
+                android:id="@+id/changab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="154dp"
+                android:layout_marginBottom="100dp"
+                android:text="x/x 至x/x 平均日用量："
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/changable_volumeUsage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

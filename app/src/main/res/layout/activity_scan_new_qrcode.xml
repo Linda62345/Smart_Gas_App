@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanNewQRCode">
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/newScanner"
+        android:layout_width="match_parent"
+        android:layout_height="272dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="@android:color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/manuallyEnterCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/manuallyEnterCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="235dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/enterCode"
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mannuallyEnterNewGasCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newScanner" />
+
+    <EditText
+        android:id="@+id/mannuallyEnterNewGasCode"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="56dp"
+        android:background="#ffeeeeee"
+        android:gravity="center"
+        android:hint="@string/enterCode"
+        app:layout_constraintBottom_toTopOf="@+id/newScannerString"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manuallyEnterCode" />
+
+    <TextView
+        android:id="@+id/newScannerString"
+        android:layout_width="409dp"
+        android:layout_height="55.1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/newGas"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="40.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/NewText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mannuallyEnterNewGasCode" />
+
+    <TextView
+        android:id="@+id/NewText"
+        android:layout_width="187dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="1dp"
+        android:text="@string/gasIDString"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/changeableNewID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newScannerString" />
+
+    <TextView
+        android:id="@+id/changeableNewID"
+        android:layout_width="221dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="9dp"
+        android:text="X X X X X X "
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/changeableNewVolume"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/NewText"
+        app:layout_constraintTop_toBottomOf="@+id/newScannerString" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="187dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="1dp"
+        android:text="初始容量  :  "
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/black"
+        android:textSize="20.0dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/gasTypeString"
+        app:layout_constraintEnd_toStartOf="@+id/changeableNewVolume"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NewText" />
+
+    <TextView
+        android:id="@+id/changeableNewVolume"
+        android:layout_width="222dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="1dp"
+        android:text="X X X X X X "
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/GasTypeChoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/changeableNewID" />
+
+    <TextView
+        android:id="@+id/gasTypeString"
+        android:layout_width="187dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="6dp"
+        android:text="瓦斯桶材質  :  "
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/black"
+        android:textSize="20.0dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_NewScan_button"
+        app:layout_constraintEnd_toStartOf="@+id/GasTypeChoice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/GasTypeChoice"
+        android:layout_width="222dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="7dp"
+        android:text="傳統鋼瓶 /複合材料"
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_NewScan_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gasTypeString"
+        app:layout_constraintTop_toBottomOf="@+id/changeableNewVolume" />
+
+    <Button
+        android:id="@+id/confirm_NewScan_button"
+        android:layout_width="186.3dp"
+        android:layout_height="70.9dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="6dp"
+        android:backgroundTint="#ff5877e4"
+        android:gravity="center"
+        android:outlineAmbientShadowColor="#ff080808"
+        android:text="@string/confirmString"
+        android:textColor="#ffffffff"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gasTypeString" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

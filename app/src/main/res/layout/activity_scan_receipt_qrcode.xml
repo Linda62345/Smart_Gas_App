@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanReceiptQRCode">
+
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/receiptScanner"
+        android:layout_width="match_parent"
+        android:layout_height="272dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="@android:color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/manuallyEnterCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/manuallyEnterCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="235dp"
+        android:text="@string/enterReceiptCode"
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mannuallyEnterReceiptCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptScanner" />
+
+    <EditText
+        android:id="@+id/mannuallyEnterReceiptCode"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="56dp"
+        android:background="#ffeeeeee"
+        android:gravity="center"
+        android:hint="@string/enterReceiptCode"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_ReceiptScan_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manuallyEnterCode" />
+
+    <Button
+        android:id="@+id/confirm_ReceiptScan_button"
+        android:layout_width="186.3dp"
+        android:layout_height="70.9dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="#ff5877e4"
+        android:gravity="center"
+        android:outlineAmbientShadowColor="#ff080808"
+        android:text="@string/confirmString"
+        android:textColor="#ffffffff"
+        android:textSize="20.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mannuallyEnterReceiptCode" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

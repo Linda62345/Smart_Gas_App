@@ -1,0 +1,152 @@
+<resources>
+    <string name="app_name">Smart Gas App</string>
+    <string name="register_string">註冊</string>
+    <string name="login_string">登入</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">電子信箱</string>
+    <string name="prompt_password">密碼</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">登入</string>
+    <string name="welcome">"您好 !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"錯誤 — 輸入帳號或密碼錯誤，請重新輸入"</string>
+
+    <string name="action_settings">Settings</string>
+    <string-array name="address_dropdown">
+        <item>縣/市</item>
+        <item>台北市</item>
+        <item>新北市</item>
+        <item>桃園市</item>
+        <item>台中市</item>
+        <item>台南市</item>
+        <item>高雄市</item>
+        <item>台東市</item>
+    </string-array>
+
+    <string-array name="address_dropdown2">
+        <item>地區</item>
+        <item>信義區</item>
+        <item>文山區</item>
+        <item>大安區</item>
+    </string-array>
+
+    <string-array name="weight_options">
+        <item>5kg</item>
+        <item>10kg</item>
+        <item>15kg</item>
+    </string-array>
+
+
+    <string-array name="notificationFrequency_options">
+        <item>每日</item>
+    </string-array>
+
+
+    <string-array name="notificationTime_options">
+        <item>早上 （6AM - 12 PM)</item>
+    </string-array>
+
+    <string-array name="gasCompany_options">
+        <item>景美瓦斯行</item>
+        <item>木新瓦斯行</item>
+        <item>指南瓦斯行</item>
+    </string-array>
+
+    <string-array name="exchange_options">
+        <item>傳統鋼瓶</item>
+    </string-array>
+
+    <string name="name">姓名</string>
+    <string name="address">居住地址</string>
+    <string name="phone_string">手機號碼</string>
+    <string name="house_phone">室內電話</string>
+    <string name="next_string">下一步</string>
+    <string name="enter_name">請輸入您的名字</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="enter_addr">請輸入您的居住地址</string>
+    <string name="enter_phone_no">請輸入您的手機號碼</string>
+    <string name="enter_housePhone">請輸入您的室内電話號碼</string>
+    <string name="enter_email">請輸入您的電子信箱</string>
+    <string name="enter_password">請輸入您的密碼</string>
+    <string name="prompt_confirm_password">確認密碼</string>
+    <string name="enter_confirm_pass">請確認您的密碼</string>
+    <string name="terms_cons">服務條款</string>
+    <string name="edit_personal">編輯個人檔案</string>
+    <string name="greetings">您好，</string>
+    <string name="today_order">今日訂單</string>
+    <string name="open_scanner">前往掃描介面</string>
+    <string name="finished">已完成</string>
+    <string name="unfinished">未完成</string>
+    <string name="companyAddress">瓦斯行地址</string>
+    <string name="save_string">儲存</string>
+
+    <string-array name="frequency_dropdown">
+        <item>每天</item>
+        <item>每兩天</item>
+        <item>每三天</item>
+    </string-array>
+
+    <string-array name="freqTime_dropdown">
+        <item>早上</item>
+        <item>下午</item>
+        <item>晚上</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="enterCode">輸入瓦斯編號</string>
+    <string name="originalString">原 瓦斯桶</string>
+    <string name="scanOriginalString">掃描原瓦斯桶QrCode</string>
+    <string name="scanNewString">掃描新瓦斯桶QrCode</string>
+    <string name="scanReceiptString">掃描明細的QrCode</string>
+    <string name="scanIDString">掃描客戶 ID</string>
+    <string name="confirmString">確認</string>
+    <string name="gasIDString">瓦斯桶 ID :  </string>
+    <string name="newGas">新 瓦斯桶</string>
+    <string name="enterReceiptCode">輸入訂單編號</string>
+    <string name="enterUserID">輸入客戶編號</string>
+
+    <string name="forgetPassword">忘記密碼</string>
+    <string name="setNewPass">重新設定密碼</string>
+    <string name="prompt_verivicationCode">請輸入您的驗證碼</string>
+
+    <string name="newPass">設定新密碼</string>
+    <string name="prompt_newPass">請輸入您的新密碼</string>
+
+    <string name="confirmNewPass">再次輸入新密碼</string>
+    <string name="prompt_ConfirmNewPass">請再次輸入您的新密碼</string>
+
+    <string name="backTo_login">返回登入畫面</string>
+    <string name="orderInformation">訂單資料</string>
+    <string name="contactNo">聯絡電話 :</string>
+    <string name="CustomerName">姓名         :</string>
+    <string name="deliveryAddress">配送地址 :</string>
+    <string name="gasID_number">瓦斯桶ID :</string>
+    <string name="gasQuantity">瓦斯桶數量 :</string>
+
+    <string name="takeOrderTitle">搶單</string>
+    <string name="title_home">首頁</string>
+    <string name="title_orders">歷史訂單</string>
+    <string name="title_user_dashboard">個人資料</string>
+    <string name="point">紅利點數</string>
+    <string name="buyGasString">瓦斯訂購</string>
+    <string name="searchOrderList">訂單查詢</string>
+    <string name="scanString">掃描</string>
+    <string name="volumeExchange">累積/兌換</string>
+    <string name="findCompany">找瓦斯行</string>
+    <string name="myBarcode">我的條碼</string>
+    <string name="currentVolume">剩餘用量 : </string>
+    <string name="smart_gas_app">Smart Gas App</string>
+    <string name="changablePoint">0000</string>
+    <string name="logout_string">登出</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="changeable_startDate">2022/01/01</string>
+    <string name="changeable_endDate">2022/01/31</string>
+    <string name="untilString">-</string>
+    <string name="changable_gasCompany">景美瓦斯行</string>
+    <string name="changable_volume">00</string>
+    <string name="changable_exchangePrice">兌換價值：xxx 公斤</string>
+    <string name="Changable_GasCompName">景美瓦斯行</string>
+    <string name="userGenderNickname">先生</string>
+
+</resources>

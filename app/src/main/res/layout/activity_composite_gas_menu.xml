@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CompositeGasMenu"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/compositeGas"
+        android:drawableLeft="@drawable/baseline_propane_tank_24"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="355dp"
+        android:layout_height="87dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button_border"
+        android:text="複合材料"
+        />
+
+    <GridLayout
+        android:layout_width="345dp"
+        android:layout_height="239dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button_border"
+        android:columnCount="4"
+        android:rowCount="4">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="52dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="數量"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="52dp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="52dp"
+            android:textAlignment="textStart"
+            android:text="  規格"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:background="@color/white"
+            android:text="-"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:background="@color/white"
+            android:text="+"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/gasWeightSpinner"
+            android:layout_width="100dp"
+            android:layout_height="52dp"
+            android:entries="@array/weight_options" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:background="@color/white"
+            android:text="-"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:background="@color/white"
+            android:text="+"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/gasWeightSpinner2"
+            android:layout_width="100dp"
+            android:layout_height="52dp"
+            android:entries="@array/weight_options" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"
+            android:text="-"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:background="@color/white"
+            android:text="+"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/gasWeightSpinner3"
+            android:layout_width="100dp"
+            android:layout_height="52dp"
+            android:entries="@array/weight_options" />
+
+
+    </GridLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cylinderGas"
+        android:drawableLeft="@drawable/baseline_propane_tank_24"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="355dp"
+        android:layout_height="87dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_button_border"
+        android:text="傳統鋼瓶"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="85dp"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu" />
+
+
+
+</LinearLayout>

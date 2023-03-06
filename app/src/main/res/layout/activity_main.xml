@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:src="@drawable/baseline_person_24"
+        android:layout_width="277dp"
+        android:layout_height="277dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25.1sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:text="@string/smart_gas_app"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="#ff000000" />
+
+    <Button
+        android:text="@string/login_string"
+        android:layout_width="277dp"
+        android:layout_height="66dp"
+        android:id="@+id/login_page_button"
+        android:layout_marginTop="25.4dp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#3272D7"
+        android:textColor="#ffffff"
+        />
+
+    <Button
+        android:text="@string/register_string"
+        android:layout_width="277dp"
+        android:layout_height="66dp"
+        android:id="@+id/register_page_button"
+        android:layout_marginTop="11.8dp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#3272D7"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="229.0dp"
+        />
+</LinearLayout>

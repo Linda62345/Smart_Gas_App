@@ -24,6 +24,14 @@
         <item>台東市</item>
     </string-array>
 
+    <string-array name="date_dropdown">
+        <item>2022/01/01(一)</item>
+    </string-array>
+
+    <string-array name="time_dropdown">
+        <item>14:00</item>
+    </string-array>
+
     <string-array name="address_dropdown2">
         <item>地區</item>
         <item>信義區</item>

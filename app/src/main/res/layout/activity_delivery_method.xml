@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DeliveryMethod">
+
+
+
+    <GridLayout
+        android:id="@+id/deliverGrid"
+        android:layout_width="344dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="35dp">
+
+
+        <RadioButton
+            android:id="@+id/deliverOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"
+            android:text="人員配送"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <RadioButton
+            android:id="@+id/pickUpOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="到店自取"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/deliveryTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="35dp"
+        android:background="@color/white"
+        android:text="選擇配送時間："
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/deliveryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="35dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#ffd5d5d5"
+        android:entries="@array/date_dropdown"
+        android:padding="5dp" />
+
+
+    <Spinner
+        android:id="@+id/deliveryTime"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#ffd5d5d5"
+        android:entries="@array/time_dropdown"
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/ConfrimOrder"
+        android:layout_width="355dp"
+        android:layout_height="87dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="150dp"
+        android:textColor="@color/white"
+        android:text="確認訂單"
+        android:layout_gravity="center"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="45dp"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu" />
+</LinearLayout>

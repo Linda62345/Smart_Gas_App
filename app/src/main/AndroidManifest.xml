@@ -18,26 +18,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartGasApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".DeliveryMethod"
+            android:exported="false"
+            android:label="選擇服務方式"
+            android:parentActivityName=".OrderGas"
+            />
         <activity
             android:name=".ScanOriginalQRCode"
             android:exported="false"
             android:label="@string/scanOriginalString"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".ScanNewQRCode"
             android:exported="false"
             android:label="@string/scanNewString"
-            android:parentActivityName=".ScanOriginalQRCode"/>
+            android:parentActivityName=".ScanOriginalQRCode" />
         <activity
             android:name=".ScanReceiptQRCode"
             android:exported="false"
             android:label="@string/scanReceiptString" />
-
         <activity
             android:name=".OrderListFinished"
             android:exported="false"
-            android:label="@string/searchOrderList"/>
+            android:label="@string/searchOrderList" />
         <activity
             android:name=".OrderListUnfinished"
             android:exported="false"
@@ -54,42 +58,42 @@
             android:name=".PersonalBarcode"
             android:exported="false"
             android:label="我的條碼"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".GasCompanyLocation"
             android:exported="false"
             android:label="瓦斯行地點"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".NotificationFrequency"
             android:exported="false"
             android:label="通知頻率與時間"
-            android:parentActivityName=".UserDashboard"/>
+            android:parentActivityName=".UserDashboard" />
         <activity
             android:name=".FamilyInvitationCode"
             android:exported="false"
             android:label="家人邀請碼"
-            android:parentActivityName=".UserDashboard"/>
+            android:parentActivityName=".UserDashboard" />
         <activity
             android:name=".GasExchange"
             android:exported="false"
             android:label="累計殘氣兌換"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".cylinder_gas_menu"
             android:exported="false"
             android:label="瓦斯訂購"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".CompositeGasMenu"
             android:exported="false"
             android:label="瓦斯訂購"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".OrderGas"
             android:exported="false"
             android:label="瓦斯訂購"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".OrderDetail"
             android:exported="false"
@@ -98,7 +102,7 @@
             android:name=".UsageHistory"
             android:exported="false"
             android:label="歷史用量與調查"
-            android:parentActivityName=".Homepage"/>
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".EventPage"
             android:exported="false"
@@ -113,7 +117,7 @@
             android:name=".EditPersonalInfo"
             android:exported="false"
             android:label="@string/edit_personal"
-            android:parentActivityName=".UserDashboard"/>
+            android:parentActivityName=".UserDashboard" />
         <activity
             android:name=".ForgetPassword2"
             android:exported="false" />

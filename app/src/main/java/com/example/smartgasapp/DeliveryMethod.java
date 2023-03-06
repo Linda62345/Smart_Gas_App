@@ -1,62 +1,39 @@
 package com.example.smartgasapp;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
-public class CompositeGasMenu extends AppCompatActivity {
-
-    private Button cylinder;
+public class DeliveryMethod extends AppCompatActivity {
     private Button order;
-    private Button delivery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_composite_gas_menu);
+        setContentView(R.layout.activity_delivery_method);
+        order = findViewById(R.id.ConfrimOrder);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        cylinder = findViewById(R.id.cylinderGas);
-        order = findViewById(R.id.compositeGas);
-        delivery = findViewById(R.id.ChooseDeliverMethod);
-
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
-
-        cylinder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CompositeGasMenu.this, cylinder_gas_menu.class);
-                startActivity(intent);
-            }
-        });
 
 
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CompositeGasMenu.this, OrderGas.class);
+                Intent intent = new Intent(DeliveryMethod.this, Receipt.class);
                 startActivity(intent);
             }
         });
 
-        delivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CompositeGasMenu.this, cylinder_gas_menu.class);
-                startActivity(intent);
-            }
-        });
+        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
-        // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

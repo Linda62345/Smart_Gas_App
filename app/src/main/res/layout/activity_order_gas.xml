@@ -36,11 +36,13 @@
         android:text="傳統鋼瓶"
         />
 
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="405dp"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

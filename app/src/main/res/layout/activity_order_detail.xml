@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".OrderDetail">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <GridLayout
         android:id="@+id/linearLayout1"
         android:layout_width="314dp"
@@ -13,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="55dp"
         android:layout_marginTop="27dp"
-        android:layout_marginEnd="74dp"
+        android:layout_marginEnd="55dp"
         android:background="@android:color/white"
         android:backgroundTint="#ffececec"
         android:columnCount="2"
@@ -110,8 +114,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="55dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginEnd="55dp"
 
         android:background="@android:color/white"
         android:backgroundTint="#ffececec"
@@ -315,7 +318,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="6.0dp"
                 android:layout_marginBottom="15dp"
-                android:text="9000 元"
+                android:text="xxx 元"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black"

@@ -27,7 +27,7 @@ public class DeliveryMethod extends AppCompatActivity {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DeliveryMethod.this, Receipt.class);
+                Intent intent = new Intent(DeliveryMethod.this, OrderDetail.class);
                 startActivity(intent);
             }
         });

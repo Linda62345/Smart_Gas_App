@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ConfirmDelivery">
+
+
+    <TextView
+        android:id="@+id/confrimOrderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:paddingBottom="10dp"
+        android:layout_gravity="center"
+        android:text="確認送出訂單"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <ImageView
+        android:id="@+id/exchangeSuccessImageView"
+        android:layout_width="245dp"
+        android:layout_height="245dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/baseline_report_gmailerrorred_24"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="126dp" />
+
+    <TextView
+        android:id="@+id/changableMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        android:layout_gravity="center"
+        android:text="瓦斯規格: OO材料5Kg"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <TextView
+        android:id="@+id/changableDelAddres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:layout_gravity="center"
+        android:text="配送地點：O市OO區"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <TextView
+        android:id="@+id/changableDelTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:layout_gravity="center"
+        android:text="送貨時間 ： xx.xx-xx.xx"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+
+    <TextView
+        android:id="@+id/alertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        android:layout_gravity="center"
+        android:text="訂單送出後無法再次修改！！！"
+        android:textColor="#ff0000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+
+    <Button
+        android:id="@+id/exchangeSuccessNext"
+        android:layout_width="239dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="確認送出訂單"
+        android:textStyle="bold" />
+</LinearLayout>

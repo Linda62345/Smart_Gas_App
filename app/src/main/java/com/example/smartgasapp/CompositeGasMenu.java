@@ -51,7 +51,7 @@ public class CompositeGasMenu extends AppCompatActivity {
         delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CompositeGasMenu.this, cylinder_gas_menu.class);
+                Intent intent = new Intent(CompositeGasMenu.this, DeliveryMethod.class);
                 startActivity(intent);
             }
         });

@@ -17,6 +17,9 @@ public class cylinder_gas_menu extends AppCompatActivity {
 
     private Button composite;
 
+    private Button order;
+    private Button delivery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,26 @@ public class cylinder_gas_menu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
         composite = findViewById(R.id.compositeGas);
+        order = findViewById(R.id.cylinderGas);
+        delivery = findViewById(R.id.ChooseDeliverMethod);
+
+
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(cylinder_gas_menu.this, OrderGas.class);
+                startActivity(intent);
+            }
+        });
+
+        delivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(cylinder_gas_menu.this, DeliveryMethod.class);
+                startActivity(intent);
+            }
+        });
 
         composite.setOnClickListener(new View.OnClickListener() {
             @Override

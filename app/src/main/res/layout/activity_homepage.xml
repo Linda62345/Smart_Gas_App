@@ -64,7 +64,7 @@
         android:useDefaultMargins="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
@@ -74,7 +74,7 @@
             android:layout_height="90dp"
             android:layout_row="0"
             android:layout_column="0"
-            android:background="@drawable/circle_button"
+            android:backgroundTint="@color/white"
             android:contentDescription="TODO"
             android:src="@drawable/baseline_shopping_cart_24" />
 
@@ -85,19 +85,18 @@
             android:layout_row="0"
             android:layout_column="1"
             android:layout_gravity="center"
-            android:background="@drawable/circle_button"
+            android:backgroundTint="@color/white"
             android:contentDescription="TODO"
             android:src="@drawable/baseline_search_24" />
 
         <ImageButton
-            android:id="@+id/ScanQRPageButton"
+            android:id="@+id/exchangeGasButton"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_row="0"
-            android:layout_column="2"
-            android:background="@drawable/circle_button"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
             android:contentDescription="TODO"
-            android:src="@drawable/baseline_qr_code_2_24" />
+            android:src="@drawable/baseline_propane_tank_24" />
 
         <TextView
             android:id="@+id/buyGasButtonTextView"
@@ -126,11 +125,11 @@
             tools:layout_editor_absoluteY="28dp" />
 
         <TextView
-            android:id="@+id/ScanQRPageTextView"
+            android:id="@+id/exchangeGasTextView"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/scanString"
+            android:text="@string/volumeExchange"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -140,20 +139,11 @@
 
 
         <ImageButton
-            android:id="@+id/exchangeGasButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_button"
-            android:contentDescription="TODO"
-            android:src="@drawable/baseline_propane_tank_24" />
-
-        <ImageButton
             android:id="@+id/companyButton"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
-            android:background="@drawable/circle_button"
+            android:backgroundTint="@color/white"
             android:contentDescription="TODO"
             android:src="@drawable/baseline_location_on_24" />
 
@@ -162,16 +152,16 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
-            android:background="@drawable/circle_button"
+            android:backgroundTint="@color/white"
             android:contentDescription="TODO"
             android:src="@drawable/baseline_line_weight_24" />
 
         <TextView
-            android:id="@+id/exchangeGasTextView"
+            android:id="@+id/companyTextVie"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/volumeExchange"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"

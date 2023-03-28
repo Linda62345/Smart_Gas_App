@@ -19,6 +19,12 @@
         android:theme="@style/Theme.SmartGasApp"
         tools:targetApi="31">
 
+
+        <activity
+            android:name=".DeliveryMethod"
+            android:exported="false"
+            android:label="選擇配送方式"
+            android:parentActivityName=".OrderGas"/>
         <activity
             android:name=".ScanOriginalQRCode"
             android:exported="false"

@@ -16,6 +16,8 @@ import java.util.Objects;
 public class CompositeGasMenu extends AppCompatActivity {
 
     private Button cylinder;
+    private Button order;
+    private Button delivery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class CompositeGasMenu extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         cylinder = findViewById(R.id.cylinderGas);
+        order = findViewById(R.id.compositeGas);
+        delivery = findViewById(R.id.ChooseDeliverMethod);
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
@@ -31,6 +35,23 @@ public class CompositeGasMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CompositeGasMenu.this, cylinder_gas_menu.class);
+                startActivity(intent);
+            }
+        });
+
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CompositeGasMenu.this, OrderGas.class);
+                startActivity(intent);
+            }
+        });
+
+        delivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CompositeGasMenu.this, DeliveryMethod.class);
                 startActivity(intent);
             }
         });

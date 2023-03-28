@@ -21,7 +21,7 @@ public class Homepage extends AppCompatActivity {
 
     private ImageButton buy;
     private ImageButton search;
-    private ImageButton scanQR;
+
 
     private ImageButton exchange;
     private ImageButton location;
@@ -38,7 +38,6 @@ public class Homepage extends AppCompatActivity {
 
         buy = findViewById(R.id.buyGasButton);
         search = findViewById(R.id.findOrderListButton);
-        scanQR = findViewById(R.id.ScanQRPageButton);
 
         exchange = findViewById(R.id.exchangeGasButton);
         location = findViewById(R.id.companyButton);
@@ -84,13 +83,7 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-        scanQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Homepage.this, ScanOriginalQRCode.class);
-                startActivity(intent);
-            }
-        });
+
 
         exchange.setOnClickListener(new View.OnClickListener() {
             @Override

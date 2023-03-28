@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -20,12 +21,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.smartgasapp.ForgetPassword1;
 import com.example.smartgasapp.Homepage;
 import com.example.smartgasapp.R;
 import com.example.smartgasapp.Register;
 import com.example.smartgasapp.databinding.ActivityLoginBinding;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,6 +56,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button register;
     private Button forget;
+
+    private String email, password;
+    EditText username;
+    EditText Password;
+    public static int CUSTOMER_ID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +73,11 @@ public class LoginActivity extends AppCompatActivity {
 
         register = findViewById(R.id.login_register_button);
         forget = findViewById(R.id.forget_button);
+
+        //logIn
+        email = password = "";
+        username = findViewById(R.id.username);
+        Password = findViewById(R.id.password);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +131,21 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                    Intent intent = new Intent(LoginActivity.this, Homepage.class);
-                    startActivity(intent);
+                    login();
+                    Thread thread = new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                CustomerID();
+                                //Your code goes here
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    thread.start();
                 }
                 setResult(Activity.RESULT_OK);
 
@@ -161,4 +204,91 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
+    public void login() {
+        String url = "http://10.0.2.2/SQL_Connect/customer_login.php";
+        email = username.getText().toString().trim();
+        password = Password.getText().toString().trim();
+        if (!email.equals("") && !password.equals("")) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("res", response);
+                    if (response.equals("success")) {
+                        Intent intent = new Intent(LoginActivity.this, Homepage.class);
+                        //要把email傳過去
+                        intent.putExtra("email", email);
+                        startActivity(intent);
+                        finish();
+                    } else if (response.equals("failure")) {
+                        Toast.makeText(LoginActivity.this, "Invalid Login Id/Password", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(LoginActivity.this, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("email", email);
+                    data.put("password", password); //php,本地端
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(this, "Fields can not be empty!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void CustomerID() {
+        if (email == null) {
+            Log.i("null Customer Id", String.valueOf(CUSTOMER_ID));
+        } else {
+            try {
+                email = username.getText().toString().trim();
+                String Findurl = "http://10.0.2.2/SQL_Connect/Find_Customer_ID.php";
+                URL url = new URL(Findurl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                Log.i("result", "[" + result + "]");
+                JSONObject responseJSON = new JSONObject(result);
+                CUSTOMER_ID = responseJSON.getInt("CUSTOMER_Id");
+                Log.i("Customer_ID", String.valueOf(CUSTOMER_ID));
+            } catch (Exception e) {
+                Log.i("Here Exception", e.toString());
+            }
+        }
+    }
+
+    public int getCustomerID() {
+        int customer_id = CUSTOMER_ID;
+        return customer_id;
+    }
+
+
 }
+

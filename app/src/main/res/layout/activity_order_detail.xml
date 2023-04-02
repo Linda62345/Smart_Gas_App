@@ -74,7 +74,7 @@
             android:layout_marginLeft="25.0dp"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="5dp"
-            android:text="x x x"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#716F6F"
             android:textSize="16sp" />
@@ -122,8 +122,10 @@
         app:backgroundTint="#ffffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/receipt_gasTypeQty"
@@ -137,18 +139,12 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/receipt_changable_gasTypeQtyList"
-            android:layout_width="254dp"
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="test type, qty"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#716F6F"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="15dp" />
 
         <View
             android:layout_width="280dp"
@@ -171,17 +167,29 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/ExpectTime"
             android:layout_width="254dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="時間:"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="時間: "
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#716F6F"
             android:textSize="16sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/deliveryMethod"
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:text="配送方式: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#716F6F"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
 
         <View
             android:layout_width="280dp"
@@ -371,7 +379,7 @@
         android:layout_marginStart="125dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="126dp"
-        android:text="王*小 您好"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"

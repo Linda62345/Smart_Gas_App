@@ -220,56 +220,56 @@ public class OrderDetail extends AppCompatActivity {
     }
     public void newOrder(){
         try{
-        String String_url = "http://10.0.2.2/SQL_Connect/NewOrder.php";
-        Log.i("Execute order","Please execute"+Customer_ID+Company_Id+ String.valueOf(0)+address+phone+String.valueOf(Gas_Quantity)+time+method);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.equals("success")) {
-                    Log.i("Create Order method",response);
-                    Intent intent = new Intent(OrderDetail.this, OrderListUnfinished.class);
-                    startActivity(intent);
-                    finish.setClickable(false);
-                } else if (response.equals("failure")) {
-                    Log.i("Create Order failure",response);
+            String String_url = "http://10.0.2.2/SQL_Connect/NewOrder.php";
+            Log.i("Execute order","Please execute"+Customer_ID+Company_Id+ String.valueOf(0)+address+phone+String.valueOf(Gas_Quantity)+time+method);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (response.equals("success")) {
+                        Log.i("Create Order method",response);
+                        Intent intent = new Intent(OrderDetail.this, OrderListUnfinished.class);
+                        startActivity(intent);
+                        finish.setClickable(false);
+                    } else if (response.equals("failure")) {
+                        Log.i("Create Order failure",response);
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("Create Order failure",error.toString());
-                Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> data = new HashMap<>();
-                //customer_id, company_id, delivery_condition,delivery_address,delivery_phone,gas_quantity,order_time,expect_time,delivery_method
-                data.put("Customer_ID", Customer_ID);
-                data.put("Company_Id", Company_Id);
-                data.put("delivery_condition", String.valueOf(0));
-                data.put("delivery_address", address);
-                data.put("delivery_phone", phone);
-                data.put("Gas_Quantity", String.valueOf(Gas_Quantity));
-                // Create a DateFormat object and set the timezone to Taiwan
-                TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                dateFormat.setTimeZone(timeZone);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i("Create Order failure",error.toString());
+                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    //customer_id, company_id, delivery_condition,delivery_address,delivery_phone,gas_quantity,order_time,expect_time,delivery_method
+                    data.put("Customer_ID", Customer_ID);
+                    data.put("Company_Id", Company_Id);
+                    data.put("delivery_condition", String.valueOf(0));
+                    data.put("delivery_address", address);
+                    data.put("delivery_phone", phone);
+                    data.put("Gas_Quantity", String.valueOf(Gas_Quantity));
+                    // Create a DateFormat object and set the timezone to Taiwan
+                    TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    dateFormat.setTimeZone(timeZone);
 
-                // Format the current date and time as a string in the correct format
-                String currentDateTimeString = dateFormat.format(new Date());
+                    // Format the current date and time as a string in the correct format
+                    String currentDateTimeString = dateFormat.format(new Date());
 
-                // Log the string to the console
-                Log.i("time",currentDateTimeString);
-                data.put("order_time",currentDateTimeString);
-                data.put("expect_time",time);
-                data.put("delivery_method",method);
+                    // Log the string to the console
+                    Log.i("time",currentDateTimeString);
+                    data.put("order_time",currentDateTimeString);
+                    data.put("expect_time",time);
+                    data.put("delivery_method",method);
 
-                return data;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);}
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);}
         catch (Exception e){
             Log.i("Method of creating order",e.toString());
         }

@@ -86,7 +86,6 @@
             android:layout_gravity="left"
             android:layout_marginLeft="25.0dp"
             android:layout_marginTop="7dp"
-            android:text="098********"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#716F6F"
             android:textSize="16sp" />
@@ -98,7 +97,6 @@
             android:layout_gravity="left"
             android:layout_marginLeft="25.0dp"
             android:layout_marginTop="7dp"
-            android:text="0市00區"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#716F6F"
             android:textSize="16sp" />

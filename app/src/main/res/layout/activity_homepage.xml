@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="bold"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Homepage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/pointTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="318dp"
         android:text="@string/point"
         android:textColor="@color/black"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/changable_pointButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,20 +31,20 @@
         android:layout_width="120dp"
         android:layout_height="48dp"
         android:layout_marginStart="18dp"
-        android:layout_marginBottom="8dp"
         android:drawableLeft="@drawable/baseline_card_giftcard_24"
         android:text="@string/changablePoint"
         app:layout_constraintBottom_toTopOf="@+id/viewPager2"
         app:layout_constraintEnd_toStartOf="@+id/loginFromHome"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/pointTextView"
+        app:layout_constraintVertical_bias="0.51" />
 
     <Button
         android:id="@+id/loginFromHome"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="151dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/white"
@@ -53,149 +58,143 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <GridLayout
-        android:id="@+id/gridLayoutButtons"
-        android:layout_width="348dp"
-        android:layout_height="268dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:columnCount="3"
-        android:rowCount="4"
-        android:useDefaultMargins="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-        <ImageButton
-            android:id="@+id/buyGasButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:backgroundTint="@color/white"
-            android:contentDescription="TODO"
-            android:src="@drawable/baseline_shopping_cart_24" />
-
-        <ImageButton
-            android:id="@+id/findOrderListButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
-            android:contentDescription="TODO"
-            android:src="@drawable/baseline_search_24" />
-
-        <ImageButton
-            android:id="@+id/exchangeGasButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
-            android:contentDescription="TODO"
-            android:src="@drawable/baseline_propane_tank_24" />
-
-        <TextView
-            android:id="@+id/buyGasButtonTextView"
-            android:layout_width="90dp"
+        <GridLayout
+            android:id="@+id/gridLayoutButtons"
+            android:layout_width="348dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/buyGasString"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="18dp"
-            tools:layout_editor_absoluteY="28dp" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="45dp"
+            android:columnCount="3"
+            android:rowCount="4"
+            android:useDefaultMargins="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <TextView
-            android:id="@+id/findOrderListTextView"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/searchOrderList"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="18dp"
-            tools:layout_editor_absoluteY="28dp" />
+            <ImageButton
+                android:id="@+id/buyGasButton"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:backgroundTint="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_shopping_cart_24" />
 
-        <TextView
-            android:id="@+id/exchangeGasTextView"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/volumeExchange"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="18dp"
-            tools:layout_editor_absoluteY="28dp" />
+            <ImageButton
+                android:id="@+id/findOrderListButton"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_search_24" />
+
+            <ImageButton
+                android:id="@+id/exchangeGasButton"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_propane_tank_24" />
+
+            <TextView
+                android:id="@+id/buyGasButtonTextView"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/buyGasString"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="28dp" />
+
+            <TextView
+                android:id="@+id/findOrderListTextView"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/searchOrderList"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="28dp" />
+
+            <TextView
+                android:id="@+id/exchangeGasTextView"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="@string/volumeExchange"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="28dp" />
 
 
-        <ImageButton
-            android:id="@+id/companyButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
-            android:contentDescription="TODO"
-            android:src="@drawable/baseline_location_on_24" />
+            <ImageButton
+                android:id="@+id/companyButton"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_location_on_24" />
 
-        <ImageButton
-            android:id="@+id/myIDButton"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
-            android:contentDescription="TODO"
-            android:src="@drawable/baseline_line_weight_24" />
+            <ImageButton
+                android:id="@+id/myIDButton"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
+                android:contentDescription="TODO"
+                android:src="@drawable/baseline_line_weight_24" />
 
-        <TextView
-            android:id="@+id/companyTextVie"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="18dp"
-            tools:layout_editor_absoluteY="28dp" />
+            <TextView
+                android:id="@+id/companyTextVie"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="28dp" />
 
-        <TextView
-            android:id="@+id/companyTextView"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/findCompany"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="18dp"
-            tools:layout_editor_absoluteY="28dp" />
+            <TextView
+                android:id="@+id/companyTextView"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/findCompany"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/myIDTextView"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/myBarcode"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="18dp"
-            tools:layout_editor_absoluteY="28dp" />
+            <TextView
+                android:id="@+id/myIDTextView"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/myBarcode"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    </GridLayout>
+        </GridLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
@@ -203,18 +202,18 @@
         android:layout_height="120dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changable_pointButton" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/corners"
         android:id="@+id/constraintLayout"
         android:layout_width="360dp"
         android:layout_height="120dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:background="@drawable/corners"
         app:layout_constraintBottom_toTopOf="@+id/gridLayoutButtons"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPager2">
 
@@ -347,18 +346,14 @@
             app:layout_constraintStart_toEndOf="@+id/usedGasProgress"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayoutButtons"
         app:menu="@menu/bottom_nav_menu" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

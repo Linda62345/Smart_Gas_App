@@ -1,6 +1,8 @@
 package com.example.smartgasapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,9 +11,13 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class Homepage extends AppCompatActivity {
 
@@ -27,10 +33,25 @@ public class Homepage extends AppCompatActivity {
     private ImageButton location;
     private ImageButton personalBarcode;
 
+
+    private ViewPager viewPager;
+    private ImageAdapter adapter;
+    private ArrayList<Bitmap> images;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        // Create sample images
+        images = new ArrayList<>();
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.gasSpec));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+
+        // Set adapter to ViewPager
+        adapter = new ImageAdapter(this, images);
+        viewPager.setAdapter(adapter);
 
         point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
@@ -42,6 +63,13 @@ public class Homepage extends AppCompatActivity {
         exchange = findViewById(R.id.exchangeGasButton);
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
+
+        ViewPager viewPager = findViewById(R.id.viewPager2);
+        ImageAdapter adapter = new ImageAdapter(this, images);
+        viewPager.setAdapter(adapter);
+
+
+
 
         point.setOnClickListener(new View.OnClickListener() {
             @Override

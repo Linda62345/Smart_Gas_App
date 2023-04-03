@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/InfolinearLayout"
-        android:layout_width="409dp"
-        android:layout_height="528dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="2dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,9 +27,9 @@
 
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="18.0dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:text="@string/name"
             android:textColor="@android:color/black"
             android:textSize="15.0sp"
@@ -39,16 +39,16 @@
             android:id="@+id/editName"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:text="王大明" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="18.0dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
             android:text="@string/house_phone"
             android:textColor="@android:color/black"
@@ -59,14 +59,14 @@
             android:id="@+id/editHousePhone"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:inputType="phone"
             android:text="02-12345567" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="18.0dp"
-            android:layout_marginLeft="47.4dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
             android:text="@string/phone_string"
             android:textColor="@android:color/black"
@@ -77,14 +77,14 @@
             android:id="@+id/editPhoneNo"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:inputType="phone"
             android:text="0912345678" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
             android:layout_height="18.0dp"
-            android:layout_marginStart="47.4dp"
             android:layout_marginTop="20.0dp"
             android:text="@string/companyAddress"
             android:textColor="@android:color/black"
@@ -92,19 +92,19 @@
             android:textStyle="bold" />
 
         <EditText
+            android:layout_gravity="center"
             android:id="@+id/editCompanyAddress"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginStart="47.4dp"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:text="台北市瓦斯區瓦斯行瓦斯路一段1號" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="23.0dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
             android:text="@string/prompt_email"
             android:textColor="@android:color/black"
@@ -115,7 +115,7 @@
             android:id="@+id/editEmail"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:layout_marginStart="47.4dp"
+            android:layout_gravity="center"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"

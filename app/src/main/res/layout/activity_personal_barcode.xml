@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalBarcode">
+    tools:context=".NotificationFrequency">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/LinearTitle"
@@ -51,25 +59,37 @@
     </LinearLayout>
 
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:paddingStart="55dp">
     <TextView
         android:id="@+id/barcodeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
         android:text="條碼"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/changableBarcode"
-        app:layout_constraintEnd_toStartOf="@+id/showBarcodeButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LinearTitle" />
+        android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/showBarcodeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/main_blue"
+            android:onClick="barcodeButtonClick"
+            android:src="@drawable/baseline_remove_red_eye_24"
+            android:textSize="20sp"
+            android:contentDescription="TODO" />
+
+
+</LinearLayout>
+
+
 
 
     <ImageView
@@ -101,35 +121,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changableBarcode" />
 
-    <ImageButton
-        android:id="@+id/showBarcodeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="270dp"
-        android:layout_marginBottom="47dp"
-        android:backgroundTint="@color/main_blue"
-        android:onClick="barcodeButtonClick"
-        android:src="@drawable/baseline_remove_red_eye_24"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/changableBarcode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/barcodeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/LinearTitle"
-        android:contentDescription="TODO" />
+
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barcodeBackToHome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

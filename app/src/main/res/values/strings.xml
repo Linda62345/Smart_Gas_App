@@ -154,7 +154,7 @@
     <string name="changable_gasCompany">景美瓦斯行</string>
     <string name="changable_volume">00</string>
     <string name="changable_exchangePrice">兌換價值：xxx 公斤</string>
-    <string name="Changable_GasCompName">景美瓦斯行</string>
+    <string name="Changable_GasCompName"></string>
     <string name="userGenderNickname">先生</string>
 
 </resources>

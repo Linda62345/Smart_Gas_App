@@ -26,7 +26,6 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/rounded_button_border"
         android:paddingTop="15dp"
-        android:text="@string/Changable_GasCompName"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -72,26 +71,12 @@
             android:layout_marginTop="30dp"
             android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/companyRadio1"
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:text="萬方瓦斯行"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:id = "@+id/radioGroup">
 
-
-            <RadioButton
-                android:id="@+id/companyRadio2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:text="木柵瓦斯行"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            </RadioGroup>
 
         </LinearLayout>
 

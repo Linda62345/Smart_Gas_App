@@ -194,17 +194,16 @@
         android:textStyle="bold" />
 
     <EditText
-        android:layout_width="300dp"
-        android:layout_height="49dp"
-        android:minWidth="25dp"
-        android:minHeight="25dp"
         android:id="@+id/register_pass_con_input"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
         android:layout_marginStart="47.4dp"
         android:layout_marginTop="560dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/enter_confirm_pass"
         android:inputType="textPassword"
-        />
+        android:minWidth="25dp"
+        android:minHeight="25dp" />
 
     <TextView
         android:id="@+id/tvStatus"

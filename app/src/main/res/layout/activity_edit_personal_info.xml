@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPersonalInfo">
+    tools:context=".EditPersonalInfo"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/InfolinearLayout"

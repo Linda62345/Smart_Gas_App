@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    tools:context=".Register"
+    android:background="@color/white">
 
 
     <TextView
@@ -24,6 +25,7 @@
         android:minHeight="25dp"
         android:autofillHints="@string/name"
         android:hint="@string/enter_name"
+        android:textColorHint="#ff757575"
         android:inputType="textPersonName"
         android:id="@+id/register_name_input"
         android:layout_marginStart="47.4dp"
@@ -85,6 +87,7 @@
         android:id="@+id/register_addr_input"
         android:autofillHints="@string/address"
         android:hint="@string/enter_addr"
+        android:textColorHint="#ff757575"
         android:inputType="textPostalAddress"
         android:layout_width="300dp"
         android:layout_height="48dp"
@@ -110,6 +113,7 @@
         android:id="@+id/register_phone_input"
         android:autofillHints="@string/phone_string"
         android:hint="@string/enter_phone_no"
+        android:textColorHint="#ff757575"
         android:inputType="phone"
         android:layout_marginStart="47.4dp"
         android:layout_marginTop="280dp"
@@ -134,7 +138,8 @@
         android:layout_marginStart="47.4dp"
         android:layout_marginTop="350dp"
         android:autofillHints="@string/house_phone"
-        android:hint="@string/enter_housePhone"/>
+        android:hint="@string/enter_housePhone"
+        android:textColorHint="#ff757575"/>
 
     <TextView
         android:text="@string/prompt_email"
@@ -157,6 +162,7 @@
         android:layout_marginTop="420dp"
         android:autofillHints="@string/prompt_email"
         android:hint="@string/enter_email"
+        android:textColorHint="#ff757575"
         android:inputType="textEmailAddress"/>
 
     <TextView
@@ -180,6 +186,7 @@
         android:layout_marginTop="490dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/enter_password"
+        android:textColorHint="#ff757575"
         android:inputType="textPassword"/>
 
     <TextView
@@ -201,6 +208,7 @@
         android:layout_marginTop="560dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/enter_confirm_pass"
+        android:textColorHint="#ff757575"
         android:inputType="textPassword"
         android:minWidth="25dp"
         android:minHeight="25dp" />

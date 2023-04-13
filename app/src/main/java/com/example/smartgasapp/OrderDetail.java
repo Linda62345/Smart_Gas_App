@@ -46,7 +46,7 @@ public class OrderDetail extends AppCompatActivity {
     private Button exchange;
     private Button editReceipt;
     private Button finish;
-    public String Customer_ID,Order_Id,result="",Company_Id,phone,address,time,method;
+    public String Customer_ID,Order_Id,result="",Company_Id,phone,address,time,method,New_Order_Id;
     public TextView Greeting, Recepit_Name,Receipt_TelNo,Receipt_Addr,Expect_Time,Delivery_Method;
     public JSONObject responseJSON;
     public JSONArray ja;
@@ -60,9 +60,6 @@ public class OrderDetail extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        LoginActivity loginActivity = new LoginActivity();
-        Customer_ID = String.valueOf(loginActivity.getCustomerID());
-
         Expect_Time = findViewById(R.id.ExpectTime);
         Delivery_Method = findViewById(R.id.deliveryMethod);
         Greeting = findViewById(R.id.client_greetingTitle);
@@ -74,8 +71,12 @@ public class OrderDetail extends AppCompatActivity {
         editReceipt = findViewById(R.id.receipt_edit_button);
         finish = findViewById(R.id.receipt_next_button);
 
+        LoginActivity loginActivity = new LoginActivity();
+        Customer_ID = String.valueOf(loginActivity.getCustomerID());
+
         customerOrderDetails = new ArrayList<CustomerOrderDetail>();
         Thread thread = new Thread(new Runnable() {
+
             @Override
             public void run() {
                 try  {
@@ -93,7 +94,6 @@ public class OrderDetail extends AppCompatActivity {
                     showData("http://10.0.2.2:80/SQL_Connect/Customer_Order_Detail_2.php",Customer_ID);
                     responseJSON = new JSONObject(result);
                     if(responseJSON.getString("response").equals("success")){
-                        Log.i("check order response",responseJSON.getString("response"));
                         Order_Id = responseJSON.getString("ORDER_Id");
                         method = responseJSON.getString("Delivery_Method");
                         if(method.equals("0")){
@@ -127,34 +127,30 @@ public class OrderDetail extends AppCompatActivity {
                             }
                             CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
                             if (customerOrderDetails.size() > 0) {
-                                Log.i("order detail", String.valueOf(customerOrderDetails.size()));
-                                listView = (ListView) findViewById(R.id.listview);
-                                listView.setAdapter(null);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        // Stuff that updates the UI
+                                        Log.i("order detail", String.valueOf(customerOrderDetails.size()));
+                                        listView = (ListView) findViewById(R.id.listview);
+                                        listView.setAdapter(null);
                                         // Stuff that updates the UI
                                         listView.setAdapter(adapter);
                                     }
                                 });
                             }
-
                         }
                         catch (Exception e){
                             Log.i("Order detail Adapter",e.toString());
                         }
                     }
-                    //客戶從來沒有下過訂單
                     else{
-                        Intent intent = new Intent(OrderDetail.this, OrderGas.class);
-                        startActivity(intent);
-                        Log.i("check order response",responseJSON.getString("response"));
+                        //放編輯訂單裡面的資料
                     }
                 } catch (Exception e) {
                     Log.i("Order Detail Exception",e.toString());
                 }
             }
-
         });
 
         thread.start();
@@ -225,12 +221,18 @@ public class OrderDetail extends AppCompatActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    if (response.equals("success")) {
+                    if (response.contains("success")) {
                         Log.i("Create Order method",response);
+                        New_Order_Id = response.replace("success", "");
+                        Log.i("Order Id",New_Order_Id);
+
+                        //這裡放insert gas order detail
+                        NewOrderDetail();
+
                         Intent intent = new Intent(OrderDetail.this, OrderListUnfinished.class);
                         startActivity(intent);
                         finish.setClickable(false);
-                    } else if (response.equals("failure")) {
+                    } else if (response.contains("failure")) {
                         Log.i("Create Order failure",response);
                     }
                 }
@@ -274,6 +276,42 @@ public class OrderDetail extends AppCompatActivity {
             Log.i("Method of creating order",e.toString());
         }
     }
+    public void NewOrderDetail(){
+        //放在下一步的Button
+        //order id: New_Order_Id
+        //拿arrayList裡面的資料 customerOrderDetails
+        //要那些欄位 order_id, order_quantity, order_type, order_weight
+        for(int i=0;i<customerOrderDetails.size();i++){
+            int index = i;
+            String String_url = "http://10.0.2.2/SQL_Connect/NewOrderDetail.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (response.contains("success")) {
+                        Log.i("Order Detail method",response);
+                    } else if (response.contains("failure")) {
+                        Log.i("Order Detail failure",response);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i("Create Order failure",error.toString());
+                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("Order_ID", New_Order_Id);
+                    data.put("Quantity", customerOrderDetails.get(index).getQuantity());
+                    data.put("Type", customerOrderDetails.get(index).getType());
+                    data.put("Weight", customerOrderDetails.get(index).getWeight());
 
-
-}
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);}
+        }
+    }

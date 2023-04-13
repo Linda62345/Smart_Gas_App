@@ -23,7 +23,7 @@ public class CompositeGasMenu extends AppCompatActivity {
     private AppCompatButton minus1,minus2,minus3,plus1,plus2,plus3;
     private TextView first,second,third;
     public String S_first,S_second,S_third;
-    public int a = 0, b = 0, c = 0;
+    public static int a = 0, b = 0, c = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

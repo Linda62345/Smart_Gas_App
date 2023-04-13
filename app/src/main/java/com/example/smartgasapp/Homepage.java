@@ -46,12 +46,12 @@ public class Homepage extends AppCompatActivity {
         // Create sample images
         images = new ArrayList<>();
         images.add(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.gasSpec));
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.gasspec));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.ourproduct));
 
         // Set adapter to ViewPager
         adapter = new ImageAdapter(this, images);
-        viewPager.setAdapter(adapter);
+        //viewPager.setAdapter(adapter);
 
         point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
@@ -64,9 +64,9 @@ public class Homepage extends AppCompatActivity {
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
 
-        ViewPager viewPager = findViewById(R.id.viewPager2);
-        ImageAdapter adapter = new ImageAdapter(this, images);
-        viewPager.setAdapter(adapter);
+        //ViewPager viewPager = findViewById(R.id.viewPager2);
+        //ImageAdapter adapter = new ImageAdapter(this, images);
+        //viewPager.setAdapter(adapter);
 
 
 

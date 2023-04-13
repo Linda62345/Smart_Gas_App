@@ -7,11 +7,11 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.smartgasapp"
-        minSdk 31
+        minSdk 19
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,4 +49,5 @@ dependencies {
 
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     implementation 'com.google.zxing:core:3.2.1'
+    implementation "androidx.multidex:multidex:2.0.1"
 }

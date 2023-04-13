@@ -15,11 +15,13 @@
 
     <ImageView
         android:id="@+id/loginImage"
-        android:layout_width="87dp"
-        android:layout_height="87dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="40dp"
+        android:padding="20dp"
+        android:background="@drawable/blue_circle"
         android:src="@drawable/baseline_door_front_24" />
 
     <EditText

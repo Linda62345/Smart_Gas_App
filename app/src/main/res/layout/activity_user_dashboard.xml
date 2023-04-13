@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,343 +8,321 @@
     tools:context=".UserDashboard"
     android:background="@color/white">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="MissingConstraints">
 
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-96dp"
+        tools:layout_editor_absoluteY="193dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintUserInfo"
-        android:layout_width="360dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/corners"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-
-        <ProgressBar
-            android:id="@+id/progressBarinfo"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/currentVol_progressinfo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewinfo" />
-
-        <TextView
-            android:id="@+id/currentVol_progressinfo"
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="14dp"
-            android:text="@string/currentVolume"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/changableVol_progressinfo"
-            app:layout_constraintHorizontal_bias="0.64"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarinfo" />
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:paddingStart="120dp">
 
-        <TextView
-            android:id="@+id/changableVol_progressinfo"
-            android:layout_width="19dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="00"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/currentVol_metreinfo"
-            app:layout_constraintStart_toEndOf="@+id/currentVol_progressinfo"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarinfo"
-            app:layout_constraintVertical_bias="1.0" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/currentVol_metreinfo"
-            android:layout_width="11dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="m"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/changableVol_progressinfo"
-            app:layout_constraintEnd_toStartOf="@+id/progressBarinfo"
-            app:layout_constraintStart_toEndOf="@+id/changableVol_progressinfo"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarinfo"
-            app:layout_constraintVertical_bias="0.0" />
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/currentVol_cubicinfo"
-            android:layout_width="11dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="242dp"
-            android:layout_marginBottom="13dp"
-            android:text="3"
-            android:textColor="@color/black"
-            android:textSize="8sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/currentVol_metreinfo"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarinfo" />
+                    <TextView
+                        android:id="@+id/show_name"
+                        android:layout_width="72dp"
+                        android:layout_height="42dp"
+                        android:gravity="center"
+                        android:text="xxx"
+                        android:textColor="@color/black"
+                        android:textSize="34sp"
+                        android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imageViewinfo"
-            android:layout_width="43dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="6dp"
-            android:src="@drawable/baseline_propane_tank_gray"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarinfo"
-            app:layout_constraintEnd_toStartOf="@+id/usedGasProgressinfo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.32" />
+                    <TextView
+                        android:id="@+id/gender_call"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="先生"
+                        android:textColor="@color/black"
+                        android:textSize="34sp"
+                        android:textStyle="bold" />
+                </GridLayout>
 
-        <TextView
-            android:id="@+id/usedGasProgressinfo"
-            android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/go_edit_profile"
+                    android:layout_width="126dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@drawable/oval_button"
+                    android:text="個人資料修改"
+                    android:textColor="@color/main_blue" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/baseline_account_circle_24" />
+        </GridLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintUserInfo"
+            android:layout_width="360dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/corners">
+
+
+            <ProgressBar
+                android:id="@+id/progressBarinfo"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/currentVol_progressinfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewinfo" />
+
+            <TextView
+                android:id="@+id/currentVol_progressinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="14dp"
+                android:text="@string/currentVolume"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/changableVol_progressinfo"
+                app:layout_constraintHorizontal_bias="0.64"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBarinfo" />
+
+            <TextView
+                android:id="@+id/changableVol_progressinfo"
+                android:layout_width="19dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="00"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/currentVol_metreinfo"
+                app:layout_constraintStart_toEndOf="@+id/currentVol_progressinfo"
+                app:layout_constraintTop_toBottomOf="@+id/progressBarinfo"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/currentVol_metreinfo"
+                android:layout_width="11dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="m"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/changableVol_progressinfo"
+                app:layout_constraintEnd_toStartOf="@+id/progressBarinfo"
+                app:layout_constraintStart_toEndOf="@+id/changableVol_progressinfo"
+                app:layout_constraintTop_toBottomOf="@+id/progressBarinfo"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/currentVol_cubicinfo"
+                android:layout_width="11dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="242dp"
+                android:layout_marginBottom="13dp"
+                android:text="3"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/currentVol_metreinfo"
+                app:layout_constraintTop_toBottomOf="@+id/progressBarinfo" />
+
+            <ImageView
+                android:id="@+id/imageViewinfo"
+                android:layout_width="43dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/baseline_propane_tank_gray"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarinfo"
+                app:layout_constraintEnd_toStartOf="@+id/usedGasProgressinfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.32" />
+
+            <TextView
+                android:id="@+id/usedGasProgressinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="17dp"
+                android:text="瓦斯已用："
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarinfo"
+                app:layout_constraintEnd_toStartOf="@+id/seeMoreButtoninfo"
+                app:layout_constraintStart_toEndOf="@+id/imageViewinfo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/seeMoreButtoninfo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/oval_button_blue_gray"
+                android:text="計量器管理"
+                android:textColor="#716F6F"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarinfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/usedGasProgressinfo"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <GridLayout
+            android:id="@+id/gridLayout2"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginBottom="17dp"
-            android:text="瓦斯已用："
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarinfo"
-            app:layout_constraintEnd_toStartOf="@+id/seeMoreButtoninfo"
-            app:layout_constraintStart_toEndOf="@+id/imageViewinfo"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:columnCount="3"
+            android:rowCount="2">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/seeMoreButtoninfo"
-            android:layout_width="100dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/search"
+                android:layout_width="120dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_border"
+                android:text="訂單查詢"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/usageHistory"
+                android:layout_width="120dp"
+                android:layout_height="110dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:background="@drawable/button_border"
+                android:padding="19dp"
+                android:text="歷史用量與瓦斯桶查詢"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/notificationFrequency"
+                android:layout_width="120dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_border"
+                android:padding="19dp"
+                android:text="通知頻率與時間"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/volExchange"
+                android:layout_width="120dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_border"
+                android:padding="19dp"
+                android:text="殘氣累積與兌換"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/activityButton"
+                android:layout_width="120dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_border"
+                android:text="活動公告"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/familyCodeButton"
+                android:layout_width="120dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_border"
+                android:text="家人邀請碼"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </GridLayout>
+
+
+        <Button
+            android:id="@+id/FAQ_button"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="9dp"
-            android:background="@drawable/oval_button_blue_gray"
-            android:text="計量器管理"
-            android:textColor="#716F6F"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarinfo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/usedGasProgressinfo"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <GridLayout
-        android:id="@+id/gridLayout2"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
-        android:columnCount="3"
-        android:rowCount="2"
-        app:layout_constraintBottom_toTopOf="@+id/FAQ_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintUserInfo">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/search"
-            android:layout_width="120dp"
-            android:layout_height="110dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:text="訂單查詢"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            android:gravity="left|center"
+            android:text="FAQ"
+            android:textColor="@color/black" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/usageHistory"
-            android:layout_width="120dp"
-            android:layout_height="110dp"
-            android:layout_row="0"
-            android:layout_column="1"
+        <Button
+            android:id="@+id/Terms_condition_button"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:padding="19dp"
-            android:text="歷史用量與瓦斯桶查詢"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:backgroundTint="@color/white"
+            android:gravity="left|center"
+            android:text="@string/terms_cons"
+            android:textColor="@color/black" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/notificationFrequency"
-            android:layout_width="120dp"
-            android:layout_height="110dp"
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:text="通知頻率與時間"
-            android:padding="19dp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:backgroundTint="@color/white"
+            android:gravity="left|center"
+            android:text="@string/logout_string"
+            android:textColor="@color/black" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/volExchange"
-            android:layout_width="120dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:text="殘氣累積與兌換"
-            android:padding="19dp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+    </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/activityButton"
-            android:layout_width="120dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:text="活動公告"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/familyCodeButton"
-            android:layout_width="120dp"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:text="家人邀請碼"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-    </GridLayout>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="108dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_account_circle_24"
-        app:layout_constraintBottom_toTopOf="@+id/constraintUserInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gender_call"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/gender_call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="先生"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/go_edit_profile"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/show_name"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/show_name"
-        android:layout_width="72dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="118dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="xxx"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/gender_call"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/go_edit_profile"
-        android:layout_width="126dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/oval_button"
-        android:text="個人資料修改"
-        android:textColor="@color/main_blue"
-        app:layout_constraintBottom_toTopOf="@+id/constraintUserInfo"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_call" />
-
-    <Button
-        android:id="@+id/FAQ_button"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
-        android:gravity="left|center"
-        android:text="FAQ"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/Terms_condition_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
-
-    <Button
-        android:id="@+id/Terms_condition_button"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/white"
-        android:gravity="left|center"
-        android:text="@string/terms_cons"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/logout_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FAQ_button" />
-
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:gravity="left|center"
-        android:text="@string/logout_string"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Terms_condition_button" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
@@ -357,3 +336,4 @@
         app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UsageHistory"
     android:background="@color/white">
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,24 +19,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="40dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/usageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="29dp"
-                android:layout_marginEnd="185dp"
-                android:layout_marginBottom="16dp"
+                android:layout_gravity="start"
                 android:text="瓦斯同歷史記錄"
                 android:textColor="@color/black"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/record_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="近期記錄"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
@@ -156,71 +167,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-            <TextView
-                android:id="@+id/record_title"
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="230dp"
-                android:layout_marginBottom="140dp"
-                android:text="近期記錄"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/usageTitle"
-                app:layout_constraintVertical_bias="0.0" />
-
+                android:layout_gravity="center">
             <EditText
                 android:id="@+id/edit_start_time"
                 android:layout_width="139sp"
                 android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginBottom="62dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="開始時間"
                 android:textAlignment="center"
-                android:textColor="#716F6F"
-                app:layout_constraintBottom_toTopOf="@+id/changable_volumeUsage"
-                app:layout_constraintEnd_toStartOf="@+id/untilTime"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/usageVolumeTitle" />
+                android:textColor="#716F6F"/>
 
             <TextView
                 android:id="@+id/untilTime"
                 android:layout_width="45dp"
                 android:layout_height="47dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="90dp"
                 android:text="至"
                 android:textAlignment="center"
                 android:textColor="#716F6F"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/changable_volumeUsage"
-                app:layout_constraintEnd_toStartOf="@+id/edit_end_time"
-                app:layout_constraintStart_toEndOf="@+id/edit_start_time"
-                app:layout_constraintTop_toBottomOf="@+id/usageVolumeTitle" />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edit_end_time"
                 android:layout_width="139sp"
                 android:layout_height="48dp"
-                android:layout_marginTop="107dp"
-                android:layout_marginEnd="59dp"
-                android:layout_marginBottom="137dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="結束時間"
                 android:textAlignment="center"
-                android:textColor="#716F6F"
-                app:layout_constraintBottom_toTopOf="@+id/changab"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/untilTime"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+                android:textColor="#716F6F" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/changable_volumeUsage"
@@ -251,20 +233,20 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/changable_volumeUsage" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
     </ScrollView>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

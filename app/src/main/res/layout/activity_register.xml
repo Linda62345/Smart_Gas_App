@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register"
+    android:padding="30dp"
+    android:orientation="vertical"
     android:background="@color/white">
+
 
 
     <TextView
@@ -15,21 +19,21 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_name"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="40dp"
+        android:layout_gravity="center"
         android:textStyle="bold"/>
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:minWidth="25dp"
         android:minHeight="25dp"
         android:autofillHints="@string/name"
         android:hint="@string/enter_name"
+        android:layout_marginTop="5dp"
         android:textColorHint="#ff757575"
         android:inputType="textPersonName"
         android:id="@+id/register_name_input"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="40dp" />
+        android:layout_gravity="center" />
+
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,8 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radioButton_male"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"/>
 
         <RadioButton
@@ -48,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radioButton_female"
-            android:layout_marginStart="90dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="-49dp"
             android:textStyle="bold" />
     </RadioGroup>
@@ -59,17 +62,21 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_addr"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <Spinner
         android:id="@+id/spinner_1"
         android:contentDescription="city"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#ffd5d5d5"
         android:padding="5dp" />
 
@@ -78,10 +85,10 @@
         android:contentDescription="City"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#ffd5d5d5"
         android:padding="5dp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/register_addr_input"
@@ -89,10 +96,10 @@
         android:hint="@string/enter_addr"
         android:textColorHint="#ff757575"
         android:inputType="textPostalAddress"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="210dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:minWidth="25dp"
         android:minHeight="25dp" />
 
@@ -103,20 +110,20 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_phone"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="260dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"/>
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:id="@+id/register_phone_input"
         android:autofillHints="@string/phone_string"
         android:hint="@string/enter_phone_no"
         android:textColorHint="#ff757575"
+        android:layout_marginTop="5dp"
         android:inputType="phone"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="280dp"
+        android:layout_gravity="center"
         />
 
     <TextView
@@ -126,17 +133,17 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_housephone"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="330dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"/>
 
     <EditText
         android:inputType="phone"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:id="@+id/register_housephone_input"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="350dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:autofillHints="@string/house_phone"
         android:hint="@string/enter_housePhone"
         android:textColorHint="#ff757575"/>
@@ -148,18 +155,18 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_email"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="400dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"/>
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:minWidth="25dp"
         android:minHeight="25dp"
         android:id="@+id/register_email_input"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="420dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:autofillHints="@string/prompt_email"
         android:hint="@string/enter_email"
         android:textColorHint="#ff757575"
@@ -172,18 +179,18 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_pass"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="470dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"/>
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:minWidth="25dp"
         android:minHeight="25dp"
         android:id="@+id/register_pass_input"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="490dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/enter_password"
         android:textColorHint="#ff757575"
@@ -196,16 +203,16 @@
         android:layout_height="wrap_content"
         android:textColor="#ff000000"
         android:id="@+id/register_pass_con"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="540dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/register_pass_con_input"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="47.4dp"
-        android:layout_marginTop="560dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/enter_confirm_pass"
         android:textColorHint="#ff757575"
@@ -220,12 +227,12 @@
 
 
     <CheckBox
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/terms_cons"
         android:textStyle="bold"
-        android:layout_marginTop="610dp"
-        android:layout_marginStart="47.4dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         />
 
 
@@ -233,8 +240,8 @@
         android:id="@+id/register_next_button"
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="605dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#ff3272d7"
         android:onClick="save"
         android:text="@string/next_string"
@@ -242,4 +249,4 @@
         android:textStyle="bold" />
 
 
-</RelativeLayout>
+    </LinearLayout>

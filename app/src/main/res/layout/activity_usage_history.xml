@@ -29,36 +29,23 @@
 
             <TextView
                 android:id="@+id/usageTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="400dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
                 android:text="瓦斯同歷史記錄"
                 android:textColor="@color/black"
                 android:textSize="28sp" />
 
-            <TextView
-                android:id="@+id/record_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="近期記錄"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
-                android:layout_width="327dp"
+                android:layout_width="400dp"
                 android:layout_height="157dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="90dp"
-                android:layout_marginEnd="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="16dp"
-                android:background="#F4F4F4"
-                app:layout_constraintBottom_toTopOf="@+id/usageVolumeTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:background="#F4F4F4">
 
 
                 <TextView
@@ -153,25 +140,35 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/usageVolumeTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/record_title"
+                android:layout_width="400dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginTop="-190dp"
+                android:layout_marginBottom="170dp"
+                android:layout_gravity="center"
+                android:paddingStart="15dp"
+                android:text="近期記錄"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/usageVolumeTitle"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="228dp"
+                android:layout_marginBottom="20dp"
                 android:text="累計總用量："
                 android:textColor="@color/black"
                 android:textSize="28sp"
-                app:layout_constraintBottom_toTopOf="@+id/edit_start_time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+                android:layout_gravity="center"/>
 
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="220dp"
                 android:layout_gravity="center">
             <EditText
                 android:id="@+id/edit_start_time"
@@ -206,33 +203,23 @@
 
             <TextView
                 android:id="@+id/changable_volumeUsage"
-                android:layout_width="wrap_content"
+                android:layout_width="400dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="202dp"
+                android:layout_gravity="center"
                 android:text="x/x 至x/x 總用量："
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/changab"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_start_time" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/changab"
-                android:layout_width="wrap_content"
+                android:layout_width="400dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="154dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="100dp"
                 android:text="x/x 至x/x 平均日用量："
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/changable_volumeUsage" />
+                android:textSize="24sp" />
     </LinearLayout>
     </ScrollView>
 

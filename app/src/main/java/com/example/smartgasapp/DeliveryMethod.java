@@ -1,20 +1,42 @@
 package com.example.smartgasapp;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class DeliveryMethod extends AppCompatActivity {
     private Button order;
+    private RadioGroup radioGroup;
+    private RadioButton master,myself;
+    public static int delivery_method;
+    private TextView textView,textTime;
+    DatePickerDialog.OnDateSetListener pickerDialog;
+    Calendar calendar = Calendar.getInstance();
+    TimePickerDialog.OnTimeSetListener timeDialog;
+    Calendar calendar1 = Calendar.getInstance();
+    public static String date,time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +46,23 @@ public class DeliveryMethod extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
+        textView = findViewById(R.id.textView2);
+        textTime = findViewById(R.id.textView);
+        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.check(R.id.deliverOption);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                checkedId = radioGroup.getCheckedRadioButtonId();
+                if(checkedId==R.id.deliverOption){
+                    delivery_method = 0;
+                }
+                else{
+                    delivery_method = 1;
+                }
+            }
+        });
+        Log.i("delivery_method", String.valueOf(delivery_method));
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,5 +95,72 @@ public class DeliveryMethod extends AppCompatActivity {
                 return false;
             }
         });
+        Date();
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker(v);
+            }
+        });
+        Time();
+        textTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePicker(v);
+            }
+        });
     }
+    public void Date(){
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(timeZone);
+
+        // Format the current date and time as a string in the correct format
+        String currentDateTimeString = dateFormat.format(new Date());
+        textView.setText(currentDateTimeString);
+        date = currentDateTimeString;
+        pickerDialog = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DATE,dayOfMonth);
+                date = year+"-"+month+"-"+dayOfMonth+" ";
+                textView.setText("日期："+year+"/"+(month+1)+"/"+dayOfMonth);
+            }
+        };
+    }
+    public void Time(){
+        // Format the current date and time as a string in the correct format
+        String currentDateTimeString = "19:00:00";
+        textTime.setText("時間: 19時00分");
+        time = currentDateTimeString;
+        timeDialog = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar1.set(Calendar.HOUR,hourOfDay);
+                calendar1.set(Calendar.MINUTE,minute);
+                time = hourOfDay+":"+minute;
+                textTime.setText("時間："+hourOfDay+"時"+minute+"分");
+            }
+        };
+    }
+    public void datePicker(View v){
+        //建立date的dialog
+        DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+                pickerDialog,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+    public void timePicker(View v){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(),
+                timeDialog,
+                calendar1.get(Calendar.HOUR),
+                calendar1.get(Calendar.MINUTE),
+                false);
+        timePickerDialog.show();
+    }
+
 }

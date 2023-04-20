@@ -14,9 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-
     <GridLayout
         android:id="@+id/deliverGrid"
         android:layout_width="344dp"
@@ -24,28 +21,36 @@
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="35dp">
-
-
-        <RadioButton
-            android:id="@+id/deliverOption"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginLeft="20dp"
-            android:padding="10dp"
-            android:text="人員配送"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <RadioButton
-            android:id="@+id/pickUpOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:orientation= "horizontal"
             android:layout_gravity="center"
-            android:text="到店自取"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:id = "@+id/radioGroup">
+            <RadioButton
+                android:id="@+id/pickUpOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:text="到店自取"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/deliverOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:text="人員配送"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RadioGroup>
 
     </GridLayout>
 
@@ -60,26 +65,24 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
-
-    <Spinner
-        android:id="@+id/deliveryDate"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginBottom="35dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#ffd5d5d5"
-        android:entries="@array/date_dropdown"
-        android:padding="5dp" />
-
-
-    <Spinner
-        android:id="@+id/deliveryTime"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:backgroundTint="#ffd5d5d5"
-        android:entries="@array/time_dropdown"
-        android:padding="5dp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            />
 
     <Button
         android:id="@+id/ConfrimOrder"
@@ -91,6 +94,8 @@
         android:textColor="@color/white"
         android:text="確認訂單"
         android:layout_gravity="center"/>
+
+
 
     </LinearLayout>
 

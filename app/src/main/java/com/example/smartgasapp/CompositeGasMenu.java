@@ -2,9 +2,12 @@ package com.example.smartgasapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,8 @@ public class CompositeGasMenu extends AppCompatActivity {
     private TextView first,second,third;
     public String S_first,S_second,S_third;
     public static int a = 0, b = 0, c = 0;
+    private Spinner gasWeightSpinner1,gasWeightSpinner2,gasWeightSpinner3;
+    public static String weight1, weight2, weight3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,12 @@ public class CompositeGasMenu extends AppCompatActivity {
         setContentView(R.layout.activity_composite_gas_menu);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-
+        a = 0;
+        b = 0;
+        c = 0;
+        gasWeightSpinner1 = findViewById(R.id.gasWeightSpinner);
+        gasWeightSpinner2 = findViewById(R.id.gasWeightSpinner2);
+        gasWeightSpinner3 = findViewById(R.id.gasWeightSpinner3);
         cylinder = findViewById(R.id.cylinderGas);
         order = findViewById(R.id.compositeGas);
         delivery = findViewById(R.id.ChooseDeliverMethod);
@@ -39,6 +49,42 @@ public class CompositeGasMenu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
         Minus_Add();
+
+        gasWeightSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weight1 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+
+        gasWeightSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weight2 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+
+        gasWeightSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weight3 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
 
         cylinder.setOnClickListener(new View.OnClickListener() {
             @Override

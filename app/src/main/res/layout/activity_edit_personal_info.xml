@@ -11,9 +11,9 @@
         android:id="@+id/InfolinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="2dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -83,20 +83,20 @@
             android:text="0912345678" />
 
         <TextView
-            android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="18.0dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
-            android:text="@string/companyAddress"
+            android:text="客戶地址"
             android:textColor="@android:color/black"
             android:textSize="15.0sp"
             android:textStyle="bold" />
 
         <EditText
-            android:layout_gravity="center"
             android:id="@+id/editCompanyAddress"
             android:layout_width="300dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"
@@ -121,25 +121,26 @@
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:text="gasgas@gmail.com" />
+        <Button
+            android:id="@+id/saveInfo_button"
+            android:layout_width="94.9dp"
+            android:layout_height="56.3dp"
+            android:layout_marginStart="275dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="17dp"
+            android:backgroundTint="#3272D7"
+            android:text="@string/save_string"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/InfolinearLayout" />
 
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/saveInfo_button"
-        android:layout_width="94.9dp"
-        android:layout_height="56.3dp"
-        android:layout_marginStart="275dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="17dp"
-        android:backgroundTint="#3272D7"
-        android:text="@string/save_string"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/InfolinearLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

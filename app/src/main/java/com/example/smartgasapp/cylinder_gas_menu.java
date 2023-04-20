@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,8 @@ public class cylinder_gas_menu extends AppCompatActivity {
     private TextView first,second,third;
     public String S_first,S_second,S_third;
     public static int a = 0, b = 0, c = 0;
+    private Spinner gasWeightSpinner1,gasWeightSpinner2,gasWeightSpinner3;
+    public static String weight1, weight2, weight3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +37,53 @@ public class cylinder_gas_menu extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
+        a = 0;
+        b = 0;
+        c = 0;
+        gasWeightSpinner1 = findViewById(R.id.gasWeightSpinner);
+        gasWeightSpinner2 = findViewById(R.id.gasWeightSpinner2);
+        gasWeightSpinner3 = findViewById(R.id.gasWeightSpinner3);
         composite = findViewById(R.id.compositeGas);
         order = findViewById(R.id.cylinderGas);
         delivery = findViewById(R.id.ChooseDeliverMethod);
 
         Minus_Add();
+
+        gasWeightSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weight1 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+
+        gasWeightSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weight2 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+
+        gasWeightSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weight3 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
 
         order.setOnClickListener(new View.OnClickListener() {
             @Override

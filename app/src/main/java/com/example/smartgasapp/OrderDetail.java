@@ -43,15 +43,14 @@ import java.util.TimeZone;
 
 public class OrderDetail extends AppCompatActivity {
 
-    private Button exchange;
-    private Button editReceipt;
-    private Button finish;
+    private Button exchange,editReceipt,finish;
     public String Customer_ID,Order_Id,result="",Company_Id,phone,address,time,method,New_Order_Id;
     public TextView Greeting, Recepit_Name,Receipt_TelNo,Receipt_Addr,Expect_Time,Delivery_Method;
     public JSONObject responseJSON;
     public JSONArray ja;
     public ListView listView;
     public int Gas_Quantity;
+    public static boolean edit=false;
     ArrayList<CustomerOrderDetail> customerOrderDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +72,9 @@ public class OrderDetail extends AppCompatActivity {
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
+        DeliveryMethod deliveryMethod = new DeliveryMethod();
+        CompositeGasMenu compositeGasMenu = new CompositeGasMenu();
+        cylinder_gas_menu cylinder_gas_menu = new cylinder_gas_menu();
 
         customerOrderDetails = new ArrayList<CustomerOrderDetail>();
         Thread thread = new Thread(new Runnable() {
@@ -91,19 +93,54 @@ public class OrderDetail extends AppCompatActivity {
                     Receipt_Addr.setText(address);
                     Company_Id = responseJSON.getString("COMPANY_Id");
 
+                    Log.i("orderdetail delivery method", String.valueOf(deliveryMethod.delivery_method));
+
                     showData("http://10.0.2.2:80/SQL_Connect/Customer_Order_Detail_2.php",Customer_ID);
                     responseJSON = new JSONObject(result);
-                    if(responseJSON.getString("response").equals("success")){
+                    if(responseJSON.getString("response").equals("failure")||edit==true){
+                        //放編輯訂單裡面的資料
+                        //顯示配送方式 時間
+                        method="";
+                        time = "";
+                        Gas_Quantity=0;
+                        customerOrderDetails = new ArrayList<>();
+                        customerOrderDetails.clear();
+                        method = String.valueOf(deliveryMethod.delivery_method);
+                        Log.i("配送方式",method);
+                        time = deliveryMethod.date+deliveryMethod.time;
+                        Gas_Quantity = compositeGasMenu.a+compositeGasMenu.b+compositeGasMenu.c+cylinder_gas_menu.a+cylinder_gas_menu.b+cylinder_gas_menu.c;
+                        //顯示訂單詳細資料
+                        customerOrderDetails = new ArrayList<>();
+                        if(compositeGasMenu.a>0){
+                            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.a), "Composite", compositeGasMenu.weight1);
+                            customerOrderDetails.add(od);
+                        }
+                        if(compositeGasMenu.b>0){
+                            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.b), "Composite", compositeGasMenu.weight2);
+                            customerOrderDetails.add(od);
+                        }
+                        if(compositeGasMenu.c>0){
+                            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.c), "Composite", compositeGasMenu.weight3);
+                            customerOrderDetails.add(od);
+                        }
+                        if(cylinder_gas_menu.a>0){
+                            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(cylinder_gas_menu.a), "tradition", cylinder_gas_menu.weight1);
+                            customerOrderDetails.add(od);
+                        }
+                        if(cylinder_gas_menu.b>0){
+                            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(cylinder_gas_menu.b), "tradition", cylinder_gas_menu.weight2);
+                            customerOrderDetails.add(od);
+                        }
+                        if(cylinder_gas_menu.c>0){
+                            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(cylinder_gas_menu.c), "tradition", cylinder_gas_menu.weight3);
+                            customerOrderDetails.add(od);
+                        }
+                        edit=false;
+                    }
+                    else{
                         Order_Id = responseJSON.getString("ORDER_Id");
                         method = responseJSON.getString("Delivery_Method");
-                        if(method.equals("0")){
-                            Delivery_Method.setText("配送方式: 師傅送達");
-                        }
-                        if(method.equals("1")){
-                            Delivery_Method.setText("配送方式: 自取");
-                        }
                         time = responseJSON.getString("Expect_time");
-                        Expect_Time.setText("送達時間: "+time);
                         Gas_Quantity = responseJSON.getInt("Gas_Quantity");
 
                         // 1. 秀訂單明細 欄位有: 格式 數量 配送方式 時間
@@ -116,6 +153,7 @@ public class OrderDetail extends AppCompatActivity {
                             type = new String[ja.length()];
                             weight = new String[ja.length()];
                             customerOrderDetails = new ArrayList<>();
+                            customerOrderDetails.clear();
 
                             for (int i = 0; i < ja.length(); i++) {
                                 jo = ja.getJSONObject(i);
@@ -125,27 +163,39 @@ public class OrderDetail extends AppCompatActivity {
                                 CustomerOrderDetail od = new CustomerOrderDetail(quantity[i], type[i], weight[i]);
                                 customerOrderDetails.add(od);
                             }
-                            CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
-                            if (customerOrderDetails.size() > 0) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // Stuff that updates the UI
-                                        Log.i("order detail", String.valueOf(customerOrderDetails.size()));
-                                        listView = (ListView) findViewById(R.id.listview);
-                                        listView.setAdapter(null);
-                                        // Stuff that updates the UI
-                                        listView.setAdapter(adapter);
-                                    }
-                                });
-                            }
                         }
                         catch (Exception e){
                             Log.i("Order detail Adapter",e.toString());
                         }
+
+
                     }
-                    else{
-                        //放編輯訂單裡面的資料
+                    //將資料顯示在UI上
+                    if(method.equals("0")){
+                        Delivery_Method.setText("配送方式: 人員送達");
+                    }
+                    if(method.equals("1")){
+                        Delivery_Method.setText("配送方式: 自取");
+                    }
+                    if(method.equals("3")){
+                        Delivery_Method.setText("配送方式: 錯誤");
+                    }
+                    Expect_Time.setText("送達時間: "+time);
+                    Log.i("AL size", String.valueOf(customerOrderDetails.size()));
+                    //show訂單詳細資料
+                    CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
+                    if (customerOrderDetails.size() > 0) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Stuff that updates the UI
+                                Log.i("order detail", String.valueOf(customerOrderDetails.size()));
+                                listView = (ListView) findViewById(R.id.listview);
+                                listView.setAdapter(null);
+                                // Stuff that updates the UI
+                                listView.setAdapter(adapter);
+                            }
+                        });
                     }
                 } catch (Exception e) {
                     Log.i("Order Detail Exception",e.toString());
@@ -165,6 +215,8 @@ public class OrderDetail extends AppCompatActivity {
         editReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //若有編輯過 數據會更新 會跑到判斷else裡面去
+                edit = true;
                 Intent intent = new Intent(OrderDetail.this, OrderGas.class);
                 startActivity(intent);
             }

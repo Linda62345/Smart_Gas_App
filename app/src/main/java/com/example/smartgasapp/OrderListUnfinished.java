@@ -35,7 +35,7 @@ import java.util.Objects;
 
 public class OrderListUnfinished extends AppCompatActivity {
 
-    private Button finished;
+    private Button finished, order;
     public String Customer_Id;
     private ListView orderList;
     private String[] data,order_Id;
@@ -51,8 +51,9 @@ public class OrderListUnfinished extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         finished = findViewById(R.id.order_finished);
+        order = findViewById(R.id.enterSearch);
 
-        finished.setOnClickListener(new View.OnClickListener() {
+       order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrderListUnfinished.this, OrderListFinished.class);

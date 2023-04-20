@@ -36,7 +36,7 @@ import java.util.Objects;
 
 public class OrderListFinished extends AppCompatActivity {
 
-    private Button unfinished, finished;
+    private Button unfinished, finished, order;
     private ListView orderList;
     public int Customer_Id;
     InputStream is = null;

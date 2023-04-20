@@ -55,6 +55,7 @@ public class OrderListFinished extends AppCompatActivity {
         Customer_Id = loginActivity.getCustomerID();
         unfinished = findViewById(R.id.order_unfinished);
         orderList = (ListView) findViewById(R.id.list_item);
+        order = findViewById(R.id.enterSearch);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         getData("http://10.0.2.2/SQL_Connect/customer_OrderList.php");
@@ -66,7 +67,7 @@ public class OrderListFinished extends AppCompatActivity {
         setAdapter();
 
 
-        unfinished.setOnClickListener(new View.OnClickListener() {
+       order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Intent intent = new Intent(OrderListFinished.this, OrderListUnfinished.class);

@@ -77,9 +77,42 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         tvStatus = findViewById(R.id.tvStatus);
 
         requestQueue = Volley.newRequestQueue(this);
-
-        String URL2 = "http://10.0.2.2/SQL_Connect/country.php";
+        etCompanyName = findViewById(R.id.company);
+        String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
         JsonObjectRequest jsonObjectRequest;
+
+        {
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                    URL1, null, new Response.Listener<JSONObject>() {
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("company");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String companyName = jsonObject.optString("COMPANY_Name");
+                            companyList.add(companyName);
+                            companyAdapter = new ArrayAdapter<>(Register.this,
+                                    android.R.layout.simple_spinner_item, companyList);
+                            companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            etCompanyName.setAdapter(companyAdapter);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+        }
+
+        // 連到城市的資料庫
+        String URL2 = "http://10.0.2.2/SQL_Connect/country.php";
+        JsonObjectRequest jsonObjectRequest1;
 
         {
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -112,7 +145,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         }
 
     }
-
+    // 連到地區的資料庫
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if(adapterView.getId() == R.id.spinner_1){
@@ -176,6 +209,8 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         }
         city = etCity.getSelectedItem().toString();
         area = etArea.getSelectedItem().toString();
+        String companyName = etCompanyName.getSelectedItem().toString();
+        company = companyName;
         address = city + area + etAddress.getText().toString().trim();
         name = etName.getText().toString().trim();
         email = etEmail.getText().toString().trim();
@@ -219,8 +254,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                     data.put("email", email);
                     data.put("password", password);
                     data.put("address", address);
-                    data.put("city", city);
-                    data.put("district", area);
+                    data.put("company", company);
 
                     return data;
                 }

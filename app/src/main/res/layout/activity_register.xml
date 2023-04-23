@@ -70,24 +70,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/spinner_1"
-        android:contentDescription="city"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#ffd5d5d5"
-        android:padding="5dp" />
+        <Spinner
+            android:id="@+id/spinner_1"
+            android:contentDescription="city"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp" />
 
-    <Spinner
-        android:id="@+id/spinner_2"
-        android:contentDescription="City"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#ffd5d5d5"
-        android:padding="5dp" />
+
+        <Spinner
+            android:id="@+id/spinner_2"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:layout_marginStart="-30dp"
+            android:contentDescription="City"
+            android:padding="5dp" />
+
+        <Spinner
+            android:id="@+id/company"
+            android:contentDescription="Company"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp"
+            />
     </LinearLayout>
 
     <EditText

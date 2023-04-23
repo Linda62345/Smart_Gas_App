@@ -121,6 +121,28 @@
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:text="gasgas@gmail.com" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="23.0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20.0dp"
+            android:text="@string/prompt_gas"
+            android:textColor="@android:color/black"
+            android:textSize="15.0sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/company"
+            android:contentDescription="Company"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp"
+            />
+
         <Button
             android:id="@+id/saveInfo_button"
             android:layout_width="94.9dp"

@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -15,10 +17,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.smartgasapp.ui.login.LoginActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -31,6 +36,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -38,12 +44,17 @@ import java.util.Objects;
 public class EditPersonalInfo extends AppCompatActivity {
 
     public int CUSTOMER_ID;
-    public String CUSTOMER_Name, CUSTOMER_Address, CUSTOMER_Email;
+    public String CUSTOMER_Name, CUSTOMER_Address, CUSTOMER_Email, COMPANY_Id;
     public int CUSTOMER_Tel,CUSTOMER_Phone;
     private EditText Name, Address, Email, Tel, Phone;
     private Button save;
-    public String customer_name="",phone="",tel="",address="",email="";
+    public String customer_name="",phone="",tel="",address="",email="", company="";
+
     public Homepage homepage;
+    private Spinner etCompanyName;
+    ArrayList<String> companyList = new ArrayList<>();
+    ArrayAdapter<String> companyAdapter;
+    RequestQueue requestQueue;
 
 
     @Override
@@ -60,6 +71,40 @@ public class EditPersonalInfo extends AppCompatActivity {
         LoginActivity loginActivity = new LoginActivity();
         CUSTOMER_ID = loginActivity.getCustomerID();
         Log.i("editInfo", String.valueOf(CUSTOMER_ID));
+
+        requestQueue = Volley.newRequestQueue(this);
+        etCompanyName = findViewById(R.id.company);
+        String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
+        JsonObjectRequest jsonObjectRequest;
+
+        {
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                    URL1, null, new Response.Listener<JSONObject>() {
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("company");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String companyName = jsonObject.optString("COMPANY_Name");
+                            companyList.add(companyName);
+                            companyAdapter = new ArrayAdapter<>(EditPersonalInfo.this,
+                                    android.R.layout.simple_spinner_item, companyList);
+                            companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            etCompanyName.setAdapter(companyAdapter);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+        }
 
         //因為呼叫API(Internet) 所以要用thread避免等待時間過長
         Thread thread = new Thread(new Runnable() {
@@ -84,6 +129,7 @@ public class EditPersonalInfo extends AppCompatActivity {
                 Email = findViewById(R.id.editEmail);
                 Tel = findViewById(R.id.editHousePhone);
                 Phone = findViewById(R.id.editPhoneNo);
+                etCompanyName = findViewById(R.id.company);
                 saveProfile();
             }
         });
@@ -129,6 +175,7 @@ public class EditPersonalInfo extends AppCompatActivity {
             Address.setText(CUSTOMER_Address);
             CUSTOMER_Email = responseJSON.getString("CUSTOMER_Email");
             Email.setText(CUSTOMER_Email);
+
             Log.i("CUSTOMER_Name",CUSTOMER_Name);
         } catch (Exception e) {
             Log.i("Edit Exception", e.toString());
@@ -143,7 +190,9 @@ public class EditPersonalInfo extends AppCompatActivity {
             tel = Tel.getText().toString().trim();
             address = Address.getText().toString().trim();
             email = Email.getText().toString().trim();
-            if (customer_name.equals("") || phone.equals("") || tel.equals("") || address.equals("") || email.equals("")) {
+            String companyName = etCompanyName.getSelectedItem().toString();
+            company = companyName;
+            if (customer_name.equals("") || phone.equals("") || tel.equals("") || address.equals("") || email.equals("") || company.equals("") ) {
                 Toast.makeText(this, "以上不可為空白", Toast.LENGTH_SHORT).show();
             } else {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -174,6 +223,7 @@ public class EditPersonalInfo extends AppCompatActivity {
                         data.put("houseTel", tel);
                         data.put("email", email);
                         data.put("address", address);
+                        data.put("company", company);
 
                         return data;
                     }

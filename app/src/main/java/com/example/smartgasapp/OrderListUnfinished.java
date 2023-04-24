@@ -53,13 +53,13 @@ public class OrderListUnfinished extends AppCompatActivity {
         finished = findViewById(R.id.order_finished);
         order = findViewById(R.id.enterSearch);
 
-       order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OrderListUnfinished.this, OrderListFinished.class);
-                startActivity(intent);
-            }
-        });
+       finished.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(OrderListUnfinished.this, OrderListFinished.class);
+               startActivity(intent);
+           }
+       });
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_Id = String.valueOf(loginActivity.getCustomerID());
@@ -168,28 +168,28 @@ public class OrderListUnfinished extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
         // Perform item selected listener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch(item.getItemId())
-                {
-                    case R.id.navigation_dashboard:
-                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_home:
-                        startActivity(new Intent(getApplicationContext(),Homepage.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_notifications:
-                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                switch(item.getItemId())
+//                {
+//                    case R.id.navigation_dashboard:
+//                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.navigation_home:
+//                        startActivity(new Intent(getApplicationContext(),Homepage.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.navigation_notifications:
+//                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void getData(){

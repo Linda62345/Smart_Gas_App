@@ -67,11 +67,11 @@ public class OrderListFinished extends AppCompatActivity {
         setAdapter();
 
 
-       order.setOnClickListener(new View.OnClickListener() {
+       unfinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(OrderListFinished.this, OrderListUnfinished.class);
-                //startActivity(intent);
+                Intent intent = new Intent(OrderListFinished.this, OrderListUnfinished.class);
+                startActivity(intent);
                 orderList.setAdapter(null);
                 getData("http://10.0.2.2/SQL_Connect/customer_UnOrderList.php");
                 try {
@@ -162,28 +162,28 @@ public class OrderListFinished extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
         // Perform item selected listener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch(item.getItemId())
-                {
-                    case R.id.navigation_dashboard:
-                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_home:
-                        startActivity(new Intent(getApplicationContext(),Homepage.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_notifications:
-                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                switch(item.getItemId())
+//                {
+//                    case R.id.navigation_dashboard:
+//                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.navigation_home:
+//                        startActivity(new Intent(getApplicationContext(),Homepage.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.navigation_notifications:
+//                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void getData(String URL_Link){

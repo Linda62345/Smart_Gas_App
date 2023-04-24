@@ -50,11 +50,13 @@
         <activity
             android:name=".OrderListFinished"
             android:exported="false"
-            android:label="@string/searchOrderList" />
+            android:label="@string/searchOrderList"
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".OrderListUnfinished"
             android:exported="false"
-            android:label="@string/searchOrderList" />
+            android:label="@string/searchOrderList"
+            android:parentActivityName=".Homepage" />
         <activity
             android:name=".UserDashboard"
             android:exported="false"

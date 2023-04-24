@@ -70,9 +70,9 @@ public class OrderListFinished extends AppCompatActivity {
        order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent intent = new Intent(OrderListFinished.this, OrderListUnfinished.class);
-                // startActivity(intent);
-
+                //Intent intent = new Intent(OrderListFinished.this, OrderListUnfinished.class);
+                //startActivity(intent);
+                orderList.setAdapter(null);
                 getData("http://10.0.2.2/SQL_Connect/customer_UnOrderList.php");
                 try {
                     getOrderList("http://10.0.2.2/SQL_Connect/customer_UnOrderList.php");

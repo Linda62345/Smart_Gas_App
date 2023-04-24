@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register"
-    android:padding="30dp"
-    android:orientation="vertical"
     android:background="@color/white">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical">
 
 
     <TextView
@@ -55,20 +58,40 @@
             android:layout_marginTop="-49dp"
             android:textStyle="bold" />
     </RadioGroup>
-    <TextView
-        android:text="@string/address"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_addr"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textStyle="bold"/>
 
-    <LinearLayout
+
+    <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="2">
+        <TextView
+            android:text="@string/address"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_addr"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <!-- the one Joy requested -->
+        <TextView
+            android:text="sample"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/AddressName"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
         <Spinner
             android:id="@+id/spinner_1"
@@ -96,12 +119,12 @@
             android:contentDescription="Company"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:backgroundTint="#ffd5d5d5"
             android:padding="5dp"
             />
-    </LinearLayout>
+    </GridLayout>
+
 
     <EditText
         android:id="@+id/register_addr_input"
@@ -115,6 +138,25 @@
         android:layout_marginTop="10dp"
         android:minWidth="25dp"
         android:minHeight="25dp" />
+
+    <TextView
+        android:text="瓦斯行選擇"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:id="@+id/register_GasAddr"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+    <Spinner
+        android:id="@+id/spinner_3"
+        android:contentDescription="GasCompany"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#ffd5d5d5"
+        android:padding="5dp" />
 
     <TextView
         android:text="@string/phone_string"
@@ -255,11 +297,12 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="#ff3272d7"
         android:onClick="save"
         android:text="@string/next_string"
         android:textColor="#ffffffff"
         android:textStyle="bold" />
 
-
     </LinearLayout>
+    </ScrollView>

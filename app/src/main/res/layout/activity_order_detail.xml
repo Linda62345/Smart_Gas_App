@@ -171,16 +171,20 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
             <ListView
                 android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:animationCache="false"
                 android:divider="@null"
                 android:scrollingCache="false"
                 android:smoothScrollbar="true"/>
+            </ScrollView>
 
             <View
                 android:layout_width="280dp"
@@ -202,29 +206,61 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
             <TextView
                 android:id="@+id/ExpectTime"
-                android:layout_width="254dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="25.0dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="時間: "
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#716F6F"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/timeOptionButton"
+                    android:layout_width="130dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="#ffececec"
+                    android:text="選擇時間"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/deliveryMethod"
-                android:layout_width="254dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
+                android:layout_marginLeft="25.0dp"
                 android:layout_marginBottom="5dp"
-                android:text="配送方式: "
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#716F6F"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/deliveryOptionButton"
+                    android:layout_width="130dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="#ffececec"
+                    android:text="選擇日期"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </GridLayout>
 
 
             <View

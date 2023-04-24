@@ -109,6 +109,18 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/ExpectDate"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="日期: "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#716F6F"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
                 android:id="@+id/changable_receiptName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

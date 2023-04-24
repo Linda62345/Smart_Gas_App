@@ -1,12 +1,17 @@
 package com.example.smartgasapp;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,14 +49,18 @@ import java.util.TimeZone;
 public class OrderDetail extends AppCompatActivity {
 
     private Button exchange,editReceipt,finish;
-    public String Customer_ID,Order_Id,result="",Company_Id,phone,address,time,method,New_Order_Id;
-    public TextView Greeting, Recepit_Name,Receipt_TelNo,Receipt_Addr,Expect_Time,Delivery_Method;
+    public String Customer_ID,Order_Id,result="",Company_Id,phone,address,date,time,method,New_Order_Id;
+    public TextView Greeting, Recepit_Name,Receipt_TelNo,Receipt_Addr,Expect_Time,Delivery_Method,Expect_Date;
     public JSONObject responseJSON;
     public JSONArray ja;
     public ListView listView;
     public int Gas_Quantity;
     public static boolean edit=false;
     ArrayList<CustomerOrderDetail> customerOrderDetails;
+    DatePickerDialog.OnDateSetListener pickerDialog;
+    Calendar calendar = Calendar.getInstance();
+    TimePickerDialog.OnTimeSetListener timeDialog;
+    Calendar calendar1 = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +68,7 @@ public class OrderDetail extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        Expect_Date = findViewById(R.id.ExpectDate);
         Expect_Time = findViewById(R.id.ExpectTime);
         Delivery_Method = findViewById(R.id.deliveryMethod);
         Greeting = findViewById(R.id.client_greetingTitle);
@@ -102,12 +112,14 @@ public class OrderDetail extends AppCompatActivity {
                         //顯示配送方式 時間
                         method="";
                         time = "";
+                        date = "";
                         Gas_Quantity=0;
                         customerOrderDetails = new ArrayList<>();
                         customerOrderDetails.clear();
                         method = String.valueOf(deliveryMethod.delivery_method);
                         Log.i("配送方式",method);
-                        time = deliveryMethod.date+deliveryMethod.time;
+                        date = deliveryMethod.date;
+                        time = deliveryMethod.time;
                         Gas_Quantity = compositeGasMenu.a+compositeGasMenu.b+compositeGasMenu.c+cylinder_gas_menu.a+cylinder_gas_menu.b+cylinder_gas_menu.c;
                         //顯示訂單詳細資料
                         customerOrderDetails = new ArrayList<>();
@@ -138,9 +150,14 @@ public class OrderDetail extends AppCompatActivity {
                         edit=false;
                     }
                     else{
+                        String Total_time = "";
+                        date = "";
+                        time = "";
                         Order_Id = responseJSON.getString("ORDER_Id");
                         method = responseJSON.getString("Delivery_Method");
-                        time = responseJSON.getString("Expect_time");
+                        Total_time = responseJSON.getString("Expect_time");
+                        date = Total_time.substring(0,10);
+                        time = Total_time.substring(11,19);
                         Gas_Quantity = responseJSON.getInt("Gas_Quantity");
 
                         // 1. 秀訂單明細 欄位有: 格式 數量 配送方式 時間
@@ -180,8 +197,26 @@ public class OrderDetail extends AppCompatActivity {
                     if(method.equals("3")){
                         Delivery_Method.setText("配送方式: 錯誤");
                     }
+                    Expect_Date.setText("送達日期: "+date);
                     Expect_Time.setText("送達時間: "+time);
                     Log.i("AL size", String.valueOf(customerOrderDetails.size()));
+
+                    //時間可選擇
+                    Date();
+                    Expect_Date.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            datePicker(v);
+                        }
+                    });
+                    Time();
+                    Expect_Time.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            timePicker(v);
+                        }
+                    });
+
                     //show訂單詳細資料
                     CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
                     if (customerOrderDetails.size() > 0) {
@@ -316,7 +351,7 @@ public class OrderDetail extends AppCompatActivity {
                     // Log the string to the console
                     Log.i("time",currentDateTimeString);
                     data.put("order_time",currentDateTimeString);
-                    data.put("expect_time",time);
+                    data.put("expect_time",date+time);
                     data.put("delivery_method",method);
 
                     return data;
@@ -366,4 +401,44 @@ public class OrderDetail extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);}
         }
+    public void Date(){
+        pickerDialog = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DATE,dayOfMonth);
+                date = year+"-"+month+"-"+dayOfMonth+" ";
+                Expect_Date.setText("送達日期："+year+"/"+(month+1)+"/"+dayOfMonth);
+            }
+        };
+    }
+    public void Time(){
+        timeDialog = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar1.set(Calendar.HOUR,hourOfDay);
+                calendar1.set(Calendar.MINUTE,minute);
+                time = hourOfDay+":"+minute;
+                Expect_Time.setText("送達時間："+hourOfDay+"時"+minute+"分");
+            }
+        };
+    }
+    public void datePicker(View v){
+        //建立date的dialog
+        DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+                pickerDialog,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+    public void timePicker(View v){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(),
+                timeDialog,
+                calendar1.get(Calendar.HOUR),
+                calendar1.get(Calendar.MINUTE),
+                false);
+        timePickerDialog.show();
+    }
     }

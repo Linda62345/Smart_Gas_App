@@ -148,12 +148,13 @@ public class OrderListUnfinished extends AppCompatActivity {
                 order_Id = new String[ja.length()];
 
                 for(int i = 0; i<ja.length();i++){
+                    //寫這個是甚麼意思
                     jo = ja.getJSONObject(i);
                     data[i] = jo.getString("DELIVERY_Phone");
                     jo = ja.getJSONObject(i);
                     data[i] = jo.getString("Order_weight");
 
-                    Log.i("order data",data[i]);
+                    Log.i("get order list data",data[i]);
                     order_Id[i] = jo.getString("ORDER_Id");
                 }
             }catch(Exception e){

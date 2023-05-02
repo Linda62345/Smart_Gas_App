@@ -64,6 +64,8 @@
 
     <string-array name="exchange_options">
         <item>傳統鋼瓶</item>
+        <item>複合材料</item>
+
     </string-array>
 
     <string name="name">姓名</string>

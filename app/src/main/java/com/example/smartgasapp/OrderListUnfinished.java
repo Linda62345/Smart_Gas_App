@@ -1,21 +1,32 @@
 package com.example.smartgasapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import java.io.UnsupportedEncodingException;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,26 +34,39 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class OrderListUnfinished extends AppCompatActivity {
 
     private Button finished, order;
-    public String Customer_Id;
+    public String Customer_Id, start_date, end_date;;
     private ListView orderList;
     private String[] data,order_Id;
     public static String static_order_id;
+    Date startDate, endDate;
     InputStream is = null;
     String line,result = "";
-
+    EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
+    private String URL = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +75,9 @@ public class OrderListUnfinished extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         finished = findViewById(R.id.order_finished);
-        order = findViewById(R.id.enterSearch);
+        //order = findViewById(R.id.enterSearch);
 
-       order.setOnClickListener(new View.OnClickListener() {
+        finished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrderListUnfinished.this, OrderListFinished.class);
@@ -61,18 +85,82 @@ public class OrderListUnfinished extends AppCompatActivity {
             }
         });
 
-        LoginActivity loginActivity = new LoginActivity();
-        Customer_Id = String.valueOf(loginActivity.getCustomerID());
-        Log.i("Unfinish: ",Customer_Id);
+        // Step 1
+        startYearEditText = findViewById(R.id.editStartYear_unfinishedInput);
+        startMonthEditText = findViewById(R.id.editStartMonth_unfinishedInput);
+        startDateEditText = findViewById(R.id.editStartDay_unfinishedInput);
+        endYearEditText = findViewById(R.id.editEndYear_unfinishedInput);
+        endMonthEditText = findViewById(R.id.editEndMonth_unfinishedInput);
+        endDateEditText = findViewById(R.id.editEndDay_unfinishedInput);
 
-        orderList = (ListView)findViewById(R.id.list_item);
-        getData();
-        try {
-            getOrderList();
-        } catch (Exception e) {
-            Log.i("OrderList create Exception",e.toString());
-        }
-        setAdapter();
+        // Step 2
+        Button enterButton = findViewById(R.id.enterSearch);
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String startYearString = startYearEditText.getText().toString();
+                String startMonthString = startMonthEditText.getText().toString();
+                String startDateString = startDateEditText.getText().toString();
+                String endYearString = endYearEditText.getText().toString();
+                String endMonthString = endMonthEditText.getText().toString();
+                String endDateString = endDateEditText.getText().toString();
+
+                SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                try {
+                    startDate = dateFormat1.parse(startYearString + "-" + startMonthString + "-" + startDateString);
+                    endDate = dateFormat1.parse(endYearString + "-" + endMonthString + "-" + endDateString);
+
+                    if (startDate.after(endDate)) {
+                        Toast.makeText(OrderListUnfinished.this, "Start date cannot be after end date", Toast.LENGTH_SHORT).show();
+
+
+                    } else {
+                        getOrderList();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                LoginActivity loginActivity = new LoginActivity();
+                Customer_Id = String.valueOf(loginActivity.getCustomerID());
+                Log.i("Unfinish: ",Customer_Id);
+
+
+
+               // end_date = String.valueOf(endDate);
+                //start_date = String.valueOf(startDate);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                start_date = dateFormat.format(startDate);
+                end_date = dateFormat.format(endDate);
+
+                Log.i("End Date la Joy:", end_date);
+                Log.i("Start Date la Joy:", start_date);
+
+             //   List<NameValuePair> params = new ArrayList<NameValuePair>();
+                // params.add(new BasicNameValuePair("start_date", start_date));
+                //params.add(new BasicNameValuePair("end_date", end_date));
+
+
+
+                orderList = (ListView)findViewById(R.id.list_item);
+                StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
+
+                orderList.setAdapter(null);
+                try {
+                    getData();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    getOrderList();
+                } catch (Exception e) {
+                    Log.i("OrderList create Exception",e.toString());
+                }
+                setAdapter();
+
 
         orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,6 +174,8 @@ public class OrderListUnfinished extends AppCompatActivity {
                 //intent.putExtra("order_Id", Id);
                 startActivity(intent);
             }
+        });
+    }
         });
     }
 
@@ -115,16 +205,33 @@ public class OrderListUnfinished extends AppCompatActivity {
 
     private void getOrderList() throws MalformedURLException {
         try{
-            String Showurl = "http://10.0.2.2/SQL_Connect/Customer_UnOrderList.php";
-            URL url = new URL(Showurl);
+//            JSONObject payload = new JSONObject();
+//
+//            payload.put("start_date", start_date);
+//            Log.i("post_data", start_date);
+//            payload.put("end_date", end_date);
+//            Log.i("post_data", end_date);
+//
+//            String post_data = payload.toString();
+
+
+          String Showurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+           URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(Customer_Id), "UTF-8");
-            bufferedWriter.write(post_data);
+            String post_data1 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(Customer_Id), "UTF-8");
+            String post_data2 = URLEncoder.encode("start_date", "UTF-8") + "=" + URLEncoder.encode(start_date, "UTF-8")
+                    + "&" + URLEncoder.encode("end_date", "UTF-8") + "=" + URLEncoder.encode(end_date, "UTF-8");
+           Log.i("post_data1: ", post_data1);
+           Log.i("post_data2: ", post_data2);
+
+            bufferedWriter.write(post_data1);
+            bufferedWriter.write("&");
+            bufferedWriter.write(post_data2);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
@@ -144,8 +251,12 @@ public class OrderListUnfinished extends AppCompatActivity {
                 JSONArray ja = new JSONArray(result);
                 JSONObject jo = null;
 
+                Log.i("Ja it apa joy: ", ja.toString());
+
+
                 data = new String[ja.length()];
                 order_Id = new String[ja.length()];
+
 
                 for(int i = 0; i<ja.length();i++){
                     //寫這個是甚麼意思
@@ -168,37 +279,75 @@ public class OrderListUnfinished extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
+ //       List<NameValuePair> params = new ArrayList<NameValuePair>();
+ //       params.add(new BasicNameValuePair("start_date", start_date));
+ //       params.add(new BasicNameValuePair("end_date", end_date));
         // Perform item selected listener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                switch(item.getItemId())
+//                {
+//                    case R.id.navigation_dashboard:
+//                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.navigation_home:
+//                        startActivity(new Intent(getApplicationContext(),Homepage.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.navigation_notifications:
+//                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
 
-                switch(item.getItemId())
-                {
-                    case R.id.navigation_dashboard:
-                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_home:
-                        startActivity(new Intent(getApplicationContext(),Homepage.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navigation_notifications:
-                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
     }
 
-    private void getData(){
+
+    private void getData() throws IOException {
         //還要把customer Id丟過去
+
+        String Showurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+        URL url = new URL(Showurl);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestMethod("POST");
+        httpURLConnection.setDoOutput(true);
+        httpURLConnection.setDoInput(true);
+        OutputStream outputStream = httpURLConnection.getOutputStream();
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+        String post_data1 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(Customer_Id), "UTF-8");
+        String post_data2 = URLEncoder.encode("start_date", "UTF-8") + "=" + URLEncoder.encode(start_date, "UTF-8")
+                + "&" + URLEncoder.encode("end_date", "UTF-8") + "=" + URLEncoder.encode(end_date, "UTF-8");
+        Log.i("post_data1: ", post_data1);
+        Log.i("post_data2: ", post_data2);
+
+        bufferedWriter.write(post_data1);
+        bufferedWriter.write("&");
+        bufferedWriter.write(post_data2);
+        bufferedWriter.flush();
+        bufferedWriter.close();
+        outputStream.close();
+        InputStream inputStream = httpURLConnection.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+        String result = "";
+        String line = "";
+
+        while ((line = bufferedReader.readLine()) != null) {
+            result += line;
+        }
+        bufferedReader.close();
+        inputStream.close();
+        httpURLConnection.disconnect();
+        Log.i("result", "["+result+"]");
         try {
-            String dataurl = "http://10.0.2.2/SQL_Connect/Customer_UnOrderList.php";
-            URL url = new URL(dataurl);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String dataurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+            URL url1 = new URL(dataurl);
+            HttpURLConnection con = (HttpURLConnection) url1.openConnection();
             con.setRequestMethod("GET");
             is = new BufferedInputStream(con.getInputStream());
         }
@@ -233,5 +382,6 @@ public class OrderListUnfinished extends AppCompatActivity {
             Log.i("UnOrderList JSON Exception",e.toString());
         }
     }
+
 
 }

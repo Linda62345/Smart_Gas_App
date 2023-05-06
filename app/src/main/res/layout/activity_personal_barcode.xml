@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotificationFrequency"
+    tools:context=".PersonalBarcode"
     android:background="@color/white">
 
 
@@ -57,10 +57,9 @@
 
 
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="344dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:paddingRight="238dp">
+    android:layout_gravity="center">
     <TextView
         android:id="@+id/barcodeTitle"
         android:layout_width="wrap_content"
@@ -78,6 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:backgroundTint="@color/main_blue"
+            android:layout_marginLeft="10dp"
             android:onClick="barcodeButtonClick"
             android:src="@drawable/baseline_remove_red_eye_24"
             android:textSize="20sp"

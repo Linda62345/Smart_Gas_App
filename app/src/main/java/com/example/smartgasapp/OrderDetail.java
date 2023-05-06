@@ -43,7 +43,7 @@ import java.util.TimeZone;
 
 public class OrderDetail extends AppCompatActivity {
 
-    private Button exchange,editReceipt,finish;
+    private Button exchange,editReceipt,finish,selectTime, selectDelivery;
     public String Customer_ID,Order_Id,result="",Company_Id,phone,address,time,method,New_Order_Id;
     public TextView Greeting, Recepit_Name,Receipt_TelNo,Receipt_Addr,Expect_Time,Delivery_Method;
     public JSONObject responseJSON;
@@ -58,6 +58,9 @@ public class OrderDetail extends AppCompatActivity {
         setContentView(R.layout.activity_order_detail);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        selectTime = findViewById(R.id.timeOptionButton);
+        selectDelivery=findViewById(R.id.deliveryOptionButton);
 
         Expect_Time = findViewById(R.id.ExpectTime);
         Delivery_Method = findViewById(R.id.deliveryMethod);
@@ -204,6 +207,22 @@ public class OrderDetail extends AppCompatActivity {
         });
 
         thread.start();
+
+        selectDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderDetail.this, DeliveryMethod.class);
+                startActivity(intent);
+            }
+        });
+
+        selectTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderDetail.this, DeliveryMethod.class);
+                startActivity(intent);
+            }
+        });
 
         exchange.setOnClickListener(new View.OnClickListener() {
             @Override

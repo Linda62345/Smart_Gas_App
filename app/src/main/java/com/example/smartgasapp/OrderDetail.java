@@ -400,7 +400,7 @@ public class OrderDetail extends AppCompatActivity {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);}
-        }
+    }
     public void Date(){
         pickerDialog = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -441,4 +441,4 @@ public class OrderDetail extends AppCompatActivity {
                 false);
         timePickerDialog.show();
     }
-    }
+}

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,17 +14,37 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Objects;
 
 public class PersonalBarcode extends AppCompatActivity {
 
     private Button backToHome;
+
+    public int CUSTOMER_ID;
+
+    public String CUSTOMER_Name;
+
 
     private ImageView imageView;
     private TextView userName;
@@ -38,6 +59,17 @@ public class PersonalBarcode extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
         backToHome = findViewById(R.id.barcodeBackToHome);
 
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    showData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         backToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,11 +106,49 @@ public class PersonalBarcode extends AppCompatActivity {
         userName= findViewById(R.id.Changable_UserName_View);
     }
 
+    public void showData() throws MalformedURLException {
+        try{
+            String Showurl = "http://10.0.2.2/SQL_Connect/Show_Customer_Profile.php";
+            URL url = new URL(Showurl);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(CUSTOMER_ID), "UTF-8");
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            Log.i("result", "["+result+"]");
+            JSONObject responseJSON = new JSONObject(result);
+            CUSTOMER_Name = responseJSON.getString("CUSTOMER_Name");
+            userName.setText(CUSTOMER_Name);
+            CUSTOMER_ID = responseJSON.getInt("CUSTOMER_Id");
+
+            Log.i("CUSTOMER_Name",CUSTOMER_Name);
+        } catch (Exception e) {
+            Log.i("Edit Exception", e.toString());
+        }
+    }
+
     public void barcodeButtonClick(View view){
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(userName.getText().toString(), BarcodeFormat.CODE_128, imageView.getWidth(),imageView.getHeight() );
+            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(CUSTOMER_ID), BarcodeFormat.CODE_128, imageView.getWidth(),imageView.getHeight() );
             Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(),imageView.getHeight(), Bitmap.Config.RGB_565);
             for(int i = 0;i<imageView.getWidth();i++){
                 for (int j = 0;j< imageView.getHeight();j++){

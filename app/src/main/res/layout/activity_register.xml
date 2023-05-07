@@ -63,7 +63,7 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="3"
+        android:columnCount="2"
         android:rowCount="2">
         <TextView
             android:text="@string/address"
@@ -82,16 +82,7 @@
             />
 
         <!-- the one Joy requested -->
-        <TextView
-            android:text="sample"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#ff000000"
-            android:id="@+id/AddressName"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="start"
-            android:textStyle="bold"/>
+
 
         <Spinner
             android:id="@+id/spinner_1"
@@ -114,15 +105,7 @@
             android:contentDescription="City"
             android:padding="5dp" />
 
-        <Spinner
-            android:id="@+id/company"
-            android:contentDescription="Company"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:padding="5dp"
-            />
+
     </GridLayout>
 
 

@@ -77,7 +77,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         tvStatus = findViewById(R.id.tvStatus);
 
         requestQueue = Volley.newRequestQueue(this);
-        etCompanyName = findViewById(R.id.company);
+        etCompanyName = findViewById(R.id.spinner_3);
         String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
         JsonObjectRequest jsonObjectRequest;
 

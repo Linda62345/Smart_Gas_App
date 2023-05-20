@@ -48,7 +48,10 @@
 
 
     <string-array name="notificationFrequency_options">
-        <item>每日</item>
+        <item>早中</item>
+        <item>早晚</item>
+        <item>中晚</item>
+        <item>早中晚</item>
     </string-array>
 
 

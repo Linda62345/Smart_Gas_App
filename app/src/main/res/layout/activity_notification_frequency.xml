@@ -32,41 +32,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <GridLayout
-        android:id="@+id/gridLayout3"
-        android:layout_width="344dp"
-        android:layout_height="66dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/rounded_button_border"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <RadioButton
-            android:id="@+id/weightRadioThree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginLeft="20dp"
-            android:padding="10dp"
-            android:text="3.5 kg"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <RadioButton
-            android:id="@+id/weightRadioTwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <GridLayout
+            android:id="@+id/gridLayout3"
+            android:layout_width="344dp"
+            android:layout_height="111dp"
             android:layout_gravity="center"
-            android:text="2.5 kg"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_button_border">
 
-    </GridLayout>
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="344dp"
+                android:orientation="horizontal"
+                android:paddingTop="30dp"
+                android:paddingLeft="30dp"
+                android:layout_height="wrap_content">
+
+
+                <RadioButton
+                    android:id="@+id/weightRadioTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.5 kg"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <RadioButton
+                    android:id="@+id/weightRadioThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_marginLeft="80dp"
+                    android:padding="10dp"
+                    android:text="3.5 kg"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+
+        </GridLayout>
 
 
     <LinearLayout
@@ -74,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,29 +109,17 @@
             android:padding="5dp" />
 
 
-        <TextView
-            android:id="@+id/notificationTime_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:background="@color/white"
-            android:text="通知時間"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/notificationTime_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="35dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:entries="@array/notificationTime_options"
-            android:padding="5dp" />
-
-
     </LinearLayout>
-
+        <Button
+            android:id="@+id/enter"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="90dp"
+            android:onClick="save"
+            android:text="ENTER"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

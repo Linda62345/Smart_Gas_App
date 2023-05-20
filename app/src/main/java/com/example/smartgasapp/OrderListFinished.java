@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,11 +45,12 @@ public class OrderListFinished extends AppCompatActivity {
 
     private Button unfinished, finished, order;
     private ListView orderList;
-    public String Customer_Id, start_date, end_date;;
+    public String Customer_Id, start_date, end_date;
     InputStream is = null;
     String line,result = "";
     String[] data,order_Id, deliveryPhones, orderIds, orderWeights, orderDetails;
     Date startDate, endDate;
+    TextView startDateTextView, endDateTextView, space;
     public static String static_order_id;
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
@@ -119,6 +121,14 @@ public class OrderListFinished extends AppCompatActivity {
                 Log.i("End Date:", end_date);
                 Log.i("Start Date:", start_date);
 
+                startDateTextView = findViewById(R.id.startDate_unfinishedView);
+                startDateTextView.setText(start_date);
+
+                space = findViewById(R.id.untilDate_unfinishedView);
+                space.setText("-");
+
+                endDateTextView = findViewById(R.id.endDate_unfinishedView);
+                endDateTextView.setText(end_date);
 
 
                 orderList = (ListView)findViewById(R.id.list_item);
@@ -223,31 +233,13 @@ public class OrderListFinished extends AppCompatActivity {
 
                 for(int i = 0; i<ja.length();i++){
                     jo = ja.getJSONObject(i);
-                    data[i] = jo.getString("DELIVERY_Phone");
-                    jo = ja.getJSONObject(i);
-                    data[i] = jo.getString("Order_weight");
+                    String orderTime = jo.getString("Order_Time");
+                    String orderWeight = jo.getString("Order_weight");
+                    data[i] = "Order Time: " + orderTime + " - " + "Weight: "+orderWeight + "kg";
 
                     Log.i("order data",data[i]);
                     order_Id[i] = jo.getString("ORDER_Id");
                 }
-
-//                deliveryPhones = new String[ja.length()];
-//                orderWeights = new String[ja.length()];
-//                orderDetails = new String[ja.length()];
-//
-//                for(int i = 0; i < ja.length(); i++){
-//                    // Get current JSONObject
-//                    jo = ja.getJSONObject(i);
-//
-//                    deliveryPhones[i] = jo.getString("DELIVERY_Phone");
-//                    orderWeights[i] = jo.getString("Order_weight");
-//                    orderIds[i] = jo.getString("ORDER_Id");
-//
-//                    // Combine delivery phone and order weight into one string
-//                    String orderDetail = "Delivery Phone: " + deliveryPhones + ", Order Weight: " + orderWeights;
-//                    orderDetails[i] = orderDetail;
-//                    Log.i("order data", "Delivery Phone: " + deliveryPhones[i] + ", Order Weight: " + orderWeights[i]);
-//                }
 
             }catch(Exception e){
                 Log.i("OrderList JSON Exception",e.toString());

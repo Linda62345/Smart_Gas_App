@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 
@@ -65,6 +66,8 @@ public class OrderListUnfinished extends AppCompatActivity {
     Date startDate, endDate;
     InputStream is = null;
     String line,result = "";
+    TextView startDateTextView, endDateTextView, space;
+
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
     @Override
@@ -75,8 +78,6 @@ public class OrderListUnfinished extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         finished = findViewById(R.id.order_finished);
-        //order = findViewById(R.id.enterSearch);
-
         finished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,23 +128,21 @@ public class OrderListUnfinished extends AppCompatActivity {
                 Customer_Id = String.valueOf(loginActivity.getCustomerID());
                 Log.i("Unfinish: ",Customer_Id);
 
-
-
-               // end_date = String.valueOf(endDate);
-                //start_date = String.valueOf(startDate);
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 start_date = dateFormat.format(startDate);
                 end_date = dateFormat.format(endDate);
 
-                Log.i("End Date la Joy:", end_date);
-                Log.i("Start Date la Joy:", start_date);
+                Log.i("End Date:", end_date);
+                Log.i("Start Date:", start_date);
 
-             //   List<NameValuePair> params = new ArrayList<NameValuePair>();
-                // params.add(new BasicNameValuePair("start_date", start_date));
-                //params.add(new BasicNameValuePair("end_date", end_date));
+                startDateTextView = findViewById(R.id.startDate_unfinishedView);
+                startDateTextView.setText(start_date);
 
+                space = findViewById(R.id.untilDate_unfinishedView);
+                space.setText("-");
 
+                endDateTextView = findViewById(R.id.endDate_unfinishedView);
+                endDateTextView.setText(end_date);
 
                 orderList = (ListView)findViewById(R.id.list_item);
                 StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
@@ -206,14 +205,6 @@ public class OrderListUnfinished extends AppCompatActivity {
 
     private void getOrderList() throws MalformedURLException {
         try{
-//            JSONObject payload = new JSONObject();
-//
-//            payload.put("start_date", start_date);
-//            Log.i("post_data", start_date);
-//            payload.put("end_date", end_date);
-//            Log.i("post_data", end_date);
-//
-//            String post_data = payload.toString();
 
 
           String Showurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
@@ -252,7 +243,7 @@ public class OrderListUnfinished extends AppCompatActivity {
                 JSONArray ja = new JSONArray(result);
                 JSONObject jo = null;
 
-                Log.i("Ja it apa joy: ", ja.toString());
+                Log.i("result: ", ja.toString());
 
 
                 data = new String[ja.length()];
@@ -260,15 +251,15 @@ public class OrderListUnfinished extends AppCompatActivity {
 
 
                 for(int i = 0; i<ja.length();i++){
-                    //寫這個是甚麼意思
                     jo = ja.getJSONObject(i);
-                    data[i] = jo.getString("DELIVERY_Phone");
-                    jo = ja.getJSONObject(i);
-                    data[i] = jo.getString("Order_weight");
+                    String orderTime = jo.getString("Order_Time");
+                    String orderWeight = jo.getString("Order_weight");
+                    data[i] = "Order Time: " + orderTime + " - " + "Weight: "+orderWeight + "kg";
 
-                    Log.i("get order list data",data[i]);
+                    Log.i("order data",data[i]);
                     order_Id[i] = jo.getString("ORDER_Id");
                 }
+
             }catch(Exception e){
                 Log.i("OrderList JSON Exception",e.toString());
             }

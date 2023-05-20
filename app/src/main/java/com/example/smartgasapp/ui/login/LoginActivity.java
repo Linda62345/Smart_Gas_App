@@ -123,36 +123,35 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    login();
-                    Thread thread = new Thread(new Runnable() {
+                if (loginResult != null) {
 
-                        @Override
-                        public void run() {
-                            try {
-                                CustomerID();
-                                //Your code goes here
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                    loadingProgressBar.setVisibility(View.GONE);
+                    if (loginResult.getError() != null) {
+                        showLoginFailed(loginResult.getError());
+                    }
+                    if (loginResult.getSuccess() != null) {
+                        login();
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    CustomerID();
+                                    //Your code goes here
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    });
-
-                    thread.start();
+                        });
+                        thread.start();
+                        // Don't call finish() here to prevent going back to the previous activity on wrong password
+                    }
+                    setResult(Activity.RESULT_OK);
                 }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
             }
         });
+
+
+
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -226,7 +225,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }, new Response.ErrorListener() {
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(LoginActivity.this, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
+                        // Bad request error
+                        Toast.makeText(LoginActivity.this, "Invalid request. Please check your input.", Toast.LENGTH_SHORT).show();
+                    } else if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
+                        // Unauthorized error
+                        Toast.makeText(LoginActivity.this, "Invalid login credentials.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Other error
+                        Toast.makeText(LoginActivity.this, "Invalid userID/Password", Toast.LENGTH_SHORT).show();
+                    }
+                    Log.i("login error", error.toString());
                 }
             }) {
                 protected Map<String, String> getParams() throws AuthFailureError {

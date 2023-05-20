@@ -95,17 +95,6 @@
             android:padding="5dp" />
 
 
-        <Spinner
-            android:id="@+id/spinner_2"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:layout_marginStart="-30dp"
-            android:contentDescription="City"
-            android:padding="5dp" />
-
-
     </GridLayout>
 
 

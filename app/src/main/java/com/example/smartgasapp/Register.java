@@ -65,7 +65,6 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         etMale = findViewById(R.id.radioButton_male);
         etFemale = findViewById(R.id.radioButton_female);
         etCity = findViewById(R.id.spinner_1);
-        etArea = findViewById(R.id.spinner_2);
         etAddress = findViewById(R.id.register_addr_input);
         etPhone = findViewById(R.id.register_phone_input);
         etHouseTel = findViewById(R.id.register_housephone_input);

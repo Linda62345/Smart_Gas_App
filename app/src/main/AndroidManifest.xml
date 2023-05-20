@@ -149,15 +149,11 @@
         </activity>
         <activity
             android:name=".Register"
-            android:exported="false" />
+            android:exported="false"
+            android:label="註冊會員"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -34,7 +34,7 @@
         android:layout_marginStart="18dp"
         android:drawableLeft="@drawable/baseline_card_giftcard_24"
         android:text="@string/changablePoint"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager2"
+        app:layout_constraintBottom_toTopOf="@+id/Slider"
         app:layout_constraintEnd_toStartOf="@+id/loginFromHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pointTextView"
@@ -52,7 +52,7 @@
         android:text="joo"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager2"
+        app:layout_constraintBottom_toTopOf="@+id/Slider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/changable_pointButton"
@@ -197,10 +197,23 @@
 
         </GridLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
-        android:layout_width="394dp"
-        android:layout_height="120dp"
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/Slider"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:sliderAnimationDuration="600"
+        app:sliderAutoCycleDirection="back_and_forth"
+        app:sliderAutoCycleEnabled="true"
+        app:sliderIndicatorAnimationDuration="600"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorMargin="15dp"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorPadding="3dp"
+        app:sliderIndicatorRadius="2dp"
+        app:sliderIndicatorSelectedColor="#5A5A5A"
+        app:sliderIndicatorUnselectedColor="#FFF"
+        app:sliderScrollTimeInSec="2"
+        app:sliderStartAutoCycle="true"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
@@ -216,7 +229,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager2">
+        app:layout_constraintTop_toBottomOf="@+id/Slider">
 
 
         <ProgressBar

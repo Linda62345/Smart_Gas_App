@@ -293,7 +293,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public int getCustomerID() {
+    public static int getCustomerID() {
         int customer_id = CUSTOMER_ID;
         return customer_id;
     }

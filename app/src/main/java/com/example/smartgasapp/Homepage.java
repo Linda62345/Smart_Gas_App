@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -58,14 +61,10 @@ public class Homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         // Create sample images
-        images = new ArrayList<>();
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.gasspec));
-        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.ourproduct));
-
-        // Set adapter to ViewPager
-        adapter = new ImageAdapter(this, images);
-        //viewPager.setAdapter(adapter);
+        SliderView sliderView;
+        int[] images = {R.drawable.logo,
+                        R.drawable.logo,
+                        R.drawable.logo};
 
         point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
@@ -78,9 +77,16 @@ public class Homepage extends AppCompatActivity {
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
 
-        //ViewPager viewPager = findViewById(R.id.viewPager2);
-        //ImageAdapter adapter = new ImageAdapter(this, images);
-        //viewPager.setAdapter(adapter);
+
+        sliderView = findViewById(R.id.Slider);
+
+        SliderAdapter sliderAdapter = new SliderAdapter(images);
+
+        sliderView.setSliderAdapter(sliderAdapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        sliderView.startAutoCycle();
+
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());

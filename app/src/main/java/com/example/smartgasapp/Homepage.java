@@ -12,9 +12,8 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,11 +33,6 @@ import java.util.ArrayList;
 
 public class Homepage extends AppCompatActivity {
 
-    SliderView sliderView;
-    int[] images = {R.drawable.logo,
-            R.drawable.ads,
-            R.drawable.gasspec};
-
     private Button point;
     private Button homeLogin;
     private Button moreVol;
@@ -52,16 +46,26 @@ public class Homepage extends AppCompatActivity {
     private ImageButton personalBarcode;
 
 
+    private ViewPager viewPager;
+    private ImageAdapter adapter;
+    private ArrayList<Bitmap> images;
     public String result="",Customer_ID;
     public JSONObject responseJSON;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
+        // Create sample images
+        images = new ArrayList<>();
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.gasspec));
+        images.add(BitmapFactory.decodeResource(getResources(), R.drawable.ourproduct));
 
+        // Set adapter to ViewPager
+        adapter = new ImageAdapter(this, images);
+        //viewPager.setAdapter(adapter);
 
         point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
@@ -74,14 +78,9 @@ public class Homepage extends AppCompatActivity {
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
 
-        sliderView = findViewById(R.id.Slider);
-
-        SliderAdapter sliderAdapter = new SliderAdapter(images);
-
-        sliderView.setSliderAdapter(sliderAdapter);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
-        sliderView.startAutoCycle();
+        //ViewPager viewPager = findViewById(R.id.viewPager2);
+        //ImageAdapter adapter = new ImageAdapter(this, images);
+        //viewPager.setAdapter(adapter);
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
@@ -143,7 +142,7 @@ public class Homepage extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(Homepage.this, OrderListUnfinished.class);
+                Intent intent = new Intent(Homepage.this, OrderListUnfinished.class);
                 startActivity(intent);
             }
         });

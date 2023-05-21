@@ -147,20 +147,6 @@ public class OrderListFinished extends AppCompatActivity {
                 }
                 setAdapter();
 
-
-                orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //當備案下時
-                        String msg=data[position];
-                        Toast.makeText(OrderListFinished.this,msg,Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OrderListFinished.this, OrderDetail.class);
-                        String Id = order_Id[position];
-                        static_order_id = Id;
-                        //intent.putExtra("order_Id", Id);
-                        startActivity(intent);
-                    }
-                });
             }
         });
     }
@@ -175,10 +161,10 @@ public class OrderListFinished extends AppCompatActivity {
                     //當備案下時
                     String msg=data[position];
                     Toast.makeText(OrderListFinished.this,msg,Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(OrderListFinished.this, OrderDetail.class);
-                    String Id = order_Id[position];
-                    static_order_id = Id;
-                    startActivity(intent);
+                  //  Intent intent = new Intent(OrderListFinished.this, OrderDetail.class);
+                  //  String Id = order_Id[position];
+                  //  static_order_id = Id;
+                  //  startActivity(intent);
                 }
             });
         }
@@ -230,12 +216,22 @@ public class OrderListFinished extends AppCompatActivity {
                 data = new String[ja.length()];
                 order_Id = new String[ja.length()];
 
-
                 for(int i = 0; i<ja.length();i++){
                     jo = ja.getJSONObject(i);
                     String orderTime = jo.getString("Order_Time");
                     String orderWeight = jo.getString("Order_weight");
-                    data[i] = "Order Time: " + orderTime + " - " + "Weight: "+orderWeight + "kg";
+                    String orderType = jo.getString("Order_type");
+
+                    // Check the value of orderType and assign the corresponding string
+                    if (orderType.equals("0")) {
+                        orderType= "人員送達";
+                    } else if (orderType.equals("1")) {
+                        orderType = "自取";
+                    } else {
+                        // Handle other cases if necessary
+                        orderType= "錯誤";
+                    }
+                    data[i] = "訂購時間: " + orderTime + " - " + "瓦斯桶重量: "+orderWeight + "kg" +" - "+ "配送方式:" +orderType;
 
                     Log.i("order data",data[i]);
                     order_Id[i] = jo.getString("ORDER_Id");
@@ -251,30 +247,6 @@ public class OrderListFinished extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
-
-        // Perform item selected listener
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//                switch(item.getItemId())
-//                {
-//                    case R.id.navigation_dashboard:
-//                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                    case R.id.navigation_home:
-//                        startActivity(new Intent(getApplicationContext(),Homepage.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                    case R.id.navigation_notifications:
-//                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
 
     }
 

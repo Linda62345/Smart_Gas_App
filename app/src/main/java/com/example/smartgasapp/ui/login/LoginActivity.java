@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText Password;
     public static int CUSTOMER_ID;
+    public static int COMPANY_Id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -278,6 +279,8 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject responseJSON = new JSONObject(result);
                 CUSTOMER_ID = responseJSON.getInt("CUSTOMER_Id");
                 Log.i("Customer_ID", String.valueOf(CUSTOMER_ID));
+                COMPANY_Id = responseJSON.getInt("COMPANY_Id");
+                Log.i("Company_id",String.valueOf(COMPANY_Id));
             } catch (Exception e) {
                 Log.i("Here Exception", e.toString());
             }

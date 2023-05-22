@@ -26,6 +26,7 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
         String quantity = getItem(position).getQuantity();
         String type = getItem(position).getType();
         String weight = getItem(position).getWeight();
+        String exchange_String = getItem(position).getExchange();
 
         CustomerOrderDetail orderDetail = new CustomerOrderDetail(quantity,type,weight);
 
@@ -35,11 +36,18 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
         TextView tvQuantity = (TextView) convertView.findViewById(R.id.quantity);
         TextView tvType = (TextView) convertView.findViewById(R.id.type);
         TextView tvWeight = (TextView) convertView.findViewById(R.id.weight);
+        TextView Exchange = (TextView) convertView.findViewById(R.id.exchange);
 
         if(tvQuantity!=null&&tvType!=null&&tvWeight!=null){
             tvQuantity.setText("瓦斯桶數量: "+quantity);
             tvType.setText("瓦斯桶類別: "+type);
             tvWeight.setText("瓦斯桶重量: "+weight);
+        }
+        if(exchange_String!=null && exchange_String.equals("1") && Exchange!=null){
+            Exchange.setText("已使用兌換");
+        }
+        else{
+            Exchange.setVisibility(View.GONE);
         }
 
         return  convertView;

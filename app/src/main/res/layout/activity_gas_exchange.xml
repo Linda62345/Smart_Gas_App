@@ -32,10 +32,7 @@
             android:id="@+id/gasCompanyTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="135dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="135dp"
-            android:text="@string/changable_gasCompany"
+            android:text="瓦斯行名稱"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold" />

@@ -223,6 +223,8 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
             Toast.makeText(this, "Gender column must selected one of them.", Toast.LENGTH_SHORT).show();
         } else if (!name.equals("") && !email.equals("") && !password.equals("")) {
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Register.this, Homepage.class);
+            startActivity(intent);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

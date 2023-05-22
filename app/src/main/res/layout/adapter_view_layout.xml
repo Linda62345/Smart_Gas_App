@@ -9,10 +9,10 @@
         android:id="@+id/quantity"
         android:layout_width="324dp"
         android:layout_height="33dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="TextView"
         android:textColor="#ff757575"
-        android:textSize="24.0sp"
+        android:textSize="21.0sp"
         android:textStyle="bold"
         />
 
@@ -20,29 +20,38 @@
         android:id="@+id/type"
         android:layout_width="324dp"
         android:layout_height="30dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="TextView"
         android:textColor="#ff757575"
-        android:textSize="24.0sp"
+        android:textSize="21.0sp"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/weight"
         android:layout_width="324dp"
         android:layout_height="30dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="TextView"
         android:textColor="#ff757575"
-        android:textSize="24.0sp"
+        android:textSize="21.0sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/exchange"
+        android:layout_width="324dp"
+        android:layout_height="30dp"
+        android:gravity="left"
+        android:textColor="#ff757575"
+        android:textSize="21.0sp"
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/blank"
         android:layout_width="324dp"
         android:layout_height="10dp"
-        android:gravity="center"
+        android:gravity="left"
         android:textColor="#ff757575"
-        android:textSize="24.0sp"
+        android:textSize="21.0sp"
         android:textStyle="bold"/>
+
 
 
 </LinearLayout>

@@ -64,7 +64,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         etName = findViewById(R.id.register_name_input);
         etMale = findViewById(R.id.radioButton_male);
         etFemale = findViewById(R.id.radioButton_female);
-        etCity = findViewById(R.id.spinner_1);
+        etCity = findViewById(R.id.citySpinner);
         etAddress = findViewById(R.id.register_addr_input);
         etPhone = findViewById(R.id.register_phone_input);
         etHouseTel = findViewById(R.id.register_housephone_input);
@@ -76,7 +76,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         tvStatus = findViewById(R.id.tvStatus);
 
         requestQueue = Volley.newRequestQueue(this);
-        etCompanyName = findViewById(R.id.spinner_3);
+        etCompanyName = findViewById(R.id.citySpinner);
         String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
         JsonObjectRequest jsonObjectRequest;
 
@@ -147,7 +147,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
     // 連到地區的資料庫
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView.getId() == R.id.spinner_1){
+        if(adapterView.getId() == R.id.citySpinner){
             cityList.clear();
             String selectedCountry = adapterView.getSelectedItem().toString();
             String url = "http://10.0.2.2/SQL_Connect/city.php?country_name="+selectedCountry;

@@ -63,7 +63,7 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="2"
+        android:columnCount="3"
         android:rowCount="2">
         <TextView
             android:text="@string/address"
@@ -81,15 +81,40 @@
             android:layout_height="wrap_content"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
         <!-- the one Joy requested -->
 
 
         <Spinner
-            android:id="@+id/spinner_1"
+            android:id="@+id/citySpinner"
             android:contentDescription="city"
             android:layout_width="100dp"
             android:layout_height="48dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp" />
+
+        <Spinner
+            android:id="@+id/districtSpinner"
+            android:contentDescription="district"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp" />
+
+        <Spinner
+            android:id="@+id/postCodeSpinner"
+            android:contentDescription="district"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
             android:backgroundTint="#ffd5d5d5"
             android:padding="5dp" />
@@ -122,7 +147,7 @@
         android:layout_gravity="center"
         android:textStyle="bold"/>
     <Spinner
-        android:id="@+id/spinner_3"
+        android:id="@+id/gasCompanySpinner"
         android:contentDescription="GasCompany"
         android:layout_width="100dp"
         android:layout_height="48dp"

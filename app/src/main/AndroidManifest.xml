@@ -2,14 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="33" />
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="33" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -20,144 +22,149 @@
         android:required="true" />
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartGasApp"
-        android:networkSecurityConfig="@xml/network_security_config"
-        tools:targetApi="31"
-        android:name="androidx.multidex.MultiDexApplication">
+        tools:targetApi="31">
         <activity
-            android:name=".ConfirmDelivery"
+            android:name="com.example.smartgasapp.SearchOrderResult"
+            android:exported="false"
+            android:label="訂單明細"/>
+        <activity
+            android:name="com.example.smartgasapp.ConfirmDelivery"
             android:exported="false" />
         <activity
-            android:name=".DeliveryMethod"
+            android:name="com.example.smartgasapp.DeliveryMethod"
             android:exported="false"
             android:label="選擇配送方式"
-            android:parentActivityName=".OrderGas" />
+            android:parentActivityName="com.example.smartgasapp.OrderGas" />
         <activity
-            android:name=".ScanOriginalQRCode"
+            android:name="com.example.smartgasapp.ScanOriginalQRCode"
             android:exported="false"
             android:label="@string/scanOriginalString"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".ScanNewQRCode"
+            android:name="com.example.smartgasapp.ScanNewQRCode"
             android:exported="false"
             android:label="@string/scanNewString"
-            android:parentActivityName=".ScanOriginalQRCode" />
+            android:parentActivityName="com.example.smartgasapp.ScanOriginalQRCode" />
         <activity
-            android:name=".ScanReceiptQRCode"
+            android:name="com.example.smartgasapp.ScanReceiptQRCode"
             android:exported="false"
             android:label="@string/scanReceiptString" />
         <activity
-            android:name=".OrderListFinished"
+            android:name="com.example.smartgasapp.OrderListFinished"
             android:exported="false"
             android:label="@string/searchOrderList"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".OrderListUnfinished"
+            android:name="com.example.smartgasapp.OrderListUnfinished"
             android:exported="false"
             android:label="@string/searchOrderList"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".UserDashboard"
+            android:name="com.example.smartgasapp.UserDashboard"
             android:exported="false"
             android:label="@string/title_user_dashboard" />
         <activity
-            android:name=".Homepage"
+            android:name="com.example.smartgasapp.Homepage"
             android:exported="false"
-            android:label="@string/title_home" />
+            android:label="@string/title_home"
+        />
         <activity
-            android:name=".PersonalBarcode"
+            android:name="com.example.smartgasapp.PersonalBarcode"
             android:exported="false"
             android:label="我的條碼"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".GasCompanyLocation"
+            android:name="com.example.smartgasapp.GasCompanyLocation"
             android:exported="false"
             android:label="瓦斯行地點"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".NotificationFrequency"
+            android:name="com.example.smartgasapp.NotificationFrequency"
             android:exported="false"
             android:label="通知頻率與時間"
-            android:parentActivityName=".UserDashboard" />
+            android:parentActivityName="com.example.smartgasapp.UserDashboard" />
         <activity
-            android:name=".FamilyInvitationCode"
+            android:name="com.example.smartgasapp.FamilyInvitationCode"
             android:exported="false"
             android:label="家人邀請碼"
-            android:parentActivityName=".UserDashboard" />
+            android:parentActivityName="com.example.smartgasapp.UserDashboard" />
         <activity
-            android:name=".GasExchange"
+            android:name="com.example.smartgasapp.GasExchange"
             android:exported="false"
             android:label="累計殘氣兌換"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".cylinder_gas_menu"
+            android:name="com.example.smartgasapp.cylinder_gas_menu"
             android:exported="false"
             android:label="瓦斯訂購"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".CompositeGasMenu"
+            android:name="com.example.smartgasapp.CompositeGasMenu"
             android:exported="false"
             android:label="瓦斯訂購"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".OrderGas"
+            android:name="com.example.smartgasapp.OrderGas"
             android:exported="false"
             android:label="瓦斯訂購"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".OrderDetail"
+            android:name="com.example.smartgasapp.OrderDetail"
             android:exported="false"
             android:label="訂單明細" />
         <activity
-            android:name=".UsageHistory"
+            android:name="com.example.smartgasapp.UsageHistory"
             android:exported="false"
-            android:label="歷史用量與調查"
-            android:parentActivityName=".Homepage" />
+            android:label="用量調查"
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".EventPage"
+            android:name="com.example.smartgasapp.EventPage"
             android:exported="false"
             android:label="活動公告"
-            android:parentActivityName=".UserDashboard" />
+            android:parentActivityName="com.example.smartgasapp.UserDashboard" />
         <activity
-            android:name=".PointPage"
+            android:name="com.example.smartgasapp.PointPage"
             android:exported="false"
             android:label="@string/point"
-            android:parentActivityName=".Homepage" />
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
-            android:name=".EditPersonalInfo"
+            android:name="com.example.smartgasapp.EditPersonalInfo"
             android:exported="false"
             android:label="@string/edit_personal"
-            android:parentActivityName=".UserDashboard" />
+            android:parentActivityName="com.example.smartgasapp.UserDashboard" />
         <activity
-            android:name=".ForgetPassword2"
+            android:name="com.example.smartgasapp.ForgetPassword2"
             android:exported="false" />
         <activity
-            android:name=".ForgetPassword1"
+            android:name="com.example.smartgasapp.ForgetPassword1"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name="com.example.smartgasapp.ui.login.LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="登入"
+            android:parentActivityName="com.example.smartgasapp.Homepage">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity
-            android:name=".Register"
+            android:name="com.example.smartgasapp.Register"
             android:exported="false"
-            android:label="註冊會員"/>
+            android:label="註冊會員" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:name="com.example.smartgasapp.MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

@@ -43,11 +43,11 @@ public class PersonalBarcode extends AppCompatActivity {
 
     public int CUSTOMER_ID;
 
-    public String CUSTOMER_Name;
+    public String CUSTOMER_Name, CUSTOMER_Sex;
 
 
     private ImageView imageView;
-    private TextView userName;
+    private TextView userName,sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,12 @@ public class PersonalBarcode extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
         backToHome = findViewById(R.id.barcodeBackToHome);
+        userName = findViewById(R.id.Changable_UserName_View);
+        sex = findViewById(R.id.userGenderDescView);
+
+        LoginActivity loginActivity = new LoginActivity();
+        CUSTOMER_ID = loginActivity.getCustomerID();
+        Log.i("barcode", String.valueOf(CUSTOMER_ID));
 
         Thread thread = new Thread(new Runnable() {
 
@@ -70,6 +76,8 @@ public class PersonalBarcode extends AppCompatActivity {
                 }
             }
         });
+        thread.start();
+
         backToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +112,7 @@ public class PersonalBarcode extends AppCompatActivity {
 
         imageView= findViewById(R.id.changableBarcode);
         userName= findViewById(R.id.Changable_UserName_View);
+        sex = findViewById(R.id.userGenderDescView);
     }
 
     public void showData() throws MalformedURLException {
@@ -137,6 +146,14 @@ public class PersonalBarcode extends AppCompatActivity {
             CUSTOMER_Name = responseJSON.getString("CUSTOMER_Name");
             userName.setText(CUSTOMER_Name);
             CUSTOMER_ID = responseJSON.getInt("CUSTOMER_Id");
+            CUSTOMER_Sex = responseJSON.getString("CUSTOMER_Sex");
+            if(CUSTOMER_Sex=="1"){
+                sex.setText("小姐");
+            }
+            else{
+                sex.setText("先生");
+            }
+
 
             Log.i("CUSTOMER_Name",CUSTOMER_Name);
         } catch (Exception e) {

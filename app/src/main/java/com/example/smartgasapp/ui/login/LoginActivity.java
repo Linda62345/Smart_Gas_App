@@ -147,11 +147,11 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
                     thread.start();
+
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
+
             }
         });
 
@@ -227,7 +227,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }, new Response.ErrorListener() {
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(LoginActivity.this, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
+                        // Bad request error
+                        Toast.makeText(LoginActivity.this, "Invalid request. Please check your input.", Toast.LENGTH_SHORT).show();
+                    } else if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
+                        // Unauthorized error
+                        Toast.makeText(LoginActivity.this, "Invalid login credentials.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Other error
+                        Toast.makeText(LoginActivity.this, "Invalid login input", Toast.LENGTH_SHORT).show();
+                    }
+                    Log.i("login error", error.toString());
                 }
             }) {
                 protected Map<String, String> getParams() throws AuthFailureError {

@@ -25,6 +25,11 @@
         <item>台東市</item>
     </string-array>
 
+
+    <string-array name="usage_dropdown">
+        <item>IoT 1</item>
+    </string-array>
+
     <string-array name="date_dropdown">
         <item>2022/01/01(一)</item>
     </string-array>

@@ -85,9 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-
-        <!-- the one Joy requested -->
-
+        
 
         <Spinner
             android:id="@+id/citySpinner"

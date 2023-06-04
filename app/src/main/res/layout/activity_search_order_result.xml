@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.192">
 
+
         <TextView
             android:id="@+id/customer_name"
             android:layout_width="wrap_content"
@@ -87,7 +88,7 @@
 
         <TextView
             android:id="@+id/changable_deliveryAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_marginStart="25.0dp"

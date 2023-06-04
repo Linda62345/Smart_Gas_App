@@ -30,7 +30,6 @@ public class SearchOrderResult extends AppCompatActivity {
     private Button enter;
     private String order_Id;
     private TextView name,phone,address,type,gas_Quan,time;
-    public static String Original_Gas_Id;
     public static int gas_quantity;
     public String Customer_Id;
     String line,result = "";

@@ -266,7 +266,7 @@ public class NotificationFrequency extends AppCompatActivity {
                     }
                     break;
                 case "早晚":
-                    if ((hour == 8 && minute == 0) || (hour == 20 && minute == 00)) {
+                    if (gasVolume < threshold && (hour == 8 && minute == 00 || hour == 20 && minute == 00)) {
                         showNotification("您的瓦斯容量小於" + threshold + "公斤");
                         if (hour >= 19 || (hour == 18 && minute >= 55)) {
                             // Evening, schedule the next notification for tomorrow morning
@@ -282,7 +282,7 @@ public class NotificationFrequency extends AppCompatActivity {
                     }
                     break;
                 case "中晚":
-                    if (hour == 14 && minute == 0|| hour == 20 && minute == 0) {
+                    if (gasVolume < threshold && (hour == 14 && minute == 00|| hour == 20 && minute == 00)) {
                         showNotification("您的瓦斯容量小於" + threshold + "公斤");
                         if (hour >= 20) {
                             // Evening, schedule the next notification for tomorrow morning
@@ -298,7 +298,7 @@ public class NotificationFrequency extends AppCompatActivity {
                     }
                     break;
                 case "早中晚":
-                    if (hour == 8 && minute == 0|| hour == 14 && minute == 0|| hour == 20 && minute == 0) {
+                    if (gasVolume < threshold && (hour == 8 && minute == 00|| hour == 14 && minute == 00|| hour == 20 && minute == 00)) {
                         showNotification("您的瓦斯容量小於" + threshold + "公斤");
                         if (hour >= 20 || hour < 8) {
                             // Evening or early morning, schedule the next notification for this morning

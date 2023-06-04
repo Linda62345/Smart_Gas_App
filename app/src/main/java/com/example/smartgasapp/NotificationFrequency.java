@@ -1,17 +1,24 @@
 package com.example.smartgasapp;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 public class NotificationFrequency extends AppCompatActivity {
 
@@ -46,6 +54,10 @@ public class NotificationFrequency extends AppCompatActivity {
     private static RadioButton three;
     public String Customer_Id;
     public static int gasVolumeLeft;
+    private Spinner spinner;
+    private String selectedFrequency;
+    private Handler handler;
+    private Runnable notificationRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,22 @@ public class NotificationFrequency extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         two = findViewById(R.id.weightRadioTwo);
         three = findViewById(R.id.weightRadioThree);
+        spinner = findViewById(R.id.frequency_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.notificationFrequency_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                selectedFrequency = adapterView.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                selectedFrequency = "";
+            }
+        });
 
         Button enterButton = findViewById(R.id.enter);
         enterButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +95,27 @@ public class NotificationFrequency extends AppCompatActivity {
                 }
             }
         });
+        startNotificationCheck();
+    }
+
+    private void startNotificationCheck() {
+        handler = new Handler();
+        notificationRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    frequency();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Schedule the next notification check after a specific interval (e.g., every 1 minute)
+                handler.postDelayed(this, 60000);
+            }
+        };
+
+        // Start the initial notification check
+        handler.post(notificationRunnable);
     }
 
     public void frequency() throws IOException {
@@ -79,14 +128,16 @@ public class NotificationFrequency extends AppCompatActivity {
             if (radioButton == two || radioButton == three) {
                 new SendRequest().execute(Customer_Id);
             }
+            new SendRequest().execute(Customer_Id);
         } catch (Exception e) {
             Log.i("Frequency JSON Exception", e.toString());
         }
     }
 
-    private class SendRequest extends AsyncTask<String, Void, Void> {
-        protected Void doInBackground(String... params) {
+    private class SendRequest extends AsyncTask<String, Void, Double> {
+        protected Double doInBackground(String... params) {
             String response = "";
+            double gasVolume = 0.0;
             try {
                 String Customer_Id = params[0];
                 String Showurl = "http://10.0.2.2/SQL_Connect/FrequencyNotification.php";
@@ -125,12 +176,18 @@ public class NotificationFrequency extends AppCompatActivity {
                     gasVolumeLeft = gasData.getInt("gasVolumeLeft");
                     Log.i("GAS_Weight_Empty", String.valueOf(gasVolumeLeft));
 
+                    if(gasData.has("gasVolumeLeft")){
+                        gasVolume = gasData.getDouble("gasVolumeLeft");
+                    }
+
                     if (gasVolumeLeft > 0) {
-                        double gasVolume = Double.parseDouble(String.valueOf(gasVolumeLeft));
+                        gasVolume = Double.parseDouble(String.valueOf(gasVolumeLeft));
                         if (radioButton == two && gasVolume < 2.5) {
-                            showNotification("Your gas volume is less than 2.5 kg");
+                            //showNotification("Your gas volume is less than 2.5 kg");
+                            checkAndNotifyForFrequency(gasVolume);
                         } else if (radioButton == three && gasVolume < 3.5) {
-                            showNotification("Your gas volume is less than 3.5 kg");
+                            //showNotification("Your gas volume is less than 3.5 kg");
+                            checkAndNotifyForFrequency(gasVolume);
                         }
                     } else {
                         Log.e("NotificationFrequency", "No gasVolumeLeft");
@@ -166,10 +223,137 @@ public class NotificationFrequency extends AppCompatActivity {
                     Log.e("Frequency Exception", "JSONException: " + ex.getMessage());
                 }
 
-                return null;
+                return gasVolume;
             }
-            return null;
+            return gasVolume;
         }
+        protected void onPostExecute(Double gasVolume) {
+            // Call the method to check and notify for frequency with the retrieved gasVolume value
+            checkAndNotifyForFrequency(gasVolume);
+        }
+
+
+        private void checkAndNotifyForFrequency(double gasVolume) {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            int desiredHour = hour;
+            int desiredMinute = minute;
+
+            double threshold = 0.0;
+            if (radioButton == two) {
+                threshold = 2.5;
+            } else if (radioButton == three) {
+                threshold = 3.5;
+            }
+
+            switch (selectedFrequency) {
+                case "早中":
+                    if (gasVolume < threshold && (hour == 8 && minute == 0|| hour == 14 && minute == 00)) {
+                        showNotification("Your gas volume is less than " + threshold + "kg");
+                        if (hour >= 14 || (hour == 13 && minute >= 30)) {
+                            // Afternoon, schedule the next notification for tomorrow morning
+                            desiredHour = 8;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        } else if (hour >= 8 && minute == 0) {
+                            // Morning, schedule the next notification for this afternoon
+                            desiredHour = 14;
+                            desiredMinute = 00;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        }
+                    }
+                    break;
+                case "早晚":
+                    if ((hour == 8 && minute == 0) || (hour == 20 && minute == 00)) {
+                        showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        if (hour >= 19 || (hour == 18 && minute >= 55)) {
+                            // Evening, schedule the next notification for tomorrow morning
+                            desiredHour = 8;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        } else if (hour >= 8) {
+                            // Morning, schedule the next notification for this evening
+                            desiredHour = 20;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        }
+                    }
+                    break;
+                case "中晚":
+                    if (hour == 14 && minute == 0|| hour == 20 && minute == 0) {
+                        showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        if (hour >= 20) {
+                            // Evening, schedule the next notification for tomorrow morning
+                            desiredHour = 14;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        } else if (hour >= 14) {
+                            // Afternoon, schedule the next notification for this evening
+                            desiredHour = 20;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        }
+                    }
+                    break;
+                case "早中晚":
+                    if (hour == 8 && minute == 0|| hour == 14 && minute == 0|| hour == 20 && minute == 0) {
+                        showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        if (hour >= 20 || hour < 8) {
+                            // Evening or early morning, schedule the next notification for this morning
+                            desiredHour = 8;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        } else if (hour >= 14) {
+                            // Afternoon, schedule the next notification for this evening
+                            desiredHour = 20;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        } else {
+                            // Morning, schedule the next notification for this afternoon
+                            desiredHour = 14;
+                            desiredMinute = 0;
+                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                        }
+                    }
+                    break;
+            }
+            scheduleNotification(desiredHour, desiredMinute, gasVolume);
+        }
+
+        private void scheduleNotification(int desiredHour, int desiredMinute, double gasVolume) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, desiredHour);
+            calendar.set(Calendar.MINUTE, desiredMinute);
+            calendar.set(Calendar.SECOND, 0);
+
+            long notificationTime = calendar.getTimeInMillis();
+
+            // If the desired time has already passed, schedule it for the next day
+            if (notificationTime < System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                notificationTime = calendar.getTimeInMillis();
+            }
+            // Create an Intent for the notification
+            Intent notificationIntent = new Intent(NotificationFrequency.this, NotificationReceiver.class);
+            notificationIntent.putExtra("gasVolume", gasVolume);
+
+            // Create a PendingIntent for the notification
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(NotificationFrequency.this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+            // Get the AlarmManager instance
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+            // Set the notification to trigger at the desired time
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, notificationTime, pendingIntent);
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTime, pendingIntent);
+            }
+        }
+        }
+
 
         private void showNotification(String message) {
             if (Build.VERSION.SDK_INT >= VERSION_CODES.O) {
@@ -197,4 +381,3 @@ public class NotificationFrequency extends AppCompatActivity {
             notificationManager.notify(1, builder.build());
         }
     }
-}

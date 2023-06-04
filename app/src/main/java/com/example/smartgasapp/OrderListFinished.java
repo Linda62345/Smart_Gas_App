@@ -149,24 +149,39 @@ public class OrderListFinished extends AppCompatActivity {
 
             }
         });
+
+//        orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //當備案下時
+//                String msg = data[position];
+//                Toast.makeText(OrderListFinished.this, msg, Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(OrderListFinished.this, SearchOrderResult.class);
+//                String Id = order_Id[position];
+//                static_order_id = Id;
+//                intent.putExtra("orderId", Id);
+//                startActivity(intent);
+//
+//            }
+//        });
     }
 
     private void setAdapter() {
         if(data!=null){
             ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
             orderList.setAdapter(adapter);
-            orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //當備案下時
-                    String msg=data[position];
-                    Toast.makeText(OrderListFinished.this,msg,Toast.LENGTH_SHORT).show();
-                  //  Intent intent = new Intent(OrderListFinished.this, OrderDetail.class);
-                  //  String Id = order_Id[position];
-                  //  static_order_id = Id;
-                  //  startActivity(intent);
-                }
-            });
+          orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              @Override
+              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                  //當備案下時
+                  String msg = data[position];
+                  Toast.makeText(OrderListFinished.this, msg, Toast.LENGTH_SHORT).show();
+                  Intent intent = new Intent(OrderListFinished.this, SearchOrderResultFinished.class);
+                  String Id = order_Id[position];
+                  static_order_id = Id;
+                  startActivity(intent);
+              }
+          });
         }
         else{
             Toast.makeText(this, "無訂單", Toast.LENGTH_SHORT).show();
@@ -219,19 +234,8 @@ public class OrderListFinished extends AppCompatActivity {
                 for(int i = 0; i<ja.length();i++){
                     jo = ja.getJSONObject(i);
                     String orderTime = jo.getString("Order_Time");
-                    String orderWeight = jo.getString("Order_weight");
-                    String orderType = jo.getString("Order_type");
 
-                    // Check the value of orderType and assign the corresponding string
-                    if (orderType.equals("0")) {
-                        orderType= "人員送達";
-                    } else if (orderType.equals("1")) {
-                        orderType = "自取";
-                    } else {
-                        // Handle other cases if necessary
-                        orderType= "錯誤";
-                    }
-                    data[i] = "訂購時間: " + orderTime + " - " + "瓦斯桶重量: "+orderWeight + "kg" +" - "+ "配送方式:" +orderType;
+                    data[i] = "訂購時間: " + orderTime + " - " + "已完成";
 
                     Log.i("order data",data[i]);
                     order_Id[i] = jo.getString("ORDER_Id");

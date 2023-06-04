@@ -39,6 +39,10 @@
             android:exported="false"
             android:label="訂單明細"/>
         <activity
+            android:name="com.example.smartgasapp.SearchOrderResultFinished"
+            android:exported="false"
+            android:label="訂單明細"/>
+        <activity
             android:name="com.example.smartgasapp.ConfirmDelivery"
             android:exported="false" />
         <activity

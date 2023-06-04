@@ -141,7 +141,7 @@
     <string name="CustomerName">姓名         :</string>
     <string name="deliveryAddress">配送地址 :</string>
     <string name="gasID_number">瓦斯桶ID :</string>
-    <string name="gasQuantity">瓦斯桶數量 :</string>
+    <string name="gasQuantity">瓦斯桶總數量 :</string>
 
     <string name="takeOrderTitle">搶單</string>
     <string name="title_home">首頁</string>

@@ -117,7 +117,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="90dp"
             android:onClick="save"
-            android:text="ENTER"
+            android:text="確認"
             android:textColor="#ffffff"
             android:textStyle="bold" />
 

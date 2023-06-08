@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -30,6 +31,7 @@ public class DeliveryMethod extends AppCompatActivity {
     private Button order;
     private RadioGroup radioGroup;
     private RadioButton master,myself;
+    public Spinner Time_Spinner;
     public static int delivery_method;
     private TextView textView,textTime;
     DatePickerDialog.OnDateSetListener pickerDialog;
@@ -47,7 +49,7 @@ public class DeliveryMethod extends AppCompatActivity {
 
 
         textView = findViewById(R.id.textView2);
-        textTime = findViewById(R.id.textView);
+        //textTime = findViewById(R.id.textView);
         radioGroup = findViewById(R.id.radioGroup);
         radioGroup.check(R.id.deliverOption);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -102,13 +104,14 @@ public class DeliveryMethod extends AppCompatActivity {
                 datePicker(v);
             }
         });
-        Time();
+
+        /*Time();
         textTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePicker(v);
             }
-        });
+        });*/
     }
     public void Date(){
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
@@ -161,6 +164,16 @@ public class DeliveryMethod extends AppCompatActivity {
                 calendar1.get(Calendar.MINUTE),
                 false);
         timePickerDialog.show();
+    }
+    public void TimePick(){
+        Time_Spinner = findViewById(R.id.Time);
+        //time = hourOfDay+":"+minute;
+        //Gas_Weight = Spinner_Weight.getSelectedItem().toString();
+        String Time_Select = Time_Spinner.getSelectedItem().toString();
+        String[] parts = Time_Select.split("-");
+        Time_Select = parts[0];
+        time = Time_Select;
+        Log.i("time",time);
     }
 
 }

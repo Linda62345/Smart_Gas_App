@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridLayout
+        android:id="@+id/grid2"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:minWidth="25px"
+        android:minHeight="25px">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="38.3dp"
+            android:text="-"
+            android:textColor="#ff000000"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="11.4dp"
+            android:layout_marginTop="6.6dp"
+            android:src="@drawable/baseline_person_24" />
+
+        <TextView
+            android:id="@+id/member_name"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="11.2dp"
+            android:text="莊＊婷 小姐"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ff000000"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+    </GridLayout>
+</LinearLayout>

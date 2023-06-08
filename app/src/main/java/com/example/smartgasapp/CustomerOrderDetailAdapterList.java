@@ -41,7 +41,7 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
         if(tvQuantity!=null&&tvType!=null&&tvWeight!=null){
             tvQuantity.setText("瓦斯桶數量: "+quantity);
             tvType.setText("瓦斯桶類別: "+type);
-            tvWeight.setText("瓦斯桶重量: "+weight);
+            tvWeight.setText("瓦斯桶規格: "+weight);
         }
         if(exchange_String!=null && exchange_String.equals("1") && Exchange!=null){
             Exchange.setText("已使用兌換");

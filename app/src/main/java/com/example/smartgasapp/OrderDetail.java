@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ public class OrderDetail extends AppCompatActivity {
     public JSONObject responseJSON;
     public JSONArray ja;
     public ListView listView;
+    public Spinner Time_Spinner;
     public int Gas_Quantity,orderDetailQuan,Gas_Delete=0;
     public static boolean edit=false;
     ArrayList<CustomerOrderDetail> customerOrderDetails;
@@ -178,7 +180,7 @@ public class OrderDetail extends AppCompatActivity {
                         Delivery_Method.setText("配送方式: 錯誤");
                     }
                     Expect_Date.setText("送達日期: "+date);
-                    Expect_Time.setText("送達時間: "+time);
+                    //Expect_Time.setText("送達時間: "+time);
                     Log.i("AL size", String.valueOf(customerOrderDetails.size()));
 
                     //時間可選擇
@@ -189,13 +191,14 @@ public class OrderDetail extends AppCompatActivity {
                             datePicker(v);
                         }
                     });
-                    Time();
+                    TimePick();
+                    /*Time();
                     Expect_Time.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             timePicker(v);
                         }
-                    });
+                    });*/
 
                     //殘氣結合訂單
                     RemainGas();
@@ -435,6 +438,17 @@ public class OrderDetail extends AppCompatActivity {
                 calendar1.get(Calendar.MINUTE),
                 false);
         timePickerDialog.show();
+    }
+
+    public void TimePick(){
+        Time_Spinner = findViewById(R.id.Time);
+        //time = hourOfDay+":"+minute;
+        //Gas_Weight = Spinner_Weight.getSelectedItem().toString();
+        String Time_Select = Time_Spinner.getSelectedItem().toString();
+        String[] parts = Time_Select.split("-");
+        Time_Select = parts[0];
+        time = Time_Select;
+        Log.i("time",time);
     }
 
     public CustomerOrderDetail GasExchangeOrder(){

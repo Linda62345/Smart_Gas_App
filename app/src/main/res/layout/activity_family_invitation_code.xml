@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
-                android:text="我的號碼："
+                android:text="我的ID："
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
-                android:text="您的邀請碼："
+                android:text="家人的Email："
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -79,8 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
-                android:hint="請輸入您的邀請碼"
-                android:inputType="textCapCharacters"
+                android:hint="請輸入家人的手機號碼"
+                android:inputType="phone"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="22sp"
@@ -146,77 +146,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view">
 
-
-            <GridLayout
-                android:id="@+id/grid1"
+            <ListView
+                android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minWidth="25px"
-                android:minHeight="25px">
-
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="38.3dp"
-                    android:text="-"
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="11.4dp"
-                    android:layout_marginTop="6.6dp"
-                    android:src="@drawable/baseline_person_24" />
-
-                <TextView
-                    android:layout_width="225dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="11.2dp"
-                    android:text="李＊琳 小姐"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#ff000000"
-                    android:textSize="22dp"
-                    android:textStyle="bold" />
-
-            </GridLayout>
-
-
-            <GridLayout
-                android:id="@+id/grid2"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:minWidth="25px"
-                android:minHeight="25px">
-
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="38.3dp"
-                    android:text="-"
-                    android:textColor="#ff000000"
-                    android:textSize="30dp" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="11.4dp"
-                    android:layout_marginTop="6.6dp"
-                    android:src="@drawable/baseline_person_24" />
-
-                <TextView
-                    android:layout_width="225dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="11.2dp"
-                    android:text="莊＊婷 小姐"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#ff000000"
-                    android:textSize="22dp"
-                    android:textStyle="bold" />
-
-            </GridLayout>
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:animationCache="false"
+                android:divider="@null"
+                android:scrollingCache="false"
+                android:smoothScrollbar="true"/>
         </LinearLayout>
 
     </LinearLayout>

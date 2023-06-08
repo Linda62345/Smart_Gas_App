@@ -26,7 +26,7 @@
             android:layout_marginStart="34dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="34dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"/>
 
         <TextView
             android:id="@+id/gasCompanyTitle"

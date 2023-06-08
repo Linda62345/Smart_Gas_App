@@ -59,6 +59,15 @@
         <item>早中晚</item>
     </string-array>
 
+    <string-array name="Order_Time_Option">
+        <item>8:00-10:00</item>
+        <item>10:00-12:00</item>
+        <item>12:00-14:00</item>
+        <item>14:00-16:00</item>
+        <item>16:00-18:00</item>
+        <item>18:00-20:00</item>
+    </string-array>
+
 
     <string-array name="notificationTime_options">
         <item>早上 （6AM - 12 PM)</item>

@@ -197,7 +197,6 @@ public class GasExchange extends AppCompatActivity {
                                     android.R.layout.simple_spinner_item, companyList);
                             companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             Company.setAdapter(companyAdapter);
-
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

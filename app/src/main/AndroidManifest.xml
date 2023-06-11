@@ -171,6 +171,10 @@
         <activity
             android:name="com.example.smartgasapp.MainActivity"
             android:exported="true"></activity>
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

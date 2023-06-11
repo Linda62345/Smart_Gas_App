@@ -250,8 +250,8 @@ public class NotificationFrequency extends AppCompatActivity {
 
             switch (selectedFrequency) {
                 case "早中":
-                    if (gasVolume < threshold && (hour == 8 && minute == 0|| hour == 14 && minute == 00)) {
-                        showNotification("Your gas volume is less than " + threshold + "kg");
+                    if (gasVolume < threshold && (hour == 8 && minute == 00|| hour == 00 && minute == 50)) {
+                        showNotification("您的瓦斯容量小於" + threshold + "kg");
                         if (hour >= 14 || (hour == 13 && minute >= 30)) {
                             // Afternoon, schedule the next notification for tomorrow morning
                             desiredHour = 8;
@@ -259,8 +259,8 @@ public class NotificationFrequency extends AppCompatActivity {
                             showNotification("您的瓦斯容量小於" + threshold + "公斤");
                         } else if (hour >= 8 && minute == 0) {
                             // Morning, schedule the next notification for this afternoon
-                            desiredHour = 14;
-                            desiredMinute = 00;
+                            desiredHour = 00;
+                            desiredMinute = 50;
                             showNotification("您的瓦斯容量小於" + threshold + "公斤");
                         }
                     }

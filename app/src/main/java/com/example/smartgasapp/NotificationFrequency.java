@@ -44,7 +44,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
+import android.util.Pair;
 
 public class NotificationFrequency extends AppCompatActivity {
 
@@ -52,12 +54,15 @@ public class NotificationFrequency extends AppCompatActivity {
     private static RadioButton radioButton;
     private static RadioButton two;
     private static RadioButton three;
-    public String Customer_Id;
+    public String Customer_Id, result;
     public static int gasVolumeLeft;
     private Spinner spinner;
     private String selectedFrequency;
     private Handler handler;
     private Runnable notificationRunnable;
+    public static ArrayList<Integer> family_Id;
+
+    public JSONArray ja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,7 @@ public class NotificationFrequency extends AppCompatActivity {
                 }
             }
         });
+        family_Id = new ArrayList<Integer>();
         startNotificationCheck();
     }
 
@@ -128,7 +134,7 @@ public class NotificationFrequency extends AppCompatActivity {
             if (radioButton == two || radioButton == three) {
                 new SendRequest().execute(Customer_Id);
             }
-            new SendRequest().execute(Customer_Id);
+
         } catch (Exception e) {
             Log.i("Frequency JSON Exception", e.toString());
         }
@@ -136,12 +142,17 @@ public class NotificationFrequency extends AppCompatActivity {
 
     private class SendRequest extends AsyncTask<String, Void, Double> {
         protected Double doInBackground(String... params) {
+
             String response = "";
             double gasVolume = 0.0;
+            double dep_cus_id = 0.0;
             try {
                 String Customer_Id = params[0];
                 String Showurl = "http://10.0.2.2/SQL_Connect/FrequencyNotification.php";
+                String ShowUrl1 = "http://10.0.2.2/SQL_Connect/show_Dep_Cus_Id.php";
                 URL url = new URL(Showurl);
+                URL url1 = new URL(ShowUrl1);
+
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -171,27 +182,70 @@ public class NotificationFrequency extends AppCompatActivity {
                     httpURLConnection.disconnect();
                     Log.i("result", "[" + result + "]");
 
-//                    JSONArray responseJSONArray = new JSONArray(result.toString());
                     JSONObject gasData = new JSONObject(result.toString());
-                    gasVolumeLeft = gasData.getInt("gasVolumeLeft");
-                    Log.i("GAS_Weight_Empty", String.valueOf(gasVolumeLeft));
+                    JSONArray gasVolumeLeft = gasData.getJSONArray("gasVolumeLeft");
+                    for (int i = 0; i < gasVolumeLeft.length(); i++) {
+                        gasVolume = gasVolumeLeft.getDouble(i);
+                        Log.i("GAS_Weight_Empty", String.valueOf(gasVolume));
 
-                    if(gasData.has("gasVolumeLeft")){
-                        gasVolume = gasData.getDouble("gasVolumeLeft");
+                        int customerID = LoginActivity.getCustomerID();
+
+                        if (gasVolumeLeft.length() > 0) {
+                            if (radioButton == two && gasVolume < 2.5) {
+                                //showNotification("Your gas volume is less than 2.5 kg");
+                                checkAndNotifyForFrequency(gasVolume);
+                            } else if (radioButton == three && gasVolume < 3.5) {
+                                //showNotification("Your gas volume is less than 3.5 kg");
+                                checkAndNotifyForFrequency(gasVolume);
+                            }
+                        } else {
+                            Log.e("NotificationFrequency", "No gasVolumeLeft");
+                        }
                     }
 
-                    if (gasVolumeLeft > 0) {
-                        gasVolume = Double.parseDouble(String.valueOf(gasVolumeLeft));
-                        if (radioButton == two && gasVolume < 2.5) {
-                            //showNotification("Your gas volume is less than 2.5 kg");
-                            checkAndNotifyForFrequency(gasVolume);
-                        } else if (radioButton == three && gasVolume < 3.5) {
-                            //showNotification("Your gas volume is less than 3.5 kg");
+                    HttpURLConnection httpURLConnection1 = (HttpURLConnection) url1.openConnection();
+                    httpURLConnection1.setRequestMethod("POST");
+                    httpURLConnection1.setDoOutput(true);
+                    httpURLConnection1.setDoInput(true);
+                    OutputStream outputStream1 = httpURLConnection1.getOutputStream();
+                    BufferedWriter bufferedWriter1 = new BufferedWriter(new OutputStreamWriter(outputStream1, "UTF-8"));
+
+                    String post_data1 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
+                    Log.i("post_data1: ", post_data1);
+
+                    bufferedWriter1.write(post_data1);
+                    bufferedWriter1.flush();
+                    bufferedWriter1.close();
+                    outputStream1.close();
+
+                    int statusCode1 = httpURLConnection1.getResponseCode();
+                    if (statusCode1 == HttpURLConnection.HTTP_OK) {
+                        InputStream inputStream1 = httpURLConnection1.getInputStream();
+                        BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(inputStream1, "iso-8859-1"));
+                        String line1 = "";
+                        StringBuilder result1 = new StringBuilder();
+                        while ((line1 = bufferedReader1.readLine()) != null) {
+                            result1.append(line1);
+                        }
+                        bufferedReader1.close();
+                        inputStream1.close();
+                        httpURLConnection1.disconnect();
+                        Log.i("result", "[" + result1 + "]");
+
+                    JSONObject gasData1 = new JSONObject(result1.toString());
+                    JSONArray dep_id = gasData1.getJSONArray("dep_id");
+                    int customerID = LoginActivity.getCustomerID();
+                    for (int i = 0; i < dep_id.length(); i++) {
+                        dep_cus_id = dep_id.getDouble(i);
+                        family_Id.add((int) dep_cus_id);
+                        Log.i("Dep_Cus_Id", String.valueOf(dep_cus_id));
+                        if (customerID == dep_cus_id) {
                             checkAndNotifyForFrequency(gasVolume);
                         }
-                    } else {
-                        Log.e("NotificationFrequency", "No gasVolumeLeft");
                     }
+                    }
+
+
 
                 } else {
                     Log.e("Frequency HTTP", "HTTP Error: " + statusCode);
@@ -222,10 +276,9 @@ public class NotificationFrequency extends AppCompatActivity {
                 } catch (JSONException ex) {
                     Log.e("Frequency Exception", "JSONException: " + ex.getMessage());
                 }
-
                 return gasVolume;
             }
-            return gasVolume;
+           return gasVolume;
         }
         protected void onPostExecute(Double gasVolume) {
             // Call the method to check and notify for frequency with the retrieved gasVolume value
@@ -234,94 +287,95 @@ public class NotificationFrequency extends AppCompatActivity {
 
 
         private void checkAndNotifyForFrequency(double gasVolume) {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
 
-            int desiredHour = hour;
-            int desiredMinute = minute;
+                    Calendar calendar = Calendar.getInstance();
+                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minute = calendar.get(Calendar.MINUTE);
 
-            double threshold = 0.0;
-            if (radioButton == two) {
-                threshold = 2.5;
-            } else if (radioButton == three) {
-                threshold = 3.5;
+                    int desiredHour = hour;
+                    int desiredMinute = minute;
+
+                    double threshold = 0.0;
+                    if (radioButton == two) {
+                        threshold = 2.5;
+                    } else if (radioButton == three) {
+                        threshold = 3.5;
+                    }
+
+                    switch (selectedFrequency) {
+                        case "早中":
+                            if (gasVolume < threshold && (hour == 20 && minute == 22 || hour == 20 && minute == 00)) {
+                                showNotification("您的瓦斯容量小於" + threshold + "kg");
+                                if (hour >= 14 || (hour == 13 && minute >= 30)) {
+                                    // Afternoon, schedule the next notification for tomorrow morning
+                                    desiredHour = 20;
+                                    desiredMinute = 22;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                } else if (hour >= 8 && minute == 0) {
+                                    // Morning, schedule the next notification for this afternoon
+                                    desiredHour = 20;
+                                    desiredMinute = 00;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                }
+                            }
+                            break;
+                        case "早晚":
+                            if (gasVolume < threshold && (hour == 8 && minute == 00 || hour == 20 && minute == 00)) {
+                                showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                if (hour >= 19 || (hour == 18 && minute >= 55)) {
+                                    // Evening, schedule the next notification for tomorrow morning
+                                    desiredHour = 8;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                } else if (hour >= 8) {
+                                    // Morning, schedule the next notification for this evening
+                                    desiredHour = 20;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                }
+                            }
+                            break;
+                        case "中晚":
+                            if (gasVolume < threshold && (hour == 14 && minute == 00 || hour == 20 && minute == 00)) {
+                                showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                if (hour >= 20) {
+                                    // Evening, schedule the next notification for tomorrow morning
+                                    desiredHour = 14;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                } else if (hour >= 14) {
+                                    // Afternoon, schedule the next notification for this evening
+                                    desiredHour = 20;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                }
+                            }
+                            break;
+                        case "早中晚":
+                            if (gasVolume < threshold && (hour == 8 && minute == 00 || hour == 14 && minute == 00 || hour == 20 && minute == 00)) {
+                                showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                if (hour >= 20 || hour < 8) {
+                                    // Evening or early morning, schedule the next notification for this morning
+                                    desiredHour = 8;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                } else if (hour >= 14) {
+                                    // Afternoon, schedule the next notification for this evening
+                                    desiredHour = 20;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                } else {
+                                    // Morning, schedule the next notification for this afternoon
+                                    desiredHour = 14;
+                                    desiredMinute = 0;
+                                    showNotification("您的瓦斯容量小於" + threshold + "公斤");
+                                }
+                            }
+                            break;
+                    }
+                    scheduleNotification(desiredHour, desiredMinute, gasVolume);
+
             }
-
-            switch (selectedFrequency) {
-                case "早中":
-                    if (gasVolume < threshold && (hour == 8 && minute == 00|| hour == 00 && minute == 50)) {
-                        showNotification("您的瓦斯容量小於" + threshold + "kg");
-                        if (hour >= 14 || (hour == 13 && minute >= 30)) {
-                            // Afternoon, schedule the next notification for tomorrow morning
-                            desiredHour = 8;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        } else if (hour >= 8 && minute == 0) {
-                            // Morning, schedule the next notification for this afternoon
-                            desiredHour = 00;
-                            desiredMinute = 50;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        }
-                    }
-                    break;
-                case "早晚":
-                    if (gasVolume < threshold && (hour == 8 && minute == 00 || hour == 20 && minute == 00)) {
-                        showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        if (hour >= 19 || (hour == 18 && minute >= 55)) {
-                            // Evening, schedule the next notification for tomorrow morning
-                            desiredHour = 8;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        } else if (hour >= 8) {
-                            // Morning, schedule the next notification for this evening
-                            desiredHour = 20;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        }
-                    }
-                    break;
-                case "中晚":
-                    if (gasVolume < threshold && (hour == 14 && minute == 00|| hour == 20 && minute == 00)) {
-                        showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        if (hour >= 20) {
-                            // Evening, schedule the next notification for tomorrow morning
-                            desiredHour = 14;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        } else if (hour >= 14) {
-                            // Afternoon, schedule the next notification for this evening
-                            desiredHour = 20;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        }
-                    }
-                    break;
-                case "早中晚":
-                    if (gasVolume < threshold && (hour == 8 && minute == 00|| hour == 14 && minute == 00|| hour == 20 && minute == 00)) {
-                        showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        if (hour >= 20 || hour < 8) {
-                            // Evening or early morning, schedule the next notification for this morning
-                            desiredHour = 8;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        } else if (hour >= 14) {
-                            // Afternoon, schedule the next notification for this evening
-                            desiredHour = 20;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        } else {
-                            // Morning, schedule the next notification for this afternoon
-                            desiredHour = 14;
-                            desiredMinute = 0;
-                            showNotification("您的瓦斯容量小於" + threshold + "公斤");
-                        }
-                    }
-                    break;
-            }
-            scheduleNotification(desiredHour, desiredMinute, gasVolume);
-        }
-
         private void scheduleNotification(int desiredHour, int desiredMinute, double gasVolume) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, desiredHour);
@@ -352,8 +406,6 @@ public class NotificationFrequency extends AppCompatActivity {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTime, pendingIntent);
             }
         }
-        }
-
 
         private void showNotification(String message) {
             if (Build.VERSION.SDK_INT >= VERSION_CODES.O) {
@@ -381,3 +433,4 @@ public class NotificationFrequency extends AppCompatActivity {
             notificationManager.notify(1, builder.build());
         }
     }
+}

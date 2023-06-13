@@ -1,5 +1,6 @@
 package com.example.smartgasapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -50,9 +52,10 @@ public class FamilyInvitationCode extends AppCompatActivity {
     public Button save;
     public JSONObject responseJSON;
     public JSONArray ja;
-    public ListView listView;
-    public ArrayList<String> name;
+    public static ListView listView;
+    public static ArrayList<String> name;
     public static ArrayList<Integer> family_Id;
+    static LoginActivity loginActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class FamilyInvitationCode extends AppCompatActivity {
         name = new ArrayList<String>();
         family_Id = new ArrayList<Integer>();
 
-        LoginActivity loginActivity = new LoginActivity();
+        loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
         myId = findViewById(R.id.changable_userID);
         myId.setText("ID: "+Customer_ID);
@@ -86,21 +89,23 @@ public class FamilyInvitationCode extends AppCompatActivity {
             }
         });
 
+
         save = findViewById(R.id.confirm_exchange_button);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //還要去確認是否有這個id存在
-
                 //為了讓加入的時候有反應
                 name = new ArrayList<String>();
                 family_Id = new ArrayList<Integer>();
                 SaveFamilyMember();
-                dataonlist();
             }
         });
 
+        //Update Ad
         dataonlist();
+
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
@@ -133,26 +138,32 @@ public class FamilyInvitationCode extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                showData("http://10.0.2.2/SQL_Connect/Show_FamilyMember.php",Customer_ID);
+                showData("http://10.0.2.2/SQL_Connect/Show_FamilyMember_2.php",Customer_ID);
                 try {
-                    ja = new JSONArray(result);
-                    if(ja!=null){
-                        JSONObject jo = null;
-                        Log.i("JA Size", String.valueOf(ja.length()));
-                        for(int i = 0;i<ja.length();i++){
-                            jo = ja.getJSONObject(i);
-                            name.add(jo.getString("Customer_Name"));
-                            family_Id.add(jo.getInt("Dep_Cus_Id"));
-                        }
-                        name.add(ja.getJSONObject(0).getString("Customer_Id_Name"));
-                        family_Id.add(ja.getJSONObject(0).getInt("Customer_Id"));
+                    Log.i("family result",result);
+                    if(result.equals("failure")){
+                        Toast.makeText(getApplicationContext(), "無關聯家人", Toast.LENGTH_LONG).show();
                     }
-                    Log.i("name size", String.valueOf(name.size()));
-                    Log.i("family id size",String.valueOf(family_Id.size()));
-
-                    if(name.size()>0){
-                        FamilyMemberAdapterList adapterList = new FamilyMemberAdapterList(getApplicationContext(),R.layout.adapter_family_member,name);
-                        listView.setAdapter(adapterList);
+                    else if(result!=null){
+                        ja = new JSONArray(result);
+                        if(ja!=null){
+                            JSONObject jo = null;
+                            Log.i("JA Size", String.valueOf(ja.length()));
+                            for(int i = 0;i<ja.length();i++){
+                                jo = ja.getJSONObject(i);
+                                name.add(jo.getString("Customer_Name"));
+                                family_Id.add(jo.getInt("Customer_Id"));
+                            }
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (name.size() > 0) {
+                                    FamilyMemberAdapterList adapterList = new FamilyMemberAdapterList(getApplicationContext(), R.layout.adapter_family_member, name);
+                                    listView.setAdapter(adapterList);
+                                }
+                            }
+                        });
                     }
                 }
                 catch (Exception e){
@@ -161,24 +172,48 @@ public class FamilyInvitationCode extends AppCompatActivity {
             }
         });
         thread.start();
+
     }
-    public void SaveFamilyMember(){
-        //customer, id
-        //totalVolume
-        //update + or insert
+    public static void updateDelete(ArrayList<String> name, ArrayList<Integer> FI, int id, Context context) {
         try {
-            String URL = "http://10.0.2.2/SQL_Connect/Save_FamilyMember.php";
+            if (id == loginActivity.getCustomerID()) {
+                name.clear();
+                FI.clear();
+            }
+
+            FamilyMemberAdapterList adapter = (FamilyMemberAdapterList) listView.getAdapter();
+            adapter.clear();
+            adapter.addAll(name);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            Log.i("Update", e.toString());
+        }
+    }
+
+
+    public void SaveFamilyMember(){
+        try {
+            String URL = "http://10.0.2.2/SQL_Connect/Save_FamilyMember_2.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    Log.i("Family response",response);
                     if (response.equals("success")) {
                         Log.i("Save Family Member", "Successfully store family member.");
                         Toast.makeText(getApplicationContext(), "家人新增成功", Toast.LENGTH_LONG).show();
                         FamilyMember.setText("");
                         //如果新增成功 要更新listview的資料
-                        showData("http://10.0.2.2/SQL_Connect/Show_FamilyMember.php",Customer_ID);
+                        Log.i("Save Family", response);
+                        //畫面更新
+                        dataonlist();
                     } else if (response.equals("failure")) {
-                        Log.i("Family Member failure", "Something went wrong!");
+                        Log.i("Family Member failure", response);
+                    }
+                    else if(response.equals("No Customer")){
+                        Toast.makeText(getApplicationContext(), "此號碼不存在", Toast.LENGTH_LONG).show();
+                    }
+                    else if(response.contains("Duplicate entry")){
+                        Toast.makeText(getApplicationContext(), "此號碼已加入群組", Toast.LENGTH_LONG).show();
                     }
                 }}, new Response.ErrorListener() {
                 @Override
@@ -232,4 +267,5 @@ public class FamilyInvitationCode extends AppCompatActivity {
             Log.i("show family Exception",e.toString());
         }
     }
+
 }

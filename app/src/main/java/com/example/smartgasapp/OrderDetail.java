@@ -59,7 +59,7 @@ public class OrderDetail extends AppCompatActivity {
     public Spinner Time_Spinner;
     public int Gas_Quantity,orderDetailQuan,Gas_Delete=0;
     public static boolean edit=false;
-    ArrayList<CustomerOrderDetail> customerOrderDetails;
+    public static ArrayList<CustomerOrderDetail> customerOrderDetails;
     DatePickerDialog.OnDateSetListener pickerDialog;
     Calendar calendar = Calendar.getInstance();
     TimePickerDialog.OnTimeSetListener timeDialog;
@@ -89,8 +89,10 @@ public class OrderDetail extends AppCompatActivity {
         Log.i("gasExchange.Gas_Quantity", String.valueOf(gasExchange.Gas_Quantity));
         gasExchange = new GasExchange();
 
-        Thread thread = new Thread(new Runnable() {
+        CustomerOrderDetail od = new CustomerOrderDetail("數量","類別","規格");
+        customerOrderDetails.add(od);
 
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try  {
@@ -127,7 +129,7 @@ public class OrderDetail extends AppCompatActivity {
                         //顯示訂單詳細資料
                         customerOrderDetails = new ArrayList<>();
                         setGas_Quantity();
-                        edit=false;
+                        //edit=false;
                     }
                     else{
                         String Total_time = "";
@@ -516,7 +518,12 @@ public class OrderDetail extends AppCompatActivity {
                         });
                         //記所兌換的容量
                         Gas_Delete = gasExchange.Gas_Quantity*Integer.parseInt(gasExchange.Gas_Weight.substring(0, gasExchange.Gas_Weight.length() - 2));
-                        Log.i("Gas_Delete", String.valueOf(Gas_Delete));
+
+                    }
+                    else if(orderDetailQuan<gasExchange.Gas_Quantity){
+                        gasExchange.Gas_Quantity -= orderDetailQuan;
+                        customerOrderDetails.get(i).setExchange("1");
+                        Gas_Delete = orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight.substring(0, gasExchange.Gas_Weight.length() - 2));
                     }
                     else{
                         runOnUiThread(new Runnable() {

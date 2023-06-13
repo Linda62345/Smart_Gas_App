@@ -241,7 +241,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/button_border"
                 android:padding="19dp"
-                android:text="歷史用量與瓦斯桶查詢"
+                android:text="歷史用量"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 

@@ -69,10 +69,10 @@ public class GasExchange extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
-        Company = findViewById(R.id.gasCompany_spinner);
+        //Company = findViewById(R.id.gasCompany_spinner);
         requestQueue = Volley.newRequestQueue(this);
         //瓦斯行選擇
-        Company();
+        //Company();
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
@@ -98,7 +98,7 @@ public class GasExchange extends AppCompatActivity {
 
         thread.start();
 
-        Spinner_Type = findViewById(R.id.exchange_option_dropdown);
+        //Spinner_Type = findViewById(R.id.exchange_option_dropdown);
         Spinner_Weight = findViewById(R.id.exchange_weight_dropdown);
         Get_Quantity = findViewById(R.id.editTextNumber);
         next = findViewById(R.id.confirm_exchange_button);
@@ -182,7 +182,6 @@ public class GasExchange extends AppCompatActivity {
     public void Company(){
         String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
         JsonObjectRequest jsonObjectRequest;
-
         {
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                     URL1, null, new Response.Listener<JSONObject>() {
@@ -257,14 +256,14 @@ public class GasExchange extends AppCompatActivity {
     }
     public void getValue(){
         //int quantity,String type,String weight
-        Gas_Type = Spinner_Type.getSelectedItem().toString();
+        /*Gas_Type = Spinner_Type.getSelectedItem().toString();
         if(Gas_Type.equals("傳統鋼瓶")){
             Gas_Type = "tradition";
         }
         if(Gas_Type.equals("複合材料")){
             Gas_Type = "Composite";
         }
-        Log.i("Exchange Type",Gas_Type);
+        Log.i("Exchange Type",Gas_Type);*/
         Gas_Weight = Spinner_Weight.getSelectedItem().toString();
         Log.i("Exchange Weight",Gas_Weight);
         Gas_Quantity = Integer.parseInt(Get_Quantity.getText().toString().trim());

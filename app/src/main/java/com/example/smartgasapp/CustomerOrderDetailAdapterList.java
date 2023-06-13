@@ -39,9 +39,20 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
         TextView Exchange = (TextView) convertView.findViewById(R.id.exchange);
 
         if(tvQuantity!=null&&tvType!=null&&tvWeight!=null){
-            tvQuantity.setText("瓦斯桶數量: "+quantity);
-            tvType.setText("瓦斯桶類別: "+type);
-            tvWeight.setText("瓦斯桶規格: "+weight);
+            tvQuantity.setText(quantity);
+            if(type.equals("Composite")){
+                tvType.setText("複合式鋼瓶");
+            }
+            else if(type.equals("tradition")){
+                tvType.setText("傳統鋼瓶");
+            }
+            else if(type.equals("類別")){
+                tvType.setText("類別");
+            }
+            else{
+                tvType.setText("資料庫檢查");
+            }
+            tvWeight.setText(weight);
         }
         if(exchange_String!=null && exchange_String.equals("1") && Exchange!=null){
             Exchange.setText("已使用兌換");

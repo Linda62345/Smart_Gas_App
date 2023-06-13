@@ -12,6 +12,7 @@
         android:minHeight="25px">
 
         <Button
+            android:id="@+id/deleteButton"
             android:layout_width="50dp"
             android:layout_height="60dp"
             android:layout_marginLeft="38.3dp"

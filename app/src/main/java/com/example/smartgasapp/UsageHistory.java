@@ -98,6 +98,7 @@ public class UsageHistory extends AppCompatActivity {
                     String[] selectedSensorParts = selectedSensor.split(" ");
                     selectedSensorId = selectedSensorParts[1];
                     Log.i("seonsor_id",selectedSensorId);
+
                     //瓦斯桶容量
                     iot_gas1.setText(selectedSensorParts[3]);
                     iot_gas2.setText(selectedSensorParts[3]);
@@ -105,9 +106,6 @@ public class UsageHistory extends AppCompatActivity {
                     //瓦斯桶記錄sensor_history
                     getData("http://10.0.2.2/SQL_Connect/iot_history.php",selectedSensorId);
                     Log.i("iot history",result);
-                    history = new JSONArray(result);
-                    //圖表
-                    dataValue();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -125,6 +123,9 @@ public class UsageHistory extends AppCompatActivity {
                 Log.i("seonsor_id",selectedSensorId);
                 iot_gas1.setText(selectedSensorParts[3]);
                 iot_gas2.setText(selectedSensorParts[3]);
+                //更新圖表
+                //瓦斯桶記錄sensor_history
+                getData("http://10.0.2.2/SQL_Connect/iot_history.php",selectedSensorId);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -186,6 +187,16 @@ public class UsageHistory extends AppCompatActivity {
             httpURLConnection.disconnect();
             Log.i("result", "[" + result + "]");
 
+            // Process the retrieved data
+            history = new JSONArray(result);
+
+            // Update the graph
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dataValue();
+                }
+            });
         } catch (Exception e) {
             Log.i("iot Exception", e.toString());
         }

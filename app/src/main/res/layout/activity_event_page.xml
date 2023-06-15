@@ -5,74 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CompositeGasMenu"
+    tools:context=".EventPage"
     android:background="@color/white">
 
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <ListView
+        android:id="@+id/eventList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animationCache="false"
+        android:divider="@null"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="30dp">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_button_border"
-                android:drawableStart="@drawable/baseline_event_24"
-                android:padding="10dp"
-                android:text="10/1 强檔促銷"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_button_border"
-                android:drawableStart="@drawable/baseline_event_busy_24"
-                android:padding="10dp"
-                android:text="10/10 國慶放假"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_button_border"
-                android:drawableStart="@drawable/baseline_info_24"
-                android:padding="10dp"
-                android:text="每半年定期檢查"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_button_border"
-                android:drawableStart="@drawable/baseline_event_24"
-                android:padding="10dp"
-                android:text="10/1 光棍節促銷"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

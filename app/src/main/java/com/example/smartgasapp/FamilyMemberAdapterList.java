@@ -91,6 +91,7 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
                         Log.i("delete size", String.valueOf(familyInvitationCode.name.size()));
                         //如何在此更新版面
                         //here
+                        
                     } else if (response.equals("failure")) {
                         Log.i("D Family Member failure", response);
                     }

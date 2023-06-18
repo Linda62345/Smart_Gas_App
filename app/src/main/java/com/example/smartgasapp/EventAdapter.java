@@ -11,22 +11,26 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class EventAdapter extends ArrayAdapter<String> {
+public class EventAdapter extends ArrayAdapter<AnnouncementList> {
     int mresource;
     private Context mContext;
-    public EventAdapter (Context context, int resource, ArrayList<String> objects) {
+    public EventAdapter (Context context, int resource, ArrayList<AnnouncementList> objects) {
         super(context,resource,objects);
         mresource = resource;
         mContext = context;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        String name = getItem(position);
+        String name = getItem(position).getName();
+        String type = getItem(position).getType();
+        String des = getItem(position).getDescription();
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mresource,parent,false);
-        TextView TV_name = (TextView) convertView.findViewById(R.id.announcement_text);
+        TextView Event_name = (TextView) convertView.findViewById(R.id.announcement_text);
+
         if(name!=null){
-            TV_name.setText(name);
+            Event_name.setText(name);
         }
         return  convertView;
     }

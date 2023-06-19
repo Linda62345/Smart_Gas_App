@@ -9,9 +9,9 @@
         android:layout_width="350dp"
         android:layout_height="475dp"
         android:background="@drawable/border"
-        android:gravity="center"
         android:padding="5dp"
         tools:ignore="MissingConstraints"
+        android:orientation="vertical"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="64dp">
 
@@ -19,26 +19,39 @@
             android:id="@+id/diss"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="end"
             android:gravity="center"
+            android:layout_gravity="end"
             android:text="X"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginEnd="-300dp"/>
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/name"
+            android:text="test"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-150dp"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="20dp"/>
+            android:textSize="24sp"/>
+        <View
+            android:layout_width="320dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="#b5b5b5" />
         <TextView
             android:id="@+id/des"
+            android:text="test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-100dp"
             android:textColor="@color/black"
-            android:textSize="15dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="15sp"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

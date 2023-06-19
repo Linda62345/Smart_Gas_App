@@ -26,7 +26,6 @@
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/name"
-            android:text="test"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
@@ -44,7 +43,6 @@
             android:background="#b5b5b5" />
         <TextView
             android:id="@+id/des"
-            android:text="test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"

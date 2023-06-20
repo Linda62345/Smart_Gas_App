@@ -54,7 +54,7 @@ public class NotificationFrequency extends AppCompatActivity {
     private static RadioButton radioButton;
     private static RadioButton two;
     private static RadioButton three;
-    public String Customer_Id, result;
+    public String Customer_Id,Family_Id, result;
     public static int gasVolumeLeft;
     private Spinner spinner;
     private String selectedFrequency;
@@ -145,63 +145,102 @@ public class NotificationFrequency extends AppCompatActivity {
 
             String response = "";
             double gasVolume = 0.0;
-            double dep_cus_id = 0.0;
+            double fam_id = 0.0;
             try {
                 String Customer_Id = params[0];
                 String Showurl = "http://10.0.2.2/SQL_Connect/FrequencyNotification.php";
-                String ShowUrl1 = "http://10.0.2.2/SQL_Connect/show_Dep_Cus_Id.php";
+                String ShowUrl1 = "http://10.0.2.2/SQL_Connect/family_member.php";
+                String ShowUrl2 = "http://10.0.2.2/SQL_Connect/find_family_id.php";
                 URL url = new URL(Showurl);
                 URL url1 = new URL(ShowUrl1);
+                URL url2 = new URL(ShowUrl2);
+                HttpURLConnection httpURLConnection3 = (HttpURLConnection) url2.openConnection();
+                httpURLConnection3.setRequestMethod("POST");
+                httpURLConnection3.setDoOutput(true);
+                httpURLConnection3.setDoInput(true);
+                OutputStream outputStream3 = httpURLConnection3.getOutputStream();
+                BufferedWriter bufferedWriter3 = new BufferedWriter(new OutputStreamWriter(outputStream3, "UTF-8"));
 
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data3 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
+                Log.i("post_data: ", post_data3);
 
-                String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
-                Log.i("post_data: ", post_data);
+                bufferedWriter3.write(post_data3);
+                bufferedWriter3.flush();
+                bufferedWriter3.close();
+                outputStream3.close();
 
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-
-                int statusCode = httpURLConnection.getResponseCode();
-                if (statusCode == HttpURLConnection.HTTP_OK) {
-                    InputStream inputStream = httpURLConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                    String line = "";
-                    StringBuilder result = new StringBuilder();
-                    while ((line = bufferedReader.readLine()) != null) {
-                        result.append(line);
+                int statusCode3 = httpURLConnection3.getResponseCode();
+                int statusCode = 0;
+                if (statusCode3 == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream3 = httpURLConnection3.getInputStream();
+                    BufferedReader bufferedReader3 = new BufferedReader(new InputStreamReader(inputStream3, "iso-8859-1"));
+                    String line3 = "";
+                    StringBuilder result3 = new StringBuilder();
+                    while ((line3 = bufferedReader3.readLine()) != null) {
+                        result3.append(line3);
                     }
-                    bufferedReader.close();
-                    inputStream.close();
-                    httpURLConnection.disconnect();
-                    Log.i("result", "[" + result + "]");
+                    bufferedReader3.close();
+                    inputStream3.close();
+                    httpURLConnection3.disconnect();
+                    Log.i("result3", "[" + result3 + "]");
 
-                    JSONObject gasData = new JSONObject(result.toString());
-                    JSONArray gasVolumeLeft = gasData.getJSONArray("gasVolumeLeft");
-                    for (int i = 0; i < gasVolumeLeft.length(); i++) {
-                        gasVolume = gasVolumeLeft.getDouble(i);
-                        Log.i("GAS_Weight_Empty", String.valueOf(gasVolume));
+                    JSONObject responseJSON = new JSONObject(String.valueOf(result3));
+                    Family_Id = String.valueOf(responseJSON.getInt("Family_Id"));
+                    Log.i("Family_ID", Family_Id);
 
-                        int customerID = LoginActivity.getCustomerID();
 
-                        if (gasVolumeLeft.length() > 0) {
-                            if (radioButton == two && gasVolume < 2.5) {
-                                //showNotification("Your gas volume is less than 2.5 kg");
-                                checkAndNotifyForFrequency(gasVolume);
-                            } else if (radioButton == three && gasVolume < 3.5) {
-                                //showNotification("Your gas volume is less than 3.5 kg");
-                                checkAndNotifyForFrequency(gasVolume);
-                            }
-                        } else {
-                            Log.e("NotificationFrequency", "No gasVolumeLeft");
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    OutputStream outputStream = httpURLConnection.getOutputStream();
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                    String post_data = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
+                    Log.i("familyId: ", post_data);
+
+                    bufferedWriter.write(post_data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+
+
+                    statusCode = httpURLConnection.getResponseCode();
+                    if (statusCode == HttpURLConnection.HTTP_OK) {
+                        InputStream inputStream = httpURLConnection.getInputStream();
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                        String line = "";
+                        StringBuilder result = new StringBuilder();
+                        while ((line = bufferedReader.readLine()) != null) {
+                            result.append(line);
                         }
-                    }
+                        bufferedReader.close();
+                        inputStream.close();
+                        httpURLConnection.disconnect();
+                        Log.i("result", "[" + result + "]");
+
+
+                        JSONObject gasData = new JSONObject(result.toString());
+                        JSONArray gasVolumeLeft = gasData.getJSONArray("gasVolumeLeft");
+                        for (int i = 0; i < gasVolumeLeft.length(); i++) {
+                            gasVolume = gasVolumeLeft.getDouble(i);
+                            Log.i("GAS_Weight_Empty", String.valueOf(gasVolume));
+
+                            int customerID = LoginActivity.getCustomerID();
+
+                            if (gasVolumeLeft.length() > 0) {
+                                if (radioButton == two && gasVolume < 2.5) {
+                                    //showNotification("Your gas volume is less than 2.5 kg");
+                                    checkAndNotifyForFrequency(gasVolume);
+                                } else if (radioButton == three && gasVolume < 3.5) {
+                                    //showNotification("Your gas volume is less than 3.5 kg");
+                                    checkAndNotifyForFrequency(gasVolume);
+                                }
+                            } else {
+                                Log.e("NotificationFrequency", "No gasVolumeLeft");
+                            }
+                        }
+
 
                     HttpURLConnection httpURLConnection1 = (HttpURLConnection) url1.openConnection();
                     httpURLConnection1.setRequestMethod("POST");
@@ -210,13 +249,15 @@ public class NotificationFrequency extends AppCompatActivity {
                     OutputStream outputStream1 = httpURLConnection1.getOutputStream();
                     BufferedWriter bufferedWriter1 = new BufferedWriter(new OutputStreamWriter(outputStream1, "UTF-8"));
 
-                    String post_data1 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
-                    Log.i("post_data1: ", post_data1);
+                    String post_data1 = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
+                        post_data1 += "&" + URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
 
+                    Log.i("post_data1: ", post_data1);
                     bufferedWriter1.write(post_data1);
                     bufferedWriter1.flush();
                     bufferedWriter1.close();
                     outputStream1.close();
+
 
                     int statusCode1 = httpURLConnection1.getResponseCode();
                     if (statusCode1 == HttpURLConnection.HTTP_OK) {
@@ -232,19 +273,17 @@ public class NotificationFrequency extends AppCompatActivity {
                         httpURLConnection1.disconnect();
                         Log.i("result", "[" + result1 + "]");
 
-                    JSONObject gasData1 = new JSONObject(result1.toString());
-                    JSONArray dep_id = gasData1.getJSONArray("dep_id");
-                    int customerID = LoginActivity.getCustomerID();
-                    for (int i = 0; i < dep_id.length(); i++) {
-                        dep_cus_id = dep_id.getDouble(i);
-                        family_Id.add((int) dep_cus_id);
-                        Log.i("Dep_Cus_Id", String.valueOf(dep_cus_id));
-                        if (customerID == dep_cus_id) {
+                        JSONObject gasData1 = new JSONObject(result1.toString());
+                        JSONArray family_id = gasData1.getJSONArray("cus_id");
+                        int customerID = LoginActivity.getCustomerID();
+                        for (int i = 0; i < family_id.length(); i++) {
+                            fam_id = family_id.getDouble(i);
+                            family_Id.add((int) fam_id);
+                            Log.i("Cus_Id", String.valueOf(fam_id));
                             checkAndNotifyForFrequency(gasVolume);
                         }
                     }
-                    }
-
+                }
 
 
                 } else {
@@ -304,12 +343,12 @@ public class NotificationFrequency extends AppCompatActivity {
 
                     switch (selectedFrequency) {
                         case "早中":
-                            if (gasVolume < threshold && (hour == 20 && minute == 22 || hour == 20 && minute == 00)) {
+                            if (gasVolume < threshold && (hour == 15 && minute == 10 || hour == 20 && minute == 00)) {
                                 showNotification("您的瓦斯容量小於" + threshold + "kg");
                                 if (hour >= 14 || (hour == 13 && minute >= 30)) {
                                     // Afternoon, schedule the next notification for tomorrow morning
-                                    desiredHour = 20;
-                                    desiredMinute = 22;
+                                    desiredHour = 15;
+                                    desiredMinute = 10;
                                     showNotification("您的瓦斯容量小於" + threshold + "公斤");
                                 } else if (hour >= 8 && minute == 0) {
                                     // Morning, schedule the next notification for this afternoon

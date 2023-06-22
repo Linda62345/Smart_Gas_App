@@ -107,9 +107,11 @@
             android:backgroundTint="#ffd5d5d5"
             android:padding="5dp" />
 
-        <Spinner
-            android:id="@+id/postCodeSpinner"
+        <TextView
+            android:id="@+id/postCodeText"
             android:contentDescription="postCode"
+            android:hint="郵遞區號"
+            android:gravity="center"
             android:layout_width="100dp"
             android:layout_height="48dp"
             android:layout_marginEnd="10dp"
@@ -133,6 +135,50 @@
         android:layout_marginTop="10dp"
         android:minWidth="25dp"
         android:minHeight="25dp" />
+
+    <TextView
+        android:id="@+id/elevatorTitle"
+        android:text="是否有電梯"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff000000"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="start"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/elevatorSpinner"
+            android:contentDescription="elevator"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:entries="@array/yesNo"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/floorText"
+            android:contentDescription="postCode"
+            android:hint="第幾樓"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp" />
+
+
+
+    </LinearLayout>
+
 
     <TextView
         android:text="瓦斯行選擇"

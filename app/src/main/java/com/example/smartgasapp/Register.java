@@ -2,6 +2,7 @@ package com.example.smartgasapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,10 +39,10 @@ import java.util.Objects;
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button register;
     private RadioGroup radioGroup;
-    private EditText etName, etEmail, etAddress, etPhone, etHouseTel, etPassword, etReenterPassword;
+    private EditText etName, etEmail, etAddress, etPhone, etHouseTel, etPassword, etReenterPassword, etPostCode, etFloor;
     private RadioButton etMale, etFemale, radioButton;
     private TextView tvStatus;
-    private Spinner etCity, etArea, etCompanyName;
+    private Spinner etCity, etArea, etCompanyName, etLift;
     ArrayList<String> countryList = new ArrayList<>();
     ArrayList<String> cityList = new ArrayList<>();
     ArrayAdapter<String> countryAdapter;
@@ -52,9 +53,10 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
 
 
 
-    private String name, email, address, phone, houseTel, password, reenterPassword, gender, company, city, area;
+    private String name, email, address, phone, houseTel, password, reenterPassword, gender, company, city, area, lift, postCode, floor;
     RequestQueue requestQueue;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,8 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         etMale = findViewById(R.id.radioButton_male);
         etFemale = findViewById(R.id.radioButton_female);
         etCity = findViewById(R.id.citySpinner);
+        etArea = findViewById(R.id.districtSpinner);
+        etCompanyName = findViewById(R.id.gasCompanySpinner);
         etAddress = findViewById(R.id.register_addr_input);
         etPhone = findViewById(R.id.register_phone_input);
         etHouseTel = findViewById(R.id.register_housephone_input);
@@ -74,9 +78,12 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         name = email = password = reenterPassword = address = phone = houseTel = "";
         register = findViewById(R.id.register_next_button);
         tvStatus = findViewById(R.id.tvStatus);
+        etLift = findViewById(R.id.lift);
+        etPostCode = findViewById(R.id.postCodeText);
+        etFloor = findViewById(R.id.floorText);
 
         requestQueue = Volley.newRequestQueue(this);
-        etCompanyName = findViewById(R.id.citySpinner);
+
         String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
         JsonObjectRequest jsonObjectRequest;
 
@@ -206,16 +213,26 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         } else {
             gender = "Female";
         }
+
+        String liftSelection = etLift.getSelectedItem().toString();
+        if (liftSelection.equals("有")) {
+           lift = "有電梯";
+        } else if (liftSelection.equals("否")) {
+            lift = "沒有電梯";
+        }
+
         city = etCity.getSelectedItem().toString();
         area = etArea.getSelectedItem().toString();
         String companyName = etCompanyName.getSelectedItem().toString();
         company = companyName;
-        address = city + area + etAddress.getText().toString().trim();
+        floor = etFloor.getText().toString().trim();
+        address = city + area + etAddress.getText().toString().trim() + " (" + floor + "樓" + ")";
         name = etName.getText().toString().trim();
         email = etEmail.getText().toString().trim();
         phone = etPhone.getText().toString().trim();
         houseTel = etHouseTel.getText().toString().trim();
         password = etPassword.getText().toString().trim();
+        postCode = etPostCode.getText().toString().trim();
         reenterPassword = etReenterPassword.getText().toString().trim();
         if (!password.equals(reenterPassword)) {
             Toast.makeText(this, "Password Mismatch", Toast.LENGTH_SHORT).show();
@@ -256,7 +273,8 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                     data.put("password", password);
                     data.put("address", address);
                     data.put("company", company);
-
+                    data.put("lift", lift);
+                    data.put("postCode", postCode);
                     return data;
                 }
             };

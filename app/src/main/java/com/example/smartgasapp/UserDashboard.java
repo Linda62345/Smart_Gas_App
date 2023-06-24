@@ -1,16 +1,35 @@
 package com.example.smartgasapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class UserDashboard extends AppCompatActivity {
 
@@ -23,6 +42,9 @@ public class UserDashboard extends AppCompatActivity {
     private Button eventOrAct;
     private Button famCoupon;
     private Button logout;
+    private TextView VolumeLeft;
+    private ProgressBar progressBar;
+    public String result = "", Customer_ID;
 
 
     @Override
@@ -41,6 +63,14 @@ public class UserDashboard extends AppCompatActivity {
 
         famCoupon = findViewById(R.id.familyCodeButton);
         logout = findViewById(R.id.logout_button);
+        progressBar = findViewById(R.id.progressBarinfo);
+        VolumeLeft = findViewById(R.id.changableVol_progressinfo);
+
+        LoginActivity loginActivity = new LoginActivity();
+        Customer_ID = String.valueOf(loginActivity.getCustomerID());
+
+        NetworkTask networkTask1 = new NetworkTask();
+        networkTask1.execute();
 
 
 
@@ -110,7 +140,7 @@ public class UserDashboard extends AppCompatActivity {
         });
 
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
@@ -119,27 +149,101 @@ public class UserDashboard extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.navigation_dashboard:
-                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        overridePendingTransition(0, 0);
+                        NetworkTask networkTask = new NetworkTask();
+                        networkTask.execute();
                         return true;
                     case R.id.navigation_home:
-                        startActivity(new Intent(getApplicationContext(),Homepage.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), Homepage.class));
+                        overridePendingTransition(0, 0);
+                        NetworkTask networkTask1 = new NetworkTask();
+                        networkTask1.execute();
                         return true;
                     case R.id.navigation_notifications:
-                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), OrderListUnfinished.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
             }
         });
+    }
 
+    private class NetworkTask extends AsyncTask<Void, Void, String> {
 
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                String Showurl = "http://10.0.2.2/SQL_Connect/Iot_Connect.php";
+                URL url = new URL(Showurl);
 
+                HttpURLConnection httpURLConnection3 = (HttpURLConnection) url.openConnection();
+                httpURLConnection3.setRequestMethod("POST");
+                httpURLConnection3.setDoOutput(true);
+                httpURLConnection3.setDoInput(true);
+                OutputStream outputStream3 = httpURLConnection3.getOutputStream();
+                BufferedWriter bufferedWriter3 = new BufferedWriter(new OutputStreamWriter(outputStream3, "UTF-8"));
 
+                String post_data3 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_ID, "UTF-8");
+                Log.i("customerID: ", post_data3);
+
+                bufferedWriter3.write(post_data3);
+                bufferedWriter3.flush();
+                bufferedWriter3.close();
+                outputStream3.close();
+
+                int statusCode3 = httpURLConnection3.getResponseCode();
+                int statusCode = 0;
+                if (statusCode3 == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream3 = httpURLConnection3.getInputStream();
+                    BufferedReader bufferedReader3 = new BufferedReader(new InputStreamReader(inputStream3, "iso-8859-1"));
+                    String line3 = "";
+                    StringBuilder result3 = new StringBuilder();
+                    while ((line3 = bufferedReader3.readLine()) != null) {
+                        result3.append(line3);
+                    }
+                    bufferedReader3.close();
+                    inputStream3.close();
+                    httpURLConnection3.disconnect();
+                    Log.i("result3", "[" + result3 + "]");
+
+                    return result3.toString();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+                int progressValue = 0;
+                double sensorWeight = 0.0;
+                try {
+                    JSONArray jsonArray = new JSONArray(result);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    progressValue = jsonObject.getInt("Result");
+                    sensorWeight = jsonObject.getDouble("SENSOR_Weight");
+
+                    progressBar.setProgress(progressValue);
+
+                    TextView progressText = findViewById(R.id.progress_text);
+                    progressText.setText(String.valueOf(progressValue + "%"));
+                    VolumeLeft.setText(String.valueOf(sensorWeight));
+
+                    Log.i("progressBar: ", String.valueOf(progressValue));
+                    Log.i("sensorWeight: ", String.valueOf(sensorWeight));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 }

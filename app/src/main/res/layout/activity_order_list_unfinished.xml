@@ -23,7 +23,7 @@
             android:layout_height="73.1dp"
             android:layout_gravity="center"
             android:backgroundTint="#ff3272d7"
-            android:text="ENTER"
+            android:text="確認"
             android:textColor="#ffffffff"
             android:textSize="17sp"
             android:textStyle="bold" />

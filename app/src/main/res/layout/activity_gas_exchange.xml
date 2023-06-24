@@ -42,13 +42,13 @@
             android:layout_height="wrap_content"
             android:columnCount="2">
 
-                <TextView
-                    android:id="@+id/exchangeStatusTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="兌換種類"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
+            <TextView
+                android:id="@+id/exchangeStatusTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="兌換種類"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
             <Spinner
                 android:layout_gravity="end"
@@ -74,23 +74,23 @@
                 android:textSize="24sp" />
 
 
-                <TextView
-                    android:id="@+id/exchangeQtyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:gravity="center"
-                    android:text="數量"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
+            <TextView
+                android:id="@+id/exchangeQtyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="數量"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
-                <EditText
-                    android:layout_gravity="end"
-                    android:id="@+id/editTextNumber"
-                    android:layout_width="136dp"
-                    android:layout_height="48dp"
-                    android:hint="數量"
-                    android:ems="10"
-                    android:inputType="number"/>
+            <EditText
+                android:layout_gravity="end"
+                android:id="@+id/editTextNumber"
+                android:layout_width="136dp"
+                android:layout_height="48dp"
+                android:hint="數量"
+                android:ems="10"
+                android:inputType="number"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,40 +115,40 @@
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/exchangePriceTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/changable_exchangePrice"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/exchangePriceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/changable_exchangePrice"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
         </GridLayout>
 
-    <Button
-        android:id="@+id/confirm_exchange_button"
-        android:layout_width="277dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="50dp"
-        android:text="確認兌換"
-        android:textStyle="bold"/>
+        <Button
+            android:id="@+id/confirm_exchange_button"
+            android:layout_width="277dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="50dp"
+            android:text="確認兌換"
+            android:textStyle="bold"/>
 
 
-</LinearLayout>
+    </LinearLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp"
-            android:background="?android:attr/windowBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_nav_menu" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

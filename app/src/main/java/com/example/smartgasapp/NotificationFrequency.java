@@ -242,6 +242,7 @@ public class NotificationFrequency extends AppCompatActivity {
                         }
 
 
+
                     HttpURLConnection httpURLConnection1 = (HttpURLConnection) url1.openConnection();
                     httpURLConnection1.setRequestMethod("POST");
                     httpURLConnection1.setDoOutput(true);
@@ -343,12 +344,12 @@ public class NotificationFrequency extends AppCompatActivity {
 
                     switch (selectedFrequency) {
                         case "早中":
-                            if (gasVolume < threshold && (hour == 15 && minute == 10 || hour == 20 && minute == 00)) {
+                            if (gasVolume < threshold && (hour == 22 && minute == 05 || hour == 20 && minute == 00)) {
                                 showNotification("您的瓦斯容量小於" + threshold + "kg");
                                 if (hour >= 14 || (hour == 13 && minute >= 30)) {
                                     // Afternoon, schedule the next notification for tomorrow morning
-                                    desiredHour = 15;
-                                    desiredMinute = 10;
+                                    desiredHour = 22;
+                                    desiredMinute = 05;
                                     showNotification("您的瓦斯容量小於" + threshold + "公斤");
                                 } else if (hour >= 8 && minute == 0) {
                                     // Morning, schedule the next notification for this afternoon

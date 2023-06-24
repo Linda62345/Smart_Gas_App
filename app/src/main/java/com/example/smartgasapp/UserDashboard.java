@@ -46,6 +46,16 @@ public class UserDashboard extends AppCompatActivity {
     private ProgressBar progressBar;
     public String result = "", Customer_ID;
 
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+                int progressValue = 0;
+                double sensorWeight = 0.0;
+                try {
+                    JSONArray jsonArray = new JSONArray(result);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    progressValue = jsonObject.getInt("Result");
+                    sensorWeight = jsonObject.getDouble("SENSOR_Weight");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +83,11 @@ public class UserDashboard extends AppCompatActivity {
         networkTask1.execute();
 
 
+                    return result3.toString();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         userInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +154,8 @@ public class UserDashboard extends AppCompatActivity {
             }
         });
 
+            return null;
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 

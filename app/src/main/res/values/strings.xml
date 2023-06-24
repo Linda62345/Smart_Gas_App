@@ -65,6 +65,11 @@
         <item>早中晚</item>
     </string-array>
 
+    <string-array name="lift_option">
+        <item>有</item>
+        <item>否</item>
+    </string-array>
+
     <string-array name="Order_Time_Option">
         <item>8:00-10:00</item>
         <item>10:00-12:00</item>

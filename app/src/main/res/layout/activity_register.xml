@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+    <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,335 +15,348 @@
         android:orientation="vertical">
 
 
-    <TextView
-        android:text="@string/name"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_name"
-        android:layout_gravity="center"
-        android:textStyle="bold"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:minWidth="25dp"
-        android:minHeight="25dp"
-        android:autofillHints="@string/name"
-        android:hint="@string/enter_name"
-        android:layout_marginTop="5dp"
-        android:textColorHint="#ff757575"
-        android:inputType="textPersonName"
-        android:id="@+id/register_name_input"
-        android:layout_gravity="center" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id = "@+id/radioGroup">
-        <RadioButton
-            android:text="@string/male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton_male"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
-
-        <RadioButton
-            android:text="@string/female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton_female"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="-49dp"
-            android:textStyle="bold" />
-    </RadioGroup>
-
-
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="2">
         <TextView
-            android:text="@string/address"
+            android:text="@string/name"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ff000000"
-            android:id="@+id/register_addr"
+            android:id="@+id/register_name"
+            android:layout_gravity="center"
+            android:textStyle="bold"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minWidth="25dp"
+            android:minHeight="25dp"
+            android:autofillHints="@string/name"
+            android:hint="@string/enter_name"
+            android:layout_marginTop="5dp"
+            android:textColorHint="#ff757575"
+            android:inputType="textPersonName"
+            android:id="@+id/register_name_input"
+            android:layout_gravity="center" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/radioGroup">
+            <RadioButton
+                android:text="@string/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioButton_male"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"/>
+
+            <RadioButton
+                android:text="@string/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioButton_female"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="-49dp"
+                android:textStyle="bold" />
+        </RadioGroup>
+
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="2">
+            <TextView
+                android:text="@string/address"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff000000"
+                android:id="@+id/register_addr"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+            <Spinner
+                android:id="@+id/citySpinner"
+                android:contentDescription="city"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#ffd5d5d5"
+                android:padding="5dp" />
+
+            <Spinner
+                android:id="@+id/districtSpinner"
+                android:contentDescription="district"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#ffd5d5d5"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/postCodeText"
+                android:hint="郵遞區號"
+                android:inputType="textPostalAddress"
+                android:autofillHints="@string/address"
+                android:gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#ffd5d5d5"
+                android:padding="5dp"
+                />
+
+
+        </GridLayout>
+
+
+        <EditText
+            android:id="@+id/register_addr_input"
+            android:autofillHints="@string/address"
+            android:hint="@string/enter_addr"
+            android:textColorHint="#ff757575"
+            android:inputType="textPostalAddress"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:minWidth="25dp"
+            android:minHeight="25dp" />
+
+        <TextView
+            android:id="@+id/elevatorTitle"
+            android:text="是否有電梯"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
             android:layout_marginTop="20dp"
             android:layout_gravity="start"
             android:textStyle="bold"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/lift"
+                android:contentDescription="elevator"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#ffd5d5d5"
+                android:entries="@array/lift_option"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/floorText"
+                android:hint="第幾"
+                android:inputType="textPostalAddress"
+                android:autofillHints="@string/address"
+                android:gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#ffd5d5d5"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/floor"
+                android:hint="樓"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#ffd5d5d5"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
         <TextView
+            android:text="瓦斯行選擇"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_GasAddr"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"/>
+        <Spinner
+            android:id="@+id/gasCompanySpinner"
+            android:contentDescription="GasCompany"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#ffd5d5d5"
+            android:padding="5dp" />
+
+        <TextView
+            android:text="@string/phone_string"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_phone"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/register_phone_input"
+            android:autofillHints="@string/phone_string"
+            android:hint="@string/enter_phone_no"
+            android:textColorHint="#ff757575"
+            android:layout_marginTop="5dp"
+            android:inputType="phone"
+            android:layout_gravity="center"
             />
 
         <TextView
+            android:text="@string/house_phone"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_housephone"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/register_housephone_input"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:autofillHints="@string/house_phone"
+            android:hint="@string/enter_housePhone"
+            android:textColorHint="#ff757575"/>
+
+        <TextView
+            android:text="@string/prompt_email"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_email"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minWidth="25dp"
+            android:minHeight="25dp"
+            android:id="@+id/register_email_input"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:autofillHints="@string/prompt_email"
+            android:hint="@string/enter_email"
+            android:textColorHint="#ff757575"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:text="密碼"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_pass"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minWidth="25dp"
+            android:minHeight="25dp"
+            android:id="@+id/register_pass_input"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:autofillHints="@string/prompt_password"
+            android:hint="@string/enter_password"
+            android:textColorHint="#ff757575"
+            android:inputType="textPassword"/>
+
+        <TextView
+            android:text="@string/prompt_confirm_password"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff000000"
+            android:id="@+id/register_pass_con"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/register_pass_con_input"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:autofillHints="@string/prompt_password"
+            android:hint="@string/enter_confirm_pass"
+            android:textColorHint="#ff757575"
+            android:inputType="textPassword"
+            android:minWidth="25dp"
+            android:minHeight="25dp" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/terms_cons"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             />
 
 
-        <Spinner
-            android:id="@+id/citySpinner"
-            android:contentDescription="city"
+        <Button
+            android:id="@+id/register_next_button"
             android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:padding="5dp" />
-
-        <Spinner
-            android:id="@+id/districtSpinner"
-            android:contentDescription="district"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:padding="5dp" />
-
-        <TextView
-            android:id="@+id/postCodeText"
-            android:contentDescription="postCode"
-            android:hint="郵遞區號"
-            android:gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:padding="5dp" />
-
-
-    </GridLayout>
-
-
-    <EditText
-        android:id="@+id/register_addr_input"
-        android:autofillHints="@string/address"
-        android:hint="@string/enter_addr"
-        android:textColorHint="#ff757575"
-        android:inputType="textPostalAddress"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:minWidth="25dp"
-        android:minHeight="25dp" />
-
-    <TextView
-        android:id="@+id/elevatorTitle"
-        android:text="是否有電梯"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="start"
-        android:textStyle="bold"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/elevatorSpinner"
-            android:contentDescription="elevator"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:entries="@array/yesNo"
-            android:padding="5dp" />
-
-        <TextView
-            android:id="@+id/floorText"
-            android:contentDescription="postCode"
-            android:hint="第幾樓"
-            android:gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:padding="5dp" />
-
-
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#ff3272d7"
+            android:onClick="save"
+            android:text="@string/next_string"
+            android:textColor="#ffffffff"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
-
-    <TextView
-        android:text="瓦斯行選擇"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_GasAddr"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textStyle="bold"/>
-    <Spinner
-        android:id="@+id/gasCompanySpinner"
-        android:contentDescription="GasCompany"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#ffd5d5d5"
-        android:padding="5dp" />
-
-    <TextView
-        android:text="@string/phone_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_phone"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/register_phone_input"
-        android:autofillHints="@string/phone_string"
-        android:hint="@string/enter_phone_no"
-        android:textColorHint="#ff757575"
-        android:layout_marginTop="5dp"
-        android:inputType="phone"
-        android:layout_gravity="center"
-        />
-
-    <TextView
-        android:text="@string/house_phone"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_housephone"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:inputType="phone"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/register_housephone_input"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@string/house_phone"
-        android:hint="@string/enter_housePhone"
-        android:textColorHint="#ff757575"/>
-
-    <TextView
-        android:text="@string/prompt_email"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_email"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:minWidth="25dp"
-        android:minHeight="25dp"
-        android:id="@+id/register_email_input"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@string/prompt_email"
-        android:hint="@string/enter_email"
-        android:textColorHint="#ff757575"
-        android:inputType="textEmailAddress"/>
-
-    <TextView
-        android:text="密碼"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_pass"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:minWidth="25dp"
-        android:minHeight="25dp"
-        android:id="@+id/register_pass_input"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@string/prompt_password"
-        android:hint="@string/enter_password"
-        android:textColorHint="#ff757575"
-        android:inputType="textPassword"/>
-
-    <TextView
-        android:text="@string/prompt_confirm_password"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#ff000000"
-        android:id="@+id/register_pass_con"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/register_pass_con_input"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:autofillHints="@string/prompt_password"
-        android:hint="@string/enter_confirm_pass"
-        android:textColorHint="#ff757575"
-        android:inputType="textPassword"
-        android:minWidth="25dp"
-        android:minHeight="25dp" />
-
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/terms_cons"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        />
-
-
-    <Button
-        android:id="@+id/register_next_button"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="#ff3272d7"
-        android:onClick="save"
-        android:text="@string/next_string"
-        android:textColor="#ffffffff"
-        android:textStyle="bold" />
-
-    </LinearLayout>
-    </ScrollView>
+</ScrollView>

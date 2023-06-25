@@ -1,6 +1,7 @@
 package com.example.smartgasapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -57,8 +58,8 @@ public class UsageHistory extends AppCompatActivity {
     ArrayList<String> iotList = new ArrayList<>();
     ArrayList<String> xAxisValues = new ArrayList<>();
     ArrayAdapter<String> iotAdapter;
-    //GraphView graphView;
-    //LineGraphSeries<DataPoint> series;
+    ListView sensorlistView;
+    ArrayList<String> sensorListString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +71,8 @@ public class UsageHistory extends AppCompatActivity {
         iot =findViewById(R.id.usageOption_Spinner);
         iot_gas1 = findViewById(R.id.changable_gas_specification);
         iot_gas2 = findViewById(R.id.changable_gas_remains);
-        lineChart = findViewById(R.id.getTheGraph);
-        //graphView = findViewById(R.id.getTheGraph2);
-        //series = new LineGraphSeries<>(getDatePoint());
+        //lineChart = findViewById(R.id.getTheGraph);
+        sensorlistView = findViewById(R.id.sensorlist);
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_Id = String.valueOf(loginActivity.getCustomerID());
@@ -105,7 +105,29 @@ public class UsageHistory extends AppCompatActivity {
 
                     //瓦斯桶記錄sensor_history
                     getData("http://10.0.2.2/SQL_Connect/iot_history.php",selectedSensorId);
-                    Log.i("iot history",result);
+                    sensorlist(selectedSensorId);
+
+                    iot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            String selectedSensor = iot.getSelectedItem().toString();
+                            String[] selectedSensorParts = selectedSensor.split(" ");
+                            selectedSensorId = selectedSensorParts[1];
+                            Log.i("seonsor_id",selectedSensorId);
+                            iot_gas1.setText(selectedSensorParts[3]);
+                            iot_gas2.setText(selectedSensorParts[3]);
+                            //更新圖表
+                            //瓦斯桶記錄sensor_history
+                            new GetHistoryTask().execute(selectedSensorId);
+                            sensorlist(selectedSensorId);
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            // 未選擇任何項目時的處理
+                        }
+                    });
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -114,24 +136,6 @@ public class UsageHistory extends AppCompatActivity {
 
         thread.start();
 
-        iot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedSensor = iot.getSelectedItem().toString();
-                String[] selectedSensorParts = selectedSensor.split(" ");
-                selectedSensorId = selectedSensorParts[1];
-                Log.i("seonsor_id",selectedSensorId);
-                iot_gas1.setText(selectedSensorParts[3]);
-                iot_gas2.setText(selectedSensorParts[3]);
-                //更新圖表
-                //瓦斯桶記錄sensor_history
-                getData("http://10.0.2.2/SQL_Connect/iot_history.php",selectedSensorId);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // 未選擇任何項目時的處理
-            }
-        });
 
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
@@ -159,6 +163,25 @@ public class UsageHistory extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    private class GetHistoryTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String selectedSensorId = params[0];
+
+            // Call getData and perform the network operation
+            getData("http://10.0.2.2/SQL_Connect/iot_history.php", selectedSensorId);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // Process the result or update the UI if needed
+            // For example, you can call the sensorlist method here
+            sensorlist(selectedSensorId);
+        }
     }
     public void getData(String Showurl,String id) {
         try {
@@ -191,17 +214,17 @@ public class UsageHistory extends AppCompatActivity {
             history = new JSONArray(result);
 
             // Update the graph
-            runOnUiThread(new Runnable() {
+            /*runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     dataValue();
                 }
-            });
+            });*/
         } catch (Exception e) {
-            Log.i("iot Exception", e.toString());
+            Log.i("get data Exception", e.toString());
         }
     }
-    private void dataValue(){
+    /*private void dataValue(){
         ArrayList<Entry> dataVals = new ArrayList<Entry>();
         try{
             xAxisValues = new ArrayList<>();
@@ -237,5 +260,36 @@ public class UsageHistory extends AppCompatActivity {
         catch (Exception e){
             Log.i("history array exception",e.toString());
         }
+    }*/
+    public void sensorlist(String sensorid) {
+        try {
+            sensorListString = new ArrayList<String>();
+            sensorlistView = findViewById(R.id.sensorlist);
+
+            Log.i("sensor result", result);
+
+            // Check if the response is empty or not
+            if (!result.isEmpty()) {
+                JSONArray ja = new JSONArray(result);
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject jsonObject = ja.getJSONObject(i);
+                    String SENSOR_Time = jsonObject.optString("SENSOR_Time");
+                    String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
+                    sensorListString.add("時間: " + SENSOR_Time + " 流量: " + SENSOR_Weight);
+                }
+            }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(UsageHistory.this,
+                            android.R.layout.simple_list_item_1, sensorListString);
+                    sensorlistView.setAdapter(adapter);
+                }
+            });
+        } catch (Exception e) {
+            Log.i("sensor list exception", e.toString());
+        }
     }
+
 }

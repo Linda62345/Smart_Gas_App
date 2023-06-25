@@ -53,12 +53,13 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 id = familyInvitationCode.family_Id.get(position);
-                //使用pop up 視窗確認
+                // 使用 pop up 視窗確認
                 deleteMember(String.valueOf(id));
-                //版面更新
-
+                // Refresh the ListView
+                // refreshData(familyInvitationCode.name);
             }
         });
+
 
         return  convertView;
     }
@@ -69,7 +70,7 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
                 @Override
                 public void onResponse(String response) {
                     Log.i("Delete Family response",response);
-                    if (response.equals("success")) {
+                    if (response.contains("success")) {
                         Log.i("Delete Family Member", "Successfully store family member.");
                         Toast.makeText(mContext.getApplicationContext(), "成功刪除", Toast.LENGTH_SHORT).show();
                         //版面更新
@@ -77,12 +78,16 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
                         LoginActivity loginActivity = new LoginActivity();
                         String Customer_ID = String.valueOf(loginActivity.getCustomerID());
                         if(Customer_ID.equals(id)){
+                            Log.i("Family code","equal");
                             //整個刪掉
                             familyInvitationCode.family_Id.clear();
                             familyInvitationCode.name.clear();
                         }
                         else{
-                            int index = familyInvitationCode.family_Id.indexOf(id);
+                            int index = familyInvitationCode.family_Id.indexOf(Integer.valueOf(id));
+                            Log.i("Family code", String.valueOf(index));
+                            Log.i("family id size", String.valueOf(familyInvitationCode.family_Id.size()));
+                            Log.i("family name size", String.valueOf(familyInvitationCode.name.size()));
                             if (index != -1) {
                                 familyInvitationCode.family_Id.remove(index);
                                 familyInvitationCode.name.remove(index);
@@ -91,7 +96,7 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
                         Log.i("delete size", String.valueOf(familyInvitationCode.name.size()));
                         //如何在此更新版面
                         //here
-                        
+                        notifyDataSetChanged();
                     } else if (response.equals("failure")) {
                         Log.i("D Family Member failure", response);
                     }
@@ -116,4 +121,10 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
             Log.i("D Family Member Exception", e.toString());
         }
     }
+    public void refreshData(ArrayList<String> newData) {
+        clear();
+        addAll(newData);
+        notifyDataSetChanged();
+    }
+
 }

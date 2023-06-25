@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".AnnouncementList">
+
+    <LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_marginBottom="10dp"
     android:background="@drawable/rounded_button_border"
     android:orientation="horizontal"
-    tools:context=".AnnouncementList">
+    >
 
     <ImageView
         android:id="@+id/announcement_icon"
@@ -29,4 +34,5 @@
         android:gravity="center|left"
         android:text=""
         android:textSize="24sp"/>
+    </LinearLayout>
 </LinearLayout>

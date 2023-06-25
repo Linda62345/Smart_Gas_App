@@ -35,13 +35,17 @@
         android:theme="@style/Theme.SmartGasApp"
         tools:targetApi="31">
         <activity
+            android:name="com.example.smartgasapp.userIot"
+            android:exported="false"
+            android:label="我的 IOT"/>
+        <activity
             android:name="com.example.smartgasapp.SearchOrderResult"
             android:exported="false"
-            android:label="訂單明細"/>
+            android:label="訂單明細" />
         <activity
             android:name="com.example.smartgasapp.SearchOrderResultFinished"
             android:exported="false"
-            android:label="訂單明細"/>
+            android:label="訂單明細" />
         <activity
             android:name="com.example.smartgasapp.ConfirmDelivery"
             android:exported="false" />
@@ -81,8 +85,7 @@
         <activity
             android:name="com.example.smartgasapp.Homepage"
             android:exported="false"
-            android:label="@string/title_home"
-        />
+            android:label="@string/title_home" />
         <activity
             android:name="com.example.smartgasapp.PersonalBarcode"
             android:exported="false"
@@ -156,13 +159,12 @@
         <activity
             android:name="com.example.smartgasapp.ui.login.LoginActivity"
             android:exported="true"
-            android:label="登入"
-            android:parentActivityName="com.example.smartgasapp.Homepage">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:label="登入">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.smartgasapp.Register"
@@ -170,9 +172,10 @@
             android:label="註冊會員" />
         <activity
             android:name="com.example.smartgasapp.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <receiver
-            android:name=".NotificationReceiver"
+            android:name="com.example.smartgasapp.NotificationReceiver"
             android:enabled="true"
             android:exported="true" />
     </application>

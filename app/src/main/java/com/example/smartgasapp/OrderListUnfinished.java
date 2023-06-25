@@ -77,6 +77,10 @@ public class OrderListUnfinished extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
+
+        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
+
         finished = findViewById(R.id.order_finished);
         finished.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,9 +259,7 @@ public class OrderListUnfinished extends AppCompatActivity {
             Log.i("GetOrderList Exception", e.toString());
         }
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
-        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
     }
 

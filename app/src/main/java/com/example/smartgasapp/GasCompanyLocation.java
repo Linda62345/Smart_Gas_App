@@ -47,6 +47,10 @@ public class GasCompanyLocation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gas_company_location);
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+
         LoginActivity loginActivity = new LoginActivity();
         CUSTOMER_ID = loginActivity.getCustomerID();
         Log.i("editInfo", String.valueOf(CUSTOMER_ID));
@@ -106,9 +110,7 @@ public class GasCompanyLocation extends AppCompatActivity {
             requestQueue.add(jsonObjectRequest);
 
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
 
         // set listener to the Confirm Button

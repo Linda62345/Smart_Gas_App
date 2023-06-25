@@ -58,6 +58,7 @@ public class Homepage extends AppCompatActivity {
 
     private ImageButton exchange;
     private ImageButton location;
+    private ImageButton iot;
     private ImageButton personalBarcode;
     private BottomNavigationView bottomNavigationView;
     private TextView remainGas;
@@ -87,6 +88,7 @@ public class Homepage extends AppCompatActivity {
         remainGas = findViewById(R.id.changableVol_progress);
         buy = findViewById(R.id.buyGasButton);
         search = findViewById(R.id.findOrderListButton);
+        iot = findViewById(R.id.myIotButton);
 
         exchange = findViewById(R.id.exchangeGasButton);
         location = findViewById(R.id.companyButton);
@@ -192,6 +194,14 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Homepage.this, PersonalBarcode.class);
+                startActivity(intent);
+            }
+        });
+
+        iot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Homepage.this, userIot.class);
                 startActivity(intent);
             }
         });

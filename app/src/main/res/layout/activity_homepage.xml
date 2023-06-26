@@ -97,12 +97,12 @@
                 android:src="@drawable/baseline_search_24" />
 
             <ImageButton
-                android:id="@+id/exchangeGasButton"
+                android:id="@+id/iotButton"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
                 android:backgroundTint="@color/white"
                 android:contentDescription="TODO"
-                android:src="@drawable/baseline_propane_tank_24" />
+                android:src="@drawable/baseline_wifi_tethering_24" />
 
             <TextView
                 android:id="@+id/buyGasButtonTextView"
@@ -131,10 +131,10 @@
                 tools:layout_editor_absoluteY="28dp" />
 
             <TextView
-                android:id="@+id/exchangeGasTextView"
+                android:id="@+id/iotTextView"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:text="@string/volumeExchange"
+                android:text="我的 IOT"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -161,14 +161,12 @@
                 android:contentDescription="TODO"
                 android:src="@drawable/baseline_line_weight_24" />
 
-            <ImageButton
+            <TextView
                 android:id="@+id/myIotButton"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/white"
-                android:contentDescription="TODO"
-                android:src="@drawable/baseline_wifi_tethering_24" />
+                android:backgroundTint="@color/white"/>
 
             <TextView
                 android:id="@+id/companyTextView"
@@ -192,16 +190,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/myIotTextView"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的 IOT"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
         </GridLayout>
 

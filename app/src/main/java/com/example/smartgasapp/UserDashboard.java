@@ -30,6 +30,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 
 public class UserDashboard extends AppCompatActivity {
 
@@ -84,7 +85,7 @@ public class UserDashboard extends AppCompatActivity {
         volumeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserDashboard.this, UsageHistory.class);
+                Intent intent = new Intent(UserDashboard.this, userIot.class);
                 startActivity(intent);
             }
         });
@@ -230,11 +231,6 @@ public class UserDashboard extends AppCompatActivity {
                     progressValue = jsonObject.getInt("Result");
                     sensorWeight = jsonObject.getDouble("SENSOR_Weight");
 
-                    progressBar.setProgress(progressValue);
-
-                    TextView progressText = findViewById(R.id.progress_text);
-                    progressText.setText(String.valueOf(progressValue + "%"));
-                    VolumeLeft.setText(String.valueOf(sensorWeight));
 
                     Log.i("progressBar: ", String.valueOf(progressValue));
                     Log.i("sensorWeight: ", String.valueOf(sensorWeight));
@@ -242,6 +238,16 @@ public class UserDashboard extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                // Format progressValue and sensorWeight to 2 decimal places
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                String formattedSensorWeight = decimalFormat.format(sensorWeight);
+
+                progressBar.setProgress(progressValue);
+                VolumeLeft.setText(formattedSensorWeight);
+
+                TextView progressText = findViewById(R.id.progress_text);
+                progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
 
             }
         }

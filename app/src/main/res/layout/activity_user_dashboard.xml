@@ -179,7 +179,7 @@
                         android:layout_width="11dp"
                         android:layout_height="18dp"
                         android:gravity="center"
-                        android:text="m"
+                        android:text="%"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -189,7 +189,7 @@
                         android:layout_width="11dp"
                         android:layout_height="18dp"
                         android:layout_gravity="start"
-                        android:text="3"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="8sp"
                         android:textStyle="bold" />

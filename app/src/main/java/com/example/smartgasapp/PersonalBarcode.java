@@ -165,11 +165,20 @@ public class PersonalBarcode extends AppCompatActivity {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(CUSTOMER_ID), BarcodeFormat.CODE_128, imageView.getWidth(),imageView.getHeight() );
-            Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(),imageView.getHeight(), Bitmap.Config.RGB_565);
-            for(int i = 0;i<imageView.getWidth();i++){
-                for (int j = 0;j< imageView.getHeight();j++){
-                    bitmap.setPixel(i,j,bitMatrix.get(i,j)? Color.BLACK:Color.WHITE);
+            String customerIdString = String.valueOf(CUSTOMER_ID);
+            BitMatrix bitMatrix = multiFormatWriter.encode(customerIdString, BarcodeFormat.QR_CODE, imageView.getWidth(), imageView.getHeight());
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+//            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(CUSTOMER_ID), BarcodeFormat.CODE_128, imageView.getWidth(),imageView.getHeight() );
+//            Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(),imageView.getHeight(), Bitmap.Config.RGB_565);
+//            for(int i = 0;i<imageView.getWidth();i++){
+//                for (int j = 0;j< imageView.getHeight();j++){
+//                    bitmap.setPixel(i,j,bitMatrix.get(i,j)? Color.BLACK:Color.WHITE);
                 }
             }
 

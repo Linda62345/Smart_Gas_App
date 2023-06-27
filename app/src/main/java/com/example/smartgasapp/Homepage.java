@@ -44,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Homepage extends AppCompatActivity {
@@ -128,7 +129,7 @@ public class Homepage extends AppCompatActivity {
         moreVol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Homepage.this, UsageHistory.class);
+                Intent intent = new Intent(Homepage.this, userIot.class);
                 startActivity(intent);
             }
         });
@@ -292,12 +293,17 @@ public class Homepage extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                // Format progressValue and sensorWeight to 2 decimal places
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                String formattedSensorWeight = decimalFormat.format(sensorWeight);
+
                 progressBar.setProgress(progressValue);
-                remainGas.setText(String.valueOf(sensorWeight));
+                remainGas.setText(formattedSensorWeight);
 
 
                 TextView progressText = findViewById(R.id.progress_text);
-                progressText.setText(String.valueOf(progressValue + "%"));
+                progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
             }
         }
     }

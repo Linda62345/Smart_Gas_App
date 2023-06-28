@@ -54,6 +54,7 @@ public class CompositeGasMenu extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 weight1 = parent.getItemAtPosition(position).toString();
+                weight1 = weight1.replace("kg","");
             }
 
             @Override
@@ -66,6 +67,7 @@ public class CompositeGasMenu extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 weight2 = parent.getItemAtPosition(position).toString();
+                weight2 = weight2.replace("kg","");
             }
 
             @Override
@@ -78,6 +80,7 @@ public class CompositeGasMenu extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 weight3 = parent.getItemAtPosition(position).toString();
+                weight3 = weight3.replace("kg","");
             }
 
             @Override

@@ -127,7 +127,7 @@ public class OrderDetail extends AppCompatActivity {
                             Gas_Quantity += gasExchange.Gas_Quantity;
                         }
                         //顯示訂單詳細資料
-                        customerOrderDetails = new ArrayList<>();
+                        //customerOrderDetails = new ArrayList<>();
                         setGas_Quantity();
                         //edit=false;
                     }
@@ -311,7 +311,7 @@ public class OrderDetail extends AppCompatActivity {
                         //這裡放insert gas order detail
                         NewOrderDetail();
 
-                        Intent intent = new Intent(OrderDetail.this, OrderListUnfinished.class);
+                        Intent intent = new Intent(OrderDetail.this, OrderSuccess.class);
                         startActivity(intent);
                         finish.setClickable(false);
                     } else if (response.contains("failure")) {
@@ -363,7 +363,7 @@ public class OrderDetail extends AppCompatActivity {
         //order id: New_Order_Id
         //拿arrayList裡面的資料 customerOrderDetails
         //要那些欄位 order_id, order_quantity, order_type, order_weight
-        for(int i=0;i<customerOrderDetails.size();i++){
+        for(int i=1;i<customerOrderDetails.size();i++){
             int index = i;
             String String_url = "http://10.0.2.2/SQL_Connect/NewOrderDetail.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
@@ -464,15 +464,15 @@ public class OrderDetail extends AppCompatActivity {
 
     public void setGas_Quantity(){
         if(compositeGasMenu.a>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.a), "Composite", compositeGasMenu.weight1);
+            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.a), "composite", compositeGasMenu.weight1);
             customerOrderDetails.add(od);
         }
         if(compositeGasMenu.b>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.b), "Composite", compositeGasMenu.weight2);
+            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.b), "composite", compositeGasMenu.weight2);
             customerOrderDetails.add(od);
         }
         if(compositeGasMenu.c>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.c), "Composite", compositeGasMenu.weight3);
+            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.c), "composite", compositeGasMenu.weight3);
             customerOrderDetails.add(od);
         }
         if(cylinder_gas_menu.a>0){
@@ -489,9 +489,9 @@ public class OrderDetail extends AppCompatActivity {
         }
     }
     public void RemainGas(){
-        if (gasExchange.Gas_Quantity != 0 && GasExchangeOrder() != null) {
             //customerOrderDetails.add(GasExchangeOrder());
             for(int i =0;i<customerOrderDetails.size();i++){
+                if (gasExchange.Gas_Quantity != 0 && GasExchangeOrder() != null) {
                 //相同規格
                 if(customerOrderDetails.get(i).getWeight().equals(gasExchange.Gas_Weight)){
                     //1. 規格 2. 記得扣殘氣
@@ -500,7 +500,7 @@ public class OrderDetail extends AppCompatActivity {
                         customerOrderDetails.get(i).setExchange("1");
                         gasExchange.Gas_Quantity -= orderDetailQuan;
                         //記所兌換的容量
-                        Gas_Delete = orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight.substring(0, gasExchange.Gas_Weight.length() - 2));
+                        Gas_Delete += orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight);
                         Log.i("Gas_Delete", String.valueOf(Gas_Delete));
                     }
                     else if(orderDetailQuan>gasExchange.Gas_Quantity){
@@ -517,13 +517,13 @@ public class OrderDetail extends AppCompatActivity {
                             }
                         });
                         //記所兌換的容量
-                        Gas_Delete = gasExchange.Gas_Quantity*Integer.parseInt(gasExchange.Gas_Weight.substring(0, gasExchange.Gas_Weight.length() - 2));
+                        Gas_Delete += gasExchange.Gas_Quantity*Integer.parseInt(gasExchange.Gas_Weight);
 
                     }
                     else if(orderDetailQuan<gasExchange.Gas_Quantity){
                         gasExchange.Gas_Quantity -= orderDetailQuan;
                         customerOrderDetails.get(i).setExchange("1");
-                        Gas_Delete = orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight.substring(0, gasExchange.Gas_Weight.length() - 2));
+                        Gas_Delete += orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight);
                     }
                     else{
                         runOnUiThread(new Runnable() {
@@ -534,9 +534,9 @@ public class OrderDetail extends AppCompatActivity {
                         });
                     }
                 }
-            }
-        } else {
-            // Handle the case when Gas_Quantity is 0 or gasExchangeOrder is null
+            } else {
+                    // Handle the case when Gas_Quantity is 0 or gasExchangeOrder is null
+                    }
         }
     }
     public void deleteGasRemain(){

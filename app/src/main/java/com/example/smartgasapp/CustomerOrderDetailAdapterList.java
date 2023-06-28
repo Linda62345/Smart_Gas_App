@@ -40,7 +40,7 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
 
         if(tvQuantity!=null&&tvType!=null&&tvWeight!=null){
             tvQuantity.setText(quantity);
-            if(type.equals("Composite")){
+            if(type.equals("composite")){
                 tvType.setText("複合式鋼瓶");
             }
             else if(type.equals("tradition")){

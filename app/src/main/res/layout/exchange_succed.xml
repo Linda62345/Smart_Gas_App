@@ -27,7 +27,7 @@
         android:layout_marginTop="29dp"
         android:layout_marginEnd="55dp"
         android:layout_marginBottom="11dp"
-        android:text=" 換桶成功 !"
+        android:text=" 下訂單成功 !"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -44,7 +44,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="118dp"
         android:layout_marginBottom="6dp"
-        android:text="已通知換桶成功給客戶端"
+        android:text="已新增訂單成功 可至歷史訂單查詢"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -65,6 +65,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exchangeSuccessDesc" />
 </androidx.constraintlayout.widget.ConstraintLayout>

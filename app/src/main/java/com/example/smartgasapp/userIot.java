@@ -2,13 +2,54 @@ package com.example.smartgasapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class userIot extends AppCompatActivity {
+
+    public String Customer_ID, Sensor_ID,result;
+    public EditText E_Sensor_ID;
+    public ListView IOTlistView;
+    public Button B_addIOT;
+    String[] data;
+    public JSONObject responseJSON;
+    public JSONArray ja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +59,138 @@ public class userIot extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+
+        LoginActivity loginActivity = new LoginActivity();
+        Customer_ID = String.valueOf(loginActivity.getCustomerID());
+
+        E_Sensor_ID = findViewById(R.id.sensor_Id);
+        E_Sensor_ID.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Sensor_ID = E_Sensor_ID.getText().toString().trim();
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }});
+
+        IOTlistView = findViewById(R.id.IOTlist);
+
+        B_addIOT = findViewById(R.id.ButtonAddIOT);
+        B_addIOT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveIOT();
+            }
+        });
+
+
+        Thread thread = new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("iot here","iot here");
+                        showIOT("http://10.0.2.2/SQL_Connect/Show_IOT.php");
+                        try{
+                            ja = new JSONArray(result);
+                            if(ja!=null){
+                                JSONObject jo = null;
+                                data = new String[ja.length()];
+                                for(int i = 0;i<ja.length();i++){
+                                    jo = ja.getJSONObject(i);
+                                    data[i] = "感應器編號: " + jo.getString("SENSOR_Id") + " 重量: " + jo.getString("SENSOR_Weight") + " 電量: " + jo.getString("SENSOR_Battery");
+                                }
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (data != null) {
+                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(userIot.this,android.R.layout.simple_list_item_1, data);
+                                        IOTlistView.setAdapter(adapter);
+                                    }
+                                }
+                            });
+
+
+
+                        }
+                        catch (Exception e){
+                            Log.i("ListView iot exception",e.toString());
+                        }
+                    }
+                }
+        );
+        thread.start();
+
+
+    }
+    public void saveIOT(){
+        try {
+            String URL = "http://10.0.2.2/SQL_Connect/Save_IOT.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("iot response", response);
+                    if (response.contains("success")) {
+                        Toast.makeText(getApplicationContext(), "IOT新增成功", Toast.LENGTH_LONG).show();
+                        E_Sensor_ID.setText("");
+                        //畫面更新
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<>();
+                    data.put("id", Customer_ID);
+                    data.put("sensor_id", Sensor_ID);
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+        } catch (Exception e) {
+            Log.i("save iot Exception", e.toString());
+        }
+    }
+    public void showIOT(String Showurl){
+        try{
+            URL url = new URL(Showurl);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String post_data = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_ID, "UTF-8");
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String line = "";
+            result = "";
+
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            Log.i("iot result", "["+result+"]");
+        }
+        catch (Exception e){
+            Log.i("show iot Exception",e.toString());
+        }
     }
 }

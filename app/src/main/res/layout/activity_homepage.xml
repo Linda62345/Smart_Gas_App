@@ -57,7 +57,7 @@
                     android:layout_height="48dp"
                     android:layout_marginStart="151dp"
                     android:backgroundTint="@color/white"
-                    android:text="joo"
+                    android:text="登出"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 

@@ -255,16 +255,8 @@ public class GasExchange extends AppCompatActivity {
         }
     }
     public void getValue(){
-        //int quantity,String type,String weight
-        /*Gas_Type = Spinner_Type.getSelectedItem().toString();
-        if(Gas_Type.equals("傳統鋼瓶")){
-            Gas_Type = "tradition";
-        }
-        if(Gas_Type.equals("複合材料")){
-            Gas_Type = "Composite";
-        }
-        Log.i("Exchange Type",Gas_Type);*/
         Gas_Weight = Spinner_Weight.getSelectedItem().toString();
+        Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
         Log.i("Exchange Weight",Gas_Weight);
         Gas_Quantity = Integer.parseInt(Get_Quantity.getText().toString().trim());
         Log.i("Exchange Quantity",Get_Quantity.getText().toString().trim());

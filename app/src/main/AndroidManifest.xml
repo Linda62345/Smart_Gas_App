@@ -131,6 +131,10 @@
             android:exported="false"
             android:label="訂單明細" />
         <activity
+            android:name="com.example.smartgasapp.OrderSuccess"
+            android:exported="false"
+            android:label="訂單完成" />
+        <activity
             android:name="com.example.smartgasapp.UsageHistory"
             android:exported="false"
             android:label="用量調查"

@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText Password;
     public static int CUSTOMER_ID;
     public static int COMPANY_Id;
+    public static String Customer_Name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -220,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
-                    } else if (response.equals("failure")) {
+                    } else if (response.contains("failure")) {
                         Toast.makeText(LoginActivity.this, "Invalid Login Id/Password", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -287,6 +288,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("result", "[" + result + "]");
                 JSONObject responseJSON = new JSONObject(result);
                 CUSTOMER_ID = responseJSON.getInt("CUSTOMER_Id");
+                Customer_Name = responseJSON.getString("CUSTOMER_Name");
                 Log.i("Customer_ID", String.valueOf(CUSTOMER_ID));
                 COMPANY_Id = responseJSON.getInt("COMPANY_Id");
                 Log.i("Company_id",String.valueOf(COMPANY_Id));

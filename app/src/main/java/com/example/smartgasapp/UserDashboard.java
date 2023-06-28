@@ -43,7 +43,7 @@ public class UserDashboard extends AppCompatActivity {
     private Button eventOrAct;
     private Button famCoupon;
     private Button logout;
-    private TextView VolumeLeft;
+    private TextView VolumeLeft,showName;
     private ProgressBar progressBar;
     public String result = "", Customer_ID;
 
@@ -67,7 +67,10 @@ public class UserDashboard extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarinfo);
         VolumeLeft = findViewById(R.id.changableVol_progressinfo);
 
+        showName = findViewById(R.id.show_name);
         LoginActivity loginActivity = new LoginActivity();
+        showName.setText(loginActivity.Customer_Name);
+
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
 
         NetworkTask networkTask1 = new NetworkTask();

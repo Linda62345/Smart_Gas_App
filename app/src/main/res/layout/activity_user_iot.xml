@@ -20,12 +20,14 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/sensor_Id"
             android:layout_width="225dp"
             android:layout_height="48dp"
             android:layout_marginRight="10dp"
             android:textAlignment="center"
             android:hint="請輸入您的 IOT 賬號"/>
         <Button
+            android:id="@+id/ButtonAddIOT"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="+ 加 IOT"
@@ -34,16 +36,14 @@
 
     </LinearLayout>
 
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:backgroundTint="#ffececec">
-
-
-
-    </ListView>
+        <ListView
+            android:id="@+id/IOTlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:backgroundTint="#ffececec"
+            >
+        </ListView>
 
     </LinearLayout>
 

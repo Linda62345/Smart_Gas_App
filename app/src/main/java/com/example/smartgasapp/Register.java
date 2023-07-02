@@ -239,20 +239,20 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         } else if (!etMale.isChecked() && !etFemale.isChecked()) {
             Toast.makeText(this, "Gender column must selected one of them.", Toast.LENGTH_SHORT).show();
         } else if (!name.equals("") && !email.equals("") && !password.equals("")) {
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Register.this, Homepage.class);
-            startActivity(intent);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.i("Register response",response);
-                    if (response.equals("success")) {
-                        Intent intent = new Intent(Register.this, Homepage.class);
+                    if (response.contains("success")) {
+                        Intent intent = new Intent(Register.this, LoginActivity.class);
                         startActivity(intent);
                         tvStatus.setText("Successfully registered.");
                         register.setClickable(false);
                     } else if (response.equals("failure")) {
-                        tvStatus.setText("Something went wrong!");
+                        Toast.makeText(Register.this, "資料庫錯誤, 請重新輸入", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(response.contains("Duplicate")&&response.contains("CUSTOMER_Email")){
+                        Toast.makeText(Register.this, "此email已註冊過", Toast.LENGTH_SHORT).show();
                     }
                 }
             }, new Response.ErrorListener() {

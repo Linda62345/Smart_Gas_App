@@ -67,6 +67,7 @@ public class OrderListUnfinished extends AppCompatActivity {
     InputStream is = null;
     String line,result = "";
     TextView startDateTextView, endDateTextView, space;
+    ArrayList<OrderListFinishList> orderListFinishLists;
 
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
@@ -181,12 +182,14 @@ public class OrderListUnfinished extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        orderListFinishLists = new ArrayList<OrderListFinishList>();
     }
 
     private void setAdapter() {
-        if(data!=null){
-            ArrayAdapter<String> adapter=
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        if(orderListFinishLists.size()>0){
+            OrderListFinishAdapterList adapter=
+                    new OrderListFinishAdapterList(getApplicationContext(),R.layout.adapter_list_un_finish,orderListFinishLists);
             orderList.setAdapter(adapter);
         }
         else{
@@ -197,8 +200,6 @@ public class OrderListUnfinished extends AppCompatActivity {
 
     private void getOrderList() throws MalformedURLException {
         try{
-
-
           String Showurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
            URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -250,6 +251,9 @@ public class OrderListUnfinished extends AppCompatActivity {
 
                     Log.i("order data",data[i]);
                     order_Id[i] = jo.getString("ORDER_Id");
+
+                    OrderListFinishList of = new OrderListFinishList(orderTime,"未完成");
+                    orderListFinishLists.add(of);
                 }
 
             }catch(Exception e){

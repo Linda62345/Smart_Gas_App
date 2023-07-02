@@ -37,6 +37,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -54,6 +55,7 @@ public class OrderListFinished extends AppCompatActivity {
     public static String static_order_id;
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
+    ArrayList<OrderListFinishList> orderListFinishLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,11 +170,13 @@ public class OrderListFinished extends AppCompatActivity {
 //
 //            }
 //        });
+        orderListFinishLists = new ArrayList<OrderListFinishList>();
     }
 
     private void setAdapter() {
-        if(data!=null){
-            ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        if(orderListFinishLists.size()>0){
+            OrderListFinishAdapterList adapter=
+                    new OrderListFinishAdapterList(getApplicationContext(),R.layout.adapter_list_un_finish,orderListFinishLists);
             orderList.setAdapter(adapter);
           orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
               @Override

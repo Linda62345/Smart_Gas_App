@@ -51,6 +51,8 @@ public class userIot extends AppCompatActivity {
     public JSONObject responseJSON;
     public JSONArray ja;
 
+    public static ArrayList<CustomerOrderDetail> customerOrderDetails;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,10 @@ public class userIot extends AppCompatActivity {
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
+
+        customerOrderDetails = new ArrayList<CustomerOrderDetail>();
+        CustomerOrderDetail od = new CustomerOrderDetail("編號","重量","電量");
+        customerOrderDetails.add(od);
 
         E_Sensor_ID = findViewById(R.id.sensor_Id);
         E_Sensor_ID.addTextChangedListener(new TextWatcher() {
@@ -89,13 +95,24 @@ public class userIot extends AppCompatActivity {
             }
         });
 
+        ShowDataDetail();
 
+    }
+    public void ShowDataDetail(){
         Thread thread = new Thread(
                 new Runnable() {
                     @Override
                     public void run() {
                         Log.i("iot here","iot here");
                         showIOT("http://10.0.2.2/SQL_Connect/Show_IOT.php");
+                        if (result.contains("0")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(userIot.this, "無IoT連結", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                         try{
                             ja = new JSONArray(result);
                             if(ja!=null){
@@ -103,21 +120,22 @@ public class userIot extends AppCompatActivity {
                                 data = new String[ja.length()];
                                 for(int i = 0;i<ja.length();i++){
                                     jo = ja.getJSONObject(i);
-                                    data[i] = "感應器編號: " + jo.getString("SENSOR_Id") + " 重量: " + jo.getString("SENSOR_Weight") + " 電量: " + jo.getString("SENSOR_Battery");
+                                    //data[i] = "感應器編號: " + jo.getString("SENSOR_Id") + " 重量: " + jo.getString("SENSOR_Weight") + " 電量: " + jo.getString("SENSOR_Battery");
+                                    CustomerOrderDetail od = new CustomerOrderDetail(jo.getString("SENSOR_Id"),jo.getString("SENSOR_Weight"),jo.getString("SENSOR_Battery"));
+                                    customerOrderDetails.add(od);
                                 }
-                            }
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (data != null) {
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(userIot.this,android.R.layout.simple_list_item_1, data);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
+                                        // Stuff that updates the UI
+                                        Log.i("order detail", String.valueOf(customerOrderDetails.size()));
+                                        IOTlistView.setAdapter(null);
+                                        // Stuff that updates the UI
                                         IOTlistView.setAdapter(adapter);
                                     }
-                                }
-                            });
-
-
-
+                                });
+                            }
                         }
                         catch (Exception e){
                             Log.i("ListView iot exception",e.toString());
@@ -126,8 +144,6 @@ public class userIot extends AppCompatActivity {
                 }
         );
         thread.start();
-
-
     }
     public void saveIOT(){
         try {
@@ -140,6 +156,12 @@ public class userIot extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "IOT新增成功", Toast.LENGTH_LONG).show();
                         E_Sensor_ID.setText("");
                         //畫面更新
+                        ShowDataDetail();
+                    } else if (response.contains("Duplicate")) {
+                        Toast.makeText(getApplicationContext(), "新增失敗，此IOT已在資料庫中", Toast.LENGTH_LONG).show();
+
+                    } else if (response.contains("failure")) {
+                        Toast.makeText(getApplicationContext(), "新增失敗", Toast.LENGTH_LONG).show();
                     }
                 }
             }, new Response.ErrorListener() {

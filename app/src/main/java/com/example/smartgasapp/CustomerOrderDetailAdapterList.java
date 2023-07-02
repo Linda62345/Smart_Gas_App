@@ -50,8 +50,9 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
                 tvType.setText("類別");
             }
             else{
-                tvType.setText("資料庫檢查");
+                tvType.setText(type);
             }
+
             tvWeight.setText(weight);
         }
         if(exchange_String!=null && exchange_String.equals("1") && Exchange!=null){

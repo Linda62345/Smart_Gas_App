@@ -15,23 +15,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEndMonth_unfinishedInput">
+        app:layout_constraintTop_toBottomOf="@+id/editEndMonth_unfinishedInput"
+        >
 
         <Button
             android:id="@+id/enterSearch"
             android:layout_width="344.9dp"
             android:layout_height="73.1dp"
             android:layout_gravity="center"
-            android:backgroundTint="#ff3272d7"
+            android:backgroundTint="#808080"
             android:text="確認"
             android:textColor="#ffffffff"
             android:textSize="17sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <ListView
+            android:id="@+id/list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_item"/>
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
 

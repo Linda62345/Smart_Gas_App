@@ -38,7 +38,7 @@ public class DeliveryMethod extends AppCompatActivity {
     Calendar calendar = Calendar.getInstance();
     TimePickerDialog.OnTimeSetListener timeDialog;
     Calendar calendar1 = Calendar.getInstance();
-    public static String date,time;
+    public static String date,time,Time_Select;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +65,11 @@ public class DeliveryMethod extends AppCompatActivity {
             }
         });
         Log.i("delivery_method", String.valueOf(delivery_method));
+        TimePick();
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TimePick();
                 Intent intent = new Intent(DeliveryMethod.this, OrderDetail.class);
                 startActivity(intent);
             }
@@ -128,7 +130,7 @@ public class DeliveryMethod extends AppCompatActivity {
                 calendar.set(Calendar.YEAR,year);
                 calendar.set(Calendar.MONTH,month);
                 calendar.set(Calendar.DATE,dayOfMonth);
-                date = year+"-"+month+"-"+dayOfMonth+" ";
+                date = year+"-"+(month+1)+"-"+dayOfMonth+" ";
                 textView.setText("日期："+year+"/"+(month+1)+"/"+dayOfMonth);
             }
         };
@@ -169,10 +171,9 @@ public class DeliveryMethod extends AppCompatActivity {
         Time_Spinner = findViewById(R.id.Time);
         //time = hourOfDay+":"+minute;
         //Gas_Weight = Spinner_Weight.getSelectedItem().toString();
-        String Time_Select = Time_Spinner.getSelectedItem().toString();
+        Time_Select = Time_Spinner.getSelectedItem().toString();
         String[] parts = Time_Select.split("-");
-        Time_Select = parts[0];
-        time = Time_Select;
+        time = parts[0];
         Log.i("time",time);
     }
 

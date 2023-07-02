@@ -213,60 +213,16 @@ public class UsageHistory extends AppCompatActivity {
             // Process the retrieved data
             history = new JSONArray(result);
 
-            // Update the graph
-            /*runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dataValue();
-                }
-            });*/
         } catch (Exception e) {
             Log.i("get data Exception", e.toString());
         }
     }
-    /*private void dataValue(){
-        ArrayList<Entry> dataVals = new ArrayList<Entry>();
-        try{
-            xAxisValues = new ArrayList<>();
-            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd");
 
-            for (int i = 0; i < history.length(); i++) {
-                JSONObject jsonObject = history.getJSONObject(i);
-                String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
-                String SENSOR_Time = jsonObject.optString("SENSOR_Time");
-
-                Date date = inputFormat.parse(SENSOR_Time);
-                String formattedDate = outputFormat.format(date);
-                Log.i("formattedDate", formattedDate);
-
-                Entry entry = new Entry(i, Float.parseFloat(SENSOR_Weight));
-                dataVals.add(entry);
-
-                xAxisValues.add(formattedDate);  // Add formattedDate to the x-axis labels list
-            }
-
-            LineDataSet lineDataSet = new LineDataSet(dataVals,"瓦斯容量");
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(lineDataSet);
-            LineData data = new LineData(dataSets);
-
-            XAxis xAxis = lineChart.getXAxis();
-            xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-
-            lineChart.setData(data);
-            lineChart.invalidate();
-        }
-        catch (Exception e){
-            Log.i("history array exception",e.toString());
-        }
-    }*/
     public void sensorlist(String sensorid) {
         try {
             sensorListString = new ArrayList<String>();
             sensorlistView = findViewById(R.id.sensorlist);
-
-            Log.i("sensor result", result);
+            sensorlistView.setAdapter(null);
 
             // Check if the response is empty or not
             if (!result.isEmpty()) {

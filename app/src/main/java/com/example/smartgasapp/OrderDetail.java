@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -121,7 +122,16 @@ public class OrderDetail extends AppCompatActivity {
                         method = String.valueOf(deliveryMethod.delivery_method);
                         Log.i("配送方式",method);
                         date = deliveryMethod.date;
+                        Expect_Date.setText("送達日期: "+date);
                         time = deliveryMethod.time;
+                        Time_Spinner = findViewById(R.id.Time);
+                        Log.i("Time_Spinner", deliveryMethod.Time_Select);
+                        ArrayAdapter<String> adapter = (ArrayAdapter<String>) Time_Spinner.getAdapter();
+                        int position = adapter.getPosition(deliveryMethod.Time_Select);
+                        Log.i("position", String.valueOf(position));
+                        Time_Spinner.setSelection(position);
+                        //這裡要設定date 跟 time的顯示要正確
+
                         Gas_Quantity = compositeGasMenu.a+compositeGasMenu.b+compositeGasMenu.c+cylinder_gas_menu.a+cylinder_gas_menu.b+cylinder_gas_menu.c;
                         if(gasExchange.Gas_Quantity!=0){
                             Gas_Quantity += gasExchange.Gas_Quantity;
@@ -444,8 +454,7 @@ public class OrderDetail extends AppCompatActivity {
 
     public void TimePick(){
         Time_Spinner = findViewById(R.id.Time);
-        //time = hourOfDay+":"+minute;
-        //Gas_Weight = Spinner_Weight.getSelectedItem().toString();
+
         String Time_Select = Time_Spinner.getSelectedItem().toString();
         String[] parts = Time_Select.split("-");
         Time_Select = parts[0];

@@ -127,13 +127,15 @@
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
-                    <Button
-                        android:id="@+id/seeMoreButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="54dp"
-                        android:backgroundTint="#BED5F9"
-                        android:text="更多"
-                        android:textColor="#F44336" />
+                    <Spinner
+                        android:id="@+id/iotSpinner"
+                        android:contentDescription="iot"
+                        android:layout_width="100dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="#ff1976d2"
+                        android:padding="5dp" />
                 </LinearLayout>
 
 

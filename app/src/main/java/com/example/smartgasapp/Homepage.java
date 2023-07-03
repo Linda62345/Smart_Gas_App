@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,6 +69,8 @@ public class Homepage extends AppCompatActivity {
     private ArrayList<Bitmap> images;
     public String result = "", Customer_ID;
     public JSONObject responseJSON;
+    private Spinner iot1;
+    private String selectedSensorId;
 
 
     @Override
@@ -80,9 +85,9 @@ public class Homepage extends AppCompatActivity {
                 R.drawable.logo};
 
         progressBar = findViewById(R.id.progressBar);
+        iot1 = findViewById(R.id.iotSpinner);
         point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
-        moreVol = findViewById(R.id.seeMoreButton);
         remainGas = findViewById(R.id.changableVol_progress);
         buy = findViewById(R.id.buyGasButton);
         search = findViewById(R.id.findOrderListButton);
@@ -107,8 +112,31 @@ public class Homepage extends AppCompatActivity {
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
+        adapter.add("Iot Id: ");
+        iot1.setAdapter(adapter);
+
         NetworkTask networkTask1 = new NetworkTask();
         networkTask1.execute();
+
+        iot1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedSensor = iot1.getSelectedItem().toString();
+                if (!selectedSensor.equals("Iot Id: ")) {
+                    // Remove the "Iot Id: " part from the selected sensor ID
+                    selectedSensorId = selectedSensor.substring("Iot Id: ".length());
+                    NetworkTask networkTask = new NetworkTask();
+                    networkTask.execute(selectedSensorId);
+                }
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         point.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,13 +154,13 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-        moreVol.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Homepage.this, userIot.class);
-                startActivity(intent);
-            }
-        });
+//        moreVol.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Homepage.this, userIot.class);
+//                startActivity(intent);
+//            }
+//        });
 
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,11 +256,15 @@ public class Homepage extends AppCompatActivity {
         });
     }
 
-    private class NetworkTask extends AsyncTask<Void, Void, String> {
+    private class NetworkTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected String doInBackground(String... params) {
             try {
+                String selectedSensorId = null;
+                if (params.length > 0) {
+                    selectedSensorId = params[0];
+                }
                 String Showurl = "http://10.0.2.2/SQL_Connect/Iot_Connect.php";
                 URL url = new URL(Showurl);
 
@@ -281,31 +313,57 @@ public class Homepage extends AppCompatActivity {
             if (result != null) {
                int progressValue = 0;
                double sensorWeight = 0.0;
+
+               try{
+                JSONArray jsonArray = new JSONArray(result);
+
+                // Find the JSON object with the selected sensor ID
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String sensorId = jsonObject.getString("sensorId");
+                    if (sensorId.equals(selectedSensorId)) {
+                        progressValue = jsonObject.getInt("Result");
+                        sensorWeight = jsonObject.getDouble("SENSOR_Weight");
+                        break;
+                    }
+                }
+                   Log.i("progressBar: ", String.valueOf(progressValue));
+                   Log.i("sensorWeight: ", String.valueOf(sensorWeight));
+
+               }
+               catch (JSONException e) {
+                   e.printStackTrace();
+               }
+
+                updateUI(progressValue, sensorWeight);
+
                 try {
                     JSONArray jsonArray = new JSONArray(result);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    progressValue = jsonObject.getInt("Result");
-                    sensorWeight = jsonObject.getDouble("SENSOR_Weight");
+                    ArrayAdapter<String> adapter = (ArrayAdapter<String>) iot1.getAdapter();
+                    adapter.clear();
 
-                    Log.i("progressBar: ", String.valueOf(progressValue));
-                    Log.i("sensorWeight: ", String.valueOf(sensorWeight));
-
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String sensorId = jsonObject.getString("sensorId");
+                        adapter.add("Iot Id: " + sensorId);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                // Format progressValue and sensorWeight to 2 decimal places
-                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                String formattedSensorWeight = decimalFormat.format(sensorWeight);
-
-                progressBar.setProgress(progressValue);
-                remainGas.setText(formattedSensorWeight);
-
-
-                TextView progressText = findViewById(R.id.progress_text);
-                progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
             }
         }
+    }
+
+    private void updateUI(int progressValue, double sensorWeight) {
+        // Format progressValue and sensorWeight to 2 decimal places
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        String formattedSensorWeight = decimalFormat.format(sensorWeight);
+
+        progressBar.setProgress(progressValue);
+        remainGas.setText(formattedSensorWeight);
+
+        TextView progressText = findViewById(R.id.progress_text);
+        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
     }
 
     public void showData(String Showurl, String id) {

@@ -126,14 +126,24 @@
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/seeMoreButtoninfo"
+                    <Spinner
+                        android:id="@+id/iotSpinner"
+                        android:contentDescription="iot"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
-                        android:background="@drawable/oval_button_blue_gray"
-                        android:text="計量器管理"
-                        android:textColor="#716F6F"
-                        android:textStyle="bold" />
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="#ff1976d2"
+                        android:padding="5dp" />
+                    <!--    "#ffd5d5d5"       -->
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/seeMoreButtoninfo"-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:background="@drawable/oval_button_blue_gray"-->
+<!--                        android:text="計量器管理"-->
+<!--                        android:textColor="#716F6F"-->
+<!--                        android:textStyle="bold" />-->
 
                 </LinearLayout>
 

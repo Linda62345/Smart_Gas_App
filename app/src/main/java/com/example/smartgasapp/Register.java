@@ -31,10 +31,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button register;
@@ -275,6 +279,17 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                     data.put("company", company);
                     data.put("lift", lift);
                     data.put("postCode", postCode);
+                    // Create a DateFormat object and set the timezone to Taiwan
+                    TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    dateFormat.setTimeZone(timeZone);
+
+                    // Format the current date and time as a string in the correct format
+                    String currentDateTimeString = dateFormat.format(new Date());
+
+                    // Log the string to the console
+                    Log.i("time",currentDateTimeString);
+                    data.put("time", currentDateTimeString);
                     return data;
                 }
             };

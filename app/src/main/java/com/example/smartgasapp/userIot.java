@@ -3,6 +3,7 @@ package com.example.smartgasapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ public class userIot extends AppCompatActivity {
     public EditText E_Sensor_ID;
     public ListView IOTlistView;
     public Button B_addIOT;
+    public ImageButton scanner;
     String[] data;
     public JSONObject responseJSON;
     public JSONArray ja;
@@ -86,6 +89,16 @@ public class userIot extends AppCompatActivity {
             }});
 
         IOTlistView = findViewById(R.id.IOTlist);
+
+        scanner = findViewById(R.id.qrPage);
+
+        scanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(userIot.this, ScanReceiptQRCode.class);
+                startActivity(intent);
+            }
+        });
 
         B_addIOT = findViewById(R.id.ButtonAddIOT);
         B_addIOT.setOnClickListener(new View.OnClickListener() {

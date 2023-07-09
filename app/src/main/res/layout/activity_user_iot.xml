@@ -26,6 +26,12 @@
             android:layout_marginRight="10dp"
             android:textAlignment="center"
             android:hint="請輸入您的 IOT 賬號"/>
+        <ImageButton
+            android:id="@+id/qrPage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/baseline_qr_code_2_24"/>
         <Button
             android:id="@+id/ButtonAddIOT"
             android:layout_width="wrap_content"

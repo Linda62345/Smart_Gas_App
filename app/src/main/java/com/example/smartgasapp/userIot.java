@@ -105,7 +105,8 @@ public class userIot extends AppCompatActivity {
                     public void run() {
                         Log.i("iot here","iot here");
                         showIOT("http://10.0.2.2/SQL_Connect/Show_IOT.php");
-                        if (result.contains("0")) {
+                        //這裡要做修正
+                        if (result.contains("\"\"response\":\"0\"")) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -118,20 +119,21 @@ public class userIot extends AppCompatActivity {
                             if(ja!=null){
                                 JSONObject jo = null;
                                 data = new String[ja.length()];
+                                customerOrderDetails = new ArrayList<CustomerOrderDetail>();
+                                CustomerOrderDetail od = new CustomerOrderDetail("編號","重量","電量");
+                                customerOrderDetails.add(od);
+
                                 for(int i = 0;i<ja.length();i++){
                                     jo = ja.getJSONObject(i);
-                                    //data[i] = "感應器編號: " + jo.getString("SENSOR_Id") + " 重量: " + jo.getString("SENSOR_Weight") + " 電量: " + jo.getString("SENSOR_Battery");
-                                    CustomerOrderDetail od = new CustomerOrderDetail(jo.getString("SENSOR_Id"),jo.getString("SENSOR_Weight"),jo.getString("SENSOR_Battery"));
-                                    customerOrderDetails.add(od);
+                                    CustomerOrderDetail od1 = new CustomerOrderDetail(jo.getString("SENSOR_Id"),jo.getString("SENSOR_Weight"),jo.getString("SENSOR_Battery"));
+                                    customerOrderDetails.add(od1);
                                 }
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
-                                        // Stuff that updates the UI
                                         Log.i("order detail", String.valueOf(customerOrderDetails.size()));
                                         IOTlistView.setAdapter(null);
-                                        // Stuff that updates the UI
                                         IOTlistView.setAdapter(adapter);
                                     }
                                 });

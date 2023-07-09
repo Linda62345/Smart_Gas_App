@@ -87,8 +87,8 @@ public class UsageHistory extends AppCompatActivity {
                     for (int i = 0; i < ja.length(); i++) {
                         JSONObject jsonObject = ja.getJSONObject(i);
                         String SENSOR_Id = jsonObject.optString("SENSOR_Id");
-                        String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
-                        iotList.add("感應器ID: "+SENSOR_Id+" 重量: "+SENSOR_Weight);
+                        //String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
+                        iotList.add("感應器ID: "+SENSOR_Id);
                         iotAdapter = new ArrayAdapter<>(UsageHistory.this,
                                 android.R.layout.simple_spinner_item, iotList);
                         iotAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -97,11 +97,6 @@ public class UsageHistory extends AppCompatActivity {
                     String selectedSensor = iot.getSelectedItem().toString();
                     String[] selectedSensorParts = selectedSensor.split(" ");
                     selectedSensorId = selectedSensorParts[1];
-                    Log.i("seonsor_id",selectedSensorId);
-
-                    //瓦斯桶容量
-                    iot_gas1.setText(selectedSensorParts[3]);
-                    iot_gas2.setText(selectedSensorParts[3]);
 
                     //瓦斯桶記錄sensor_history
                     getData("http://10.0.2.2/SQL_Connect/iot_history.php",selectedSensorId);
@@ -113,11 +108,6 @@ public class UsageHistory extends AppCompatActivity {
                             String selectedSensor = iot.getSelectedItem().toString();
                             String[] selectedSensorParts = selectedSensor.split(" ");
                             selectedSensorId = selectedSensorParts[1];
-                            Log.i("seonsor_id",selectedSensorId);
-                            iot_gas1.setText(selectedSensorParts[3]);
-                            iot_gas2.setText(selectedSensorParts[3]);
-                            //更新圖表
-                            //瓦斯桶記錄sensor_history
                             new GetHistoryTask().execute(selectedSensorId);
                             sensorlist(selectedSensorId);
                         }
@@ -185,6 +175,7 @@ public class UsageHistory extends AppCompatActivity {
     }
     public void getData(String Showurl,String id) {
         try {
+
             URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -205,6 +196,7 @@ public class UsageHistory extends AppCompatActivity {
             while ((line = bufferedReader.readLine()) != null) {
                 result += line;
             }
+
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
@@ -232,7 +224,10 @@ public class UsageHistory extends AppCompatActivity {
                     String SENSOR_Time = jsonObject.optString("SENSOR_Time");
                     String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
                     sensorListString.add("時間: " + SENSOR_Time + " 流量: " + SENSOR_Weight);
+                    iot_gas1.setText(SENSOR_Weight);
+                    iot_gas2.setText(SENSOR_Weight);
                 }
+
             }
 
             runOnUiThread(new Runnable() {

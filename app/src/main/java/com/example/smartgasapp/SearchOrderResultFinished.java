@@ -179,6 +179,8 @@ public class SearchOrderResultFinished extends AppCompatActivity {
                 order_type = new String[ja.length()];
                 weight = new String[ja.length()];
                 orderdetail = new ArrayList<>();
+                CustomerOrderDetail od1 = new CustomerOrderDetail("數量","規格","重量");
+                orderdetail.add(od1);
 
                 for(int i = 0; i<ja.length();i++){
                     jo = ja.getJSONObject(i);

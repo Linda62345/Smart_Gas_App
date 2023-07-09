@@ -9,14 +9,14 @@
     <GridLayout
         android:id="@+id/TableLayout1"
         android:layout_width="360.6dp"
-        android:layout_height="260.3dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@android:color/white"
         android:backgroundTint="#ffececec"
         android:columnCount="2"
         android:rowCount="5"
         app:backgroundTint="#ffffffff"
-        app:layout_constraintBottom_toTopOf="@+id/confirmOrder"
+        app:layout_constraintBottom_toTopOf="@+id/list_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/changable_customer_name"
-            android:layout_width="wrap_content"
+            android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_marginStart="25.0dp"
@@ -63,7 +63,7 @@
 
         <TextView
             android:id="@+id/changable_contactNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_marginStart="25.0dp"
@@ -137,7 +137,7 @@
 
         <TextView
             android:id="@+id/changable_gasQTY"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_marginStart="25.0dp"
@@ -160,7 +160,7 @@
 
         <TextView
             android:id="@+id/changable_time"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_marginStart="25.0dp"
@@ -174,11 +174,11 @@
         android:id="@+id/list_item"
         android:layout_width="360.6dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         app:layout_constraintBottom_toTopOf="@+id/confirmOrder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TableLayout1"
-        app:layout_constraintVertical_bias="0.189"
+        app:layout_constraintVertical_bias="0.441"
         tools:ignore="MissingConstraints" />
 
     <Button

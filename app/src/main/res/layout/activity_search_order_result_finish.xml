@@ -38,15 +38,15 @@
 
         <TextView
             android:id="@+id/changable_customer_name"
-            android:layout_width="157dp"
-            android:layout_height="wrap_content"
+            android:layout_width="148dp"
+            android:layout_height="22dp"
             android:layout_gravity="start|center"
             android:layout_marginStart="25.0dp"
             android:layout_marginTop="20dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
             android:textSize="24.0sp"
-            android:textStyle="bold" />
+            android:textStyle="" />
 
         <TextView
             android:id="@+id/contactNumber"
@@ -71,7 +71,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
             android:textSize="24.0sp"
-            android:textStyle="bold" />
+            android:textStyle="" />
 
         <TextView
             android:id="@+id/deliveryAddress"
@@ -96,7 +96,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
             android:textSize="24.0sp"
-            android:textStyle="bold" />
+            android:textStyle="" />
 
         <TextView
             android:id="@+id/gasDeliveryType"
@@ -121,7 +121,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
             android:textSize="24.0sp"
-            android:textStyle="bold" />
+            android:textStyle="" />
 
         <TextView
             android:id="@+id/gasQty"
@@ -144,7 +144,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
             android:textSize="24.0sp"
-            android:textStyle="bold" />
+            android:textStyle="" />
 
         <TextView
             android:id="@+id/predictionTime"
@@ -167,7 +167,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
             android:textSize="24.0sp"
-            android:textStyle="bold" />
+            android:textStyle="" />
     </GridLayout>
 
     <ListView

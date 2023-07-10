@@ -9,11 +9,15 @@
     android:background="@color/white">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="90dp">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/compositeGas"
@@ -209,7 +213,8 @@
         android:text="選擇配送方式"
         android:layout_gravity="center"/>
 
-</LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
     android:id="@+id/nav_view"

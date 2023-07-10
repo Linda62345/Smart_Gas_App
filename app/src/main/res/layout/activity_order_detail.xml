@@ -12,6 +12,7 @@
     <LinearLayout
         android:paddingTop="30dp"
         android:orientation="vertical"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="40dp">
@@ -54,9 +55,7 @@
             android:layout_width="314dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="55dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="55dp"
             android:background="@android:color/white"
             android:backgroundTint="#ffececec"
             android:columnCount="2"

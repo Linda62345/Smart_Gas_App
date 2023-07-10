@@ -6,6 +6,7 @@ import android.util.Log;
 import android.util.Size;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -30,6 +31,7 @@ import java.util.concurrent.ExecutionException;
 public class ScanReceiptQRCode extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private PreviewView previewView;
+    private EditText enterNewIot;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private Button qrCodeFoundButton;
     private String qrCode;
@@ -41,14 +43,16 @@ public class ScanReceiptQRCode extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         previewView = findViewById(R.id.receiptScanner);
+        enterNewIot= findViewById(R.id.mannuallyEnterReceiptCode);
 
         qrCodeFoundButton = findViewById(R.id.qrCodeFoundButton);
         qrCodeFoundButton.setVisibility(View.INVISIBLE);
         qrCodeFoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), qrCode, Toast.LENGTH_SHORT).show();
-                Log.i(MainActivity.class.getSimpleName(), "QR Code Found: " + qrCode);
+                enterNewIot.setText(qrCode);
+                //Toast.makeText(getApplicationContext(), qrCode, Toast.LENGTH_SHORT).show();
+                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
             }
         });
 

@@ -46,14 +46,16 @@ public class ScanReceiptQRCode extends AppCompatActivity {
         enterNewIot= findViewById(R.id.mannuallyEnterReceiptCode);
 
         qrCodeFoundButton = findViewById(R.id.qrCodeFoundButton);
-        qrCodeFoundButton.setVisibility(View.INVISIBLE);
+        qrCodeFoundButton.setVisibility(View.VISIBLE);
         qrCodeFoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enterNewIot.setText(qrCode);
-                //Toast.makeText(getApplicationContext(), qrCode, Toast.LENGTH_SHORT).show();
-                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
+//                enterNewIot.setText(qrCode);
+//                Toast.makeText(getApplicationContext(), qrCode, Toast.LENGTH_SHORT).show();
+//                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
             }
+
+
         });
 
 
@@ -115,19 +117,42 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build();
 
+//        imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), new QRCodeImageAnalyzer(new QRCodeFoundListener() {
+//            @Override
+//            public void onQRCodeFound(String _qrCode) {
+//                qrCode = _qrCode;
+//                qrCodeFoundButton.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void qrCodeNotFound() {
+//                qrCodeFoundButton.setVisibility(View.INVISIBLE);
+//            }
+//        }));
+
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), new QRCodeImageAnalyzer(new QRCodeFoundListener() {
             @Override
             public void onQRCodeFound(String _qrCode) {
                 qrCode = _qrCode;
-                qrCodeFoundButton.setVisibility(View.VISIBLE);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        enterNewIot.setText(qrCode);
+                    }
+                });
+                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
             }
 
             @Override
             public void qrCodeNotFound() {
-                qrCodeFoundButton.setVisibility(View.INVISIBLE);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        enterNewIot.setText(""); // Clear the EditText when QR code is not found
+                    }
+                });
             }
         }));
-
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
     }
 }

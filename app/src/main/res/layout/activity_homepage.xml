@@ -309,7 +309,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="我的QRCODE"
+                    android:text="QRCODE"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="18sp"

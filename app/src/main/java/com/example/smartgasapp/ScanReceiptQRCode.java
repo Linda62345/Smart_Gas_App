@@ -124,8 +124,6 @@ public class ScanReceiptQRCode extends AppCompatActivity {
             }
         }));
 
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
     }
-
-
 }

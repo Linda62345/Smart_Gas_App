@@ -17,13 +17,18 @@
         android:backgroundTint="@android:color/white"
         android:scaleType="fitCenter"/>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp">
     <TextView
         android:id="@+id/manuallyEnterCode"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/enterReceiptCode"
         android:textColor="@android:color/black"
         android:textSize="20.0sp"
@@ -31,9 +36,8 @@
 
     <EditText
         android:id="@+id/mannuallyEnterReceiptCode"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="55dp"
         android:layout_gravity="center"
         android:background="#ffeeeeee"
         android:gravity="center"
@@ -43,7 +47,7 @@
         android:id="@+id/qrCodeFoundButton"
         android:layout_width="186.3dp"
         android:layout_height="70.9dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_marginBottom="60dp"
         android:backgroundTint="#ff5877e4"
@@ -53,6 +57,7 @@
         android:textColor="#ffffffff"
         android:textSize="20.0sp"
         android:textStyle="bold" />
+    </LinearLayout>
 
 
 </LinearLayout>

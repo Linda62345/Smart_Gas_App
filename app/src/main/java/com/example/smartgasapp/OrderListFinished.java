@@ -37,7 +37,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -55,7 +54,6 @@ public class OrderListFinished extends AppCompatActivity {
     public static String static_order_id;
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
-    ArrayList<OrderListFinishList> orderListFinishLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +61,6 @@ public class OrderListFinished extends AppCompatActivity {
         setContentView(R.layout.activity_order_list_finished);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
-
-        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
         unfinished = findViewById(R.id.order_unfinished);
 
@@ -170,26 +164,24 @@ public class OrderListFinished extends AppCompatActivity {
 //
 //            }
 //        });
-        orderListFinishLists = new ArrayList<OrderListFinishList>();
     }
 
     private void setAdapter() {
-        if(orderListFinishLists.size()>0){
-            OrderListFinishAdapterList adapter=
-                    new OrderListFinishAdapterList(getApplicationContext(),R.layout.adapter_list_un_finish,orderListFinishLists);
+        if(data!=null){
+            ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
             orderList.setAdapter(adapter);
-          orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-              @Override
-              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                  //當備案下時
-                  String msg = data[position];
-                  Toast.makeText(OrderListFinished.this, msg, Toast.LENGTH_SHORT).show();
-                  Intent intent = new Intent(OrderListFinished.this, SearchOrderResultFinished.class);
-                  String Id = order_Id[position];
-                  static_order_id = Id;
-                  startActivity(intent);
-              }
-          });
+            orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //當備案下時
+                    String msg = data[position];
+                    Toast.makeText(OrderListFinished.this, msg, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(OrderListFinished.this, SearchOrderResultFinished.class);
+                    String Id = order_Id[position];
+                    static_order_id = Id;
+                    startActivity(intent);
+                }
+            });
         }
         else{
             Toast.makeText(this, "無訂單", Toast.LENGTH_SHORT).show();
@@ -256,7 +248,9 @@ public class OrderListFinished extends AppCompatActivity {
             Log.i("GetOrderList Exception", e.toString());
         }
 
+        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
+        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
     }
 

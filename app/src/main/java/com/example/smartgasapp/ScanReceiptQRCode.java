@@ -50,6 +50,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
         qrCodeFoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enterNewIot.setText(""); // Clear the EditText
 //                enterNewIot.setText(qrCode);
 //                Toast.makeText(getApplicationContext(), qrCode, Toast.LENGTH_SHORT).show();
 //                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
@@ -148,7 +149,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        enterNewIot.setText(""); // Clear the EditText when QR code is not found
+//                        enterNewIot.setText(""); // Clear the EditText when QR code is not found
                     }
                 });
             }

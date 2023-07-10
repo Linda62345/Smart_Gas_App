@@ -23,7 +23,7 @@
             android:layout_width="344.9dp"
             android:layout_height="73.1dp"
             android:layout_gravity="center"
-            android:backgroundTint="#808080"
+            android:backgroundTint="#ff3272d7"
             android:text="確認"
             android:textColor="#ffffffff"
             android:textSize="17sp"

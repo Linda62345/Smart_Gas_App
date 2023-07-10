@@ -37,6 +37,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -54,6 +55,7 @@ public class OrderListFinished extends AppCompatActivity {
     public static String static_order_id;
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
+    ArrayList<OrderListFinishList> orderListFinishLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,12 +166,18 @@ public class OrderListFinished extends AppCompatActivity {
 //
 //            }
 //        });
+        orderListFinishLists = new ArrayList<OrderListFinishList>();
     }
 
     private void setAdapter() {
-        if(data!=null){
-            ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        if(orderListFinishLists.size()>0){
+            OrderListFinishAdapterList adapter=
+                    new OrderListFinishAdapterList(getApplicationContext(),R.layout.adapter_list_un_finish,orderListFinishLists);
             orderList.setAdapter(adapter);
+
+//        if(data!=null){
+//            ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+//            orderList.setAdapter(adapter);
             orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -182,6 +190,7 @@ public class OrderListFinished extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            orderListFinishLists = new ArrayList<OrderListFinishList>();
         }
         else{
             Toast.makeText(this, "無訂單", Toast.LENGTH_SHORT).show();
@@ -228,12 +237,20 @@ public class OrderListFinished extends AppCompatActivity {
                 JSONArray ja = new JSONArray(result);
                 JSONObject jo = null;
 
+                orderListFinishLists.clear();
+
                 data = new String[ja.length()];
                 order_Id = new String[ja.length()];
 
                 for(int i = 0; i<ja.length();i++){
                     jo = ja.getJSONObject(i);
                     String orderTime = jo.getString("Order_Time");
+
+                    OrderListFinishList order = new OrderListFinishList(orderTime, "已完成");
+                    orderListFinishLists.add(order);
+
+                    Log.i("order data", order.getTime());
+                    order_Id[i] = jo.getString("ORDER_Id");
 
                     data[i] = "訂購時間: " + orderTime + " - " + "已完成";
 

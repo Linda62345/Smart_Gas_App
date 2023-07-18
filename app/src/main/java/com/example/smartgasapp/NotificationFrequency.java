@@ -95,6 +95,9 @@ public class NotificationFrequency extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     frequency();
+                    // Create an explicit intent to navigate to the homepage layout
+                    Intent intent = new Intent(NotificationFrequency.this, Homepage.class);
+                    startActivity(intent);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -148,9 +151,9 @@ public class NotificationFrequency extends AppCompatActivity {
             double fam_id = 0.0;
             try {
                 String Customer_Id = params[0];
-                String Showurl = "http://10.0.2.2/SQL_Connect/FrequencyNotification.php";
-                String ShowUrl1 = "http://10.0.2.2/SQL_Connect/family_member.php";
-                String ShowUrl2 = "http://10.0.2.2/SQL_Connect/find_family_id.php";
+                String Showurl = "http://140.119.146.46:80/SQL_Connect/FrequencyNotification.php";
+                String ShowUrl1 = "http://140.119.146.46:80/SQL_Connect/family_member.php";
+                String ShowUrl2 = "http://140.119.146.46:80/SQL_Connect/find_family_id.php";
                 URL url = new URL(Showurl);
                 URL url1 = new URL(ShowUrl1);
                 URL url2 = new URL(ShowUrl2);
@@ -196,10 +199,12 @@ public class NotificationFrequency extends AppCompatActivity {
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                    String post_data = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
-                    Log.i("familyId: ", post_data);
+                    //String post_data = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
+                    String post_data1 = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
+                    post_data1 += "&" + URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
+                    Log.i("familyId: ", post_data1);
 
-                    bufferedWriter.write(post_data);
+                    bufferedWriter.write(post_data1);
                     bufferedWriter.flush();
                     bufferedWriter.close();
                     outputStream.close();
@@ -250,11 +255,11 @@ public class NotificationFrequency extends AppCompatActivity {
                     OutputStream outputStream1 = httpURLConnection1.getOutputStream();
                     BufferedWriter bufferedWriter1 = new BufferedWriter(new OutputStreamWriter(outputStream1, "UTF-8"));
 
-                    String post_data1 = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
-                        post_data1 += "&" + URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
+                    String post_data2 = URLEncoder.encode("family_id", "UTF-8") + "=" + URLEncoder.encode(Family_Id, "UTF-8");
+                        post_data2 += "&" + URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_Id, "UTF-8");
 
-                    Log.i("post_data1: ", post_data1);
-                    bufferedWriter1.write(post_data1);
+                    Log.i("post_data1: ", post_data2);
+                    bufferedWriter1.write(post_data2);
                     bufferedWriter1.flush();
                     bufferedWriter1.close();
                     outputStream1.close();
@@ -272,7 +277,7 @@ public class NotificationFrequency extends AppCompatActivity {
                         bufferedReader1.close();
                         inputStream1.close();
                         httpURLConnection1.disconnect();
-                        Log.i("result", "[" + result1 + "]");
+                        Log.i("result3", "[" + result1 + "]");
 
                         JSONObject gasData1 = new JSONObject(result1.toString());
                         JSONArray family_id = gasData1.getJSONArray("cus_id");

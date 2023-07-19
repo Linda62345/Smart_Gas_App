@@ -1,5 +1,7 @@
 package com.example.smartgasapp;
 
+import static com.example.smartgasapp.R.id.navigation_dashboard;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -167,6 +169,32 @@ public class OrderListFinished extends AppCompatActivity {
 //            }
 //        });
         orderListFinishLists = new ArrayList<OrderListFinishList>();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case navigation_dashboard:
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.navigation_home:
+                        startActivity(new Intent(getApplicationContext(), Homepage.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.navigation_notifications:
+                        startActivity(new Intent(getApplicationContext(), OrderListUnfinished.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void setAdapter() {

@@ -1,10 +1,13 @@
 package com.example.smartgasapp;
 
+import static com.example.smartgasapp.R.id.navigation_dashboard;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -77,10 +81,6 @@ public class OrderListUnfinished extends AppCompatActivity {
         setContentView(R.layout.activity_order_list_unfinished);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
-
-        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
 
         finished = findViewById(R.id.order_finished);
         finished.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +184,35 @@ public class OrderListUnfinished extends AppCompatActivity {
         });
 
         orderListFinishLists = new ArrayList<OrderListFinishList>();
+
+
+
+        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
+
+        bottomNavigationView.setSelectedItemId(R.id.navigation_notifications);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case navigation_dashboard:
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.navigation_home:
+                        startActivity(new Intent(getApplicationContext(), Homepage.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.navigation_notifications:
+                        startActivity(new Intent(getApplicationContext(), OrderListUnfinished.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void setAdapter() {

@@ -89,7 +89,7 @@
         <activity
             android:name="com.example.smartgasapp.Homepage"
             android:exported="false"
-            android:label="@string/title_home" />
+            android:label="@string/title_home"/>
         <activity
             android:name="com.example.smartgasapp.PersonalBarcode"
             android:exported="false"
@@ -160,20 +160,24 @@
             android:parentActivityName="com.example.smartgasapp.UserDashboard" />
         <activity
             android:name="com.example.smartgasapp.ForgetPassword2"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName="com.example.smartgasapp.ForgetPassword1"/>
         <activity
             android:name="com.example.smartgasapp.ForgetPassword1"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName="com.example.smartgasapp.ui.login.LoginActivity"
+            />
         <activity
             android:name="com.example.smartgasapp.ui.login.LoginActivity"
             android:exported="true"
             android:label="登入">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+
         <activity
             android:name="com.example.smartgasapp.Register"
             android:exported="false"

@@ -22,7 +22,7 @@
             android:paddingTop="50dp"
             android:orientation="vertical">
             <TextView
-                android:layout_width="378dp"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="紅利"

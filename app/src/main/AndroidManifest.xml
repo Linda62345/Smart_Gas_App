@@ -133,7 +133,8 @@
         <activity
             android:name="com.example.smartgasapp.OrderDetail"
             android:exported="false"
-            android:label="訂單明細" />
+            android:label="訂單明細"
+            android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
             android:name="com.example.smartgasapp.OrderSuccess"
             android:exported="false"

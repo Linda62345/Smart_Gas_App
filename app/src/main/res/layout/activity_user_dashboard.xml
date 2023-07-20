@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="40dp">
+            android:paddingVertical="18dp"
+            android:layout_marginHorizontal="10dp">
 
             <GridLayout
                 android:layout_width="wrap_content"

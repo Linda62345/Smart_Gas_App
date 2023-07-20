@@ -8,14 +8,16 @@
     tools:context=".GasExchange"
     android:background="@color/white">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:gravity="center|top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:paddingHorizontal="0dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="90dp"
         android:orientation="vertical">
 
         <TextView
@@ -138,6 +140,7 @@
 
 
     </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

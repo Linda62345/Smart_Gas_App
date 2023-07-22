@@ -88,7 +88,7 @@ public class SearchOrderResult extends AppCompatActivity {
 
         public void showData() throws MalformedURLException {
             try{
-                String Showurl = "http://10.0.2.2/SQL_Connect/customer_searchOrderResult.php";
+                String Showurl = "http://54.199.33.241/test/customer_searchOrderResult.php";
                 URL url = new URL(Showurl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -147,7 +147,7 @@ public class SearchOrderResult extends AppCompatActivity {
 
     public void Orderdetail() throws MalformedURLException {
         try{
-            String URL = "http://10.0.2.2/SQL_Connect/Worker_OrderDetail.php";
+            String URL = "http://54.199.33.241/test/Worker_OrderDetail.php";
             URL url = new URL(URL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");

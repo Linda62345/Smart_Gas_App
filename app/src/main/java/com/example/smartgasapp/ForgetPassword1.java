@@ -28,7 +28,7 @@ public class ForgetPassword1 extends AppCompatActivity {
 
     private Button newPass;
     public EditText email,number;
-    private String URL = "http://10.0.2.2/SQL_Connect/index.php";
+    private String URL = "http://54.199.33.241/test/index.php";
     public String verify;
 
     @Override

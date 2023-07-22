@@ -145,7 +145,7 @@ public class userIot extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.i("iot here","iot here");
-                        showIOT("http://10.0.2.2/SQL_Connect/Show_IOT.php");
+                        showIOT("http://54.199.33.241/test/Show_IOT.php");
                         //這裡要做修正
                         if (result.contains("\"\"response\":\"0\"")) {
                             runOnUiThread(new Runnable() {
@@ -190,7 +190,7 @@ public class userIot extends AppCompatActivity {
     }
     public void saveIOT(){
         try {
-            String URL = "http://10.0.2.2/SQL_Connect/Save_IOT.php";
+            String URL = "http://54.199.33.241/test/Save_IOT.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

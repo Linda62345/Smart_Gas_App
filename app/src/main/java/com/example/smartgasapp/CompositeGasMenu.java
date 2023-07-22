@@ -36,6 +36,8 @@ public class CompositeGasMenu extends AppCompatActivity {
         setContentView(R.layout.activity_composite_gas_menu);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.edit = false;
         a = 0;
         b = 0;
         c = 0;
@@ -111,6 +113,7 @@ public class CompositeGasMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CompositeGasMenu.this, DeliveryMethod.class);
                 startActivity(intent);
+                orderDetail.edit = true;
             }
         });
 

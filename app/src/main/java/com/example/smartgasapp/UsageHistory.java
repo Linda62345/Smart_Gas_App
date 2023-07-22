@@ -82,7 +82,7 @@ public class UsageHistory extends AppCompatActivity {
             public void run() {
                 try  {
                     //選擇sensor_id
-                    getData("http://10.0.2.2/SQL_Connect/iot.php",Customer_Id);
+                    getData("http://54.199.33.241/test/iot.php",Customer_Id);
                     JSONArray ja = new JSONArray(result);
                     for (int i = 0; i < ja.length(); i++) {
                         JSONObject jsonObject = ja.getJSONObject(i);
@@ -99,7 +99,7 @@ public class UsageHistory extends AppCompatActivity {
                     selectedSensorId = selectedSensorParts[1];
 
                     //瓦斯桶記錄sensor_history
-                    getData("http://10.0.2.2/SQL_Connect/iot_history.php",selectedSensorId);
+                    getData("http://54.199.33.241/test/iot_history.php",selectedSensorId);
                     sensorlist(selectedSensorId);
 
                     iot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -161,7 +161,7 @@ public class UsageHistory extends AppCompatActivity {
             String selectedSensorId = params[0];
 
             // Call getData and perform the network operation
-            getData("http://10.0.2.2/SQL_Connect/iot_history.php", selectedSensorId);
+            getData("http://54.199.33.241/test/iot_history.php", selectedSensorId);
 
             return null;
         }

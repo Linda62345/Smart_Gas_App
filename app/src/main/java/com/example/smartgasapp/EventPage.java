@@ -107,7 +107,7 @@ public class EventPage extends AppCompatActivity {
     public void Announcement(){
         try{
             Log.i("announcent","annnn");
-            String URL1 = "http://10.0.2.2/SQL_Connect/event_button.php";
+            String URL1 = "http://54.199.33.241/test/event_button.php";
             URL url = new URL(URL1);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");

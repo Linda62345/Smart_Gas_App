@@ -31,7 +31,7 @@ public class ForgetPassword2 extends AppCompatActivity {
     public EditText NewPassword,reNewPassword;
     public String newpassword, renewpassword,email;
     private TextView tvStatus;
-    public String URL = "http://10.0.2.2/SQL_Connect/reSetPassword_Customer.php";
+    public String URL = "http://54.199.33.241/test/reSetPassword_Customer.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

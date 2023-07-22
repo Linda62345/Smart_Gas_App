@@ -74,7 +74,7 @@ public class EditPersonalInfo extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         etCompanyName = findViewById(R.id.company);
-        String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
+        String URL1 = "http://54.199.33.241/test/company.php";
         JsonObjectRequest jsonObjectRequest;
 
         {
@@ -139,7 +139,7 @@ public class EditPersonalInfo extends AppCompatActivity {
     }
     public void showData() throws MalformedURLException {
         try{
-            String Showurl = "http://10.0.2.2/SQL_Connect/Show_Customer_Profile.php";
+            String Showurl = "http://54.199.33.241/test/Show_Customer_Profile.php";
             URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -184,7 +184,7 @@ public class EditPersonalInfo extends AppCompatActivity {
 
     public void saveProfile(){
         try {
-            String URL = "http://10.0.2.2/SQL_Connect/Save_Customer_Profile.php";
+            String URL = "http://54.199.33.241/test/Save_Customer_Profile.php";
             customer_name = Name.getText().toString().trim();
             phone = Phone.getText().toString().trim();
             tel = Tel.getText().toString().trim();

@@ -30,7 +30,6 @@ import java.util.TimeZone;
 public class DeliveryMethod extends AppCompatActivity {
     private Button order;
     private RadioGroup radioGroup;
-    private RadioButton master,myself;
     public Spinner Time_Spinner;
     public static int delivery_method;
     private TextView textView,textTime;
@@ -47,6 +46,9 @@ public class DeliveryMethod extends AppCompatActivity {
         order = findViewById(R.id.ConfrimOrder);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.edit = false;
 
         textView = findViewById(R.id.textView2);
         //textTime = findViewById(R.id.textView);
@@ -72,6 +74,7 @@ public class DeliveryMethod extends AppCompatActivity {
                 TimePick();
                 Intent intent = new Intent(DeliveryMethod.this, OrderDetail.class);
                 startActivity(intent);
+                orderDetail.edit = true;
             }
         });
 

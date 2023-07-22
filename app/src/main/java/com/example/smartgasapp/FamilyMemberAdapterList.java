@@ -65,7 +65,7 @@ public class FamilyMemberAdapterList extends ArrayAdapter<String> {
     }
     public void deleteMember(String id){
         try {
-            String URL = "http://10.0.2.2/SQL_Connect/Delete_FamilyMember.php";
+            String URL = "http://54.199.33.241/test/Delete_FamilyMember.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

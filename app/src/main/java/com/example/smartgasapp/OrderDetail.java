@@ -5,7 +5,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -97,20 +100,16 @@ public class OrderDetail extends AppCompatActivity {
             @Override
             public void run() {
                 try  {
-                    showData("http://10.0.2.2:80/SQL_Connect/Customer_Order_Detail.php",Customer_ID);
+                    showData("http://54.199.33.241/test/Customer_Order_Detail.php",Customer_ID);
                     responseJSON = new JSONObject(result);
                     String Customer_Name = responseJSON.getString("CUSTOMER_Name");
-                    Greeting.setText(Customer_Name);
-                    Recepit_Name.setText(Customer_Name);
                     phone = responseJSON.getString("CUSTOMER_PhoneNo");
-                    Receipt_TelNo.setText(phone);
                     address = responseJSON.getString("CUSTOMER_Address");
-                    Receipt_Addr.setText(address);
                     Company_Id = responseJSON.getString("COMPANY_Id");
 
-                    Log.i("orderdetail delivery method", String.valueOf(deliveryMethod.delivery_method));
-                    showData("http://10.0.2.2:80/SQL_Connect/Customer_Order_Detail_2.php",Customer_ID);
+                    showData("http://54.199.33.241/test/Customer_Order_Detail_2.php",Customer_ID);
                     responseJSON = new JSONObject(result);
+                    //無上一筆訂單資料 或是 已編輯訂單
                     if(responseJSON.getString("response").equals("failure")||edit==true){
                         //放編輯訂單裡面的資料
                         //顯示配送方式 時間
@@ -137,10 +136,10 @@ public class OrderDetail extends AppCompatActivity {
                             Gas_Quantity += gasExchange.Gas_Quantity;
                         }
                         //顯示訂單詳細資料
-                        //customerOrderDetails = new ArrayList<>();
                         setGas_Quantity();
                         //edit=false;
                     }
+                    //有上一筆訂單資料
                     else{
                         String Total_time = "";
                         date = "";
@@ -156,7 +155,7 @@ public class OrderDetail extends AppCompatActivity {
                         Gas_Quantity = responseJSON.getInt("Gas_Quantity");
 
                         // 1. 秀訂單明細 欄位有: 格式 數量 配送方式 時間
-                        showData("http://10.0.2.2/SQL_Connect/Worker_OrderDetail.php",Order_Id);
+                        showData("http://54.199.33.241/test/Worker_OrderDetail.php",Order_Id);
                         try {
                             ja = new JSONArray(result);
                             JSONObject jo = null;
@@ -181,29 +180,37 @@ public class OrderDetail extends AppCompatActivity {
 
 
                     }
-                    //將資料顯示在UI上
-                    if(method.equals("0")){
-                        Delivery_Method.setText("配送方式: 人員送達");
-                    }
-                    if(method.equals("1")){
-                        Delivery_Method.setText("配送方式: 自取");
-                    }
-                    if(method.equals("3")){
-                        Delivery_Method.setText("配送方式: 錯誤");
-                    }
-                    Expect_Date.setText("送達日期: "+date);
-                    //Expect_Time.setText("送達時間: "+time);
-                    Log.i("AL size", String.valueOf(customerOrderDetails.size()));
-
-                    //時間可選擇
-                    Date();
-                    Expect_Date.setOnClickListener(new View.OnClickListener() {
+                    runOnUiThread(new Runnable() {
                         @Override
-                        public void onClick(View v) {
-                            datePicker(v);
-                        }
-                    });
-                    TimePick();
+                        public void run() {
+                            Greeting.setText(Customer_Name);
+                            Recepit_Name.setText(Customer_Name);
+                            Receipt_TelNo.setText(phone);
+                            Receipt_Addr.setText(address);
+
+                            //將資料顯示在UI上
+                            if(method.equals("0")){
+                                Delivery_Method.setText("配送方式: 人員送達");
+                            }
+                            if(method.equals("1")){
+                                Delivery_Method.setText("配送方式: 自取");
+                            }
+                            if(method.equals("3")){
+                                Delivery_Method.setText("配送方式: 錯誤");
+                            }
+                            Expect_Date.setText("送達日期: "+date);
+                            //Expect_Time.setText("送達時間: "+time);
+                            Log.i("AL size", String.valueOf(customerOrderDetails.size()));
+
+                            //時間可選擇
+                            Date();
+                            Expect_Date.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    datePicker(v);
+                                }
+                            });
+                            TimePick();
                     /*Time();
                     Expect_Time.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -212,24 +219,21 @@ public class OrderDetail extends AppCompatActivity {
                         }
                     });*/
 
-                    //殘氣結合訂單
-                    RemainGas();
+                            //殘氣結合訂單
+                            RemainGas();
 
-                    //show訂單詳細資料
-                    CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
-                    if (customerOrderDetails.size() > 0) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Stuff that updates the UI
+                            //show訂單詳細資料
+                            CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
+                            if (customerOrderDetails.size() > 0) {
                                 Log.i("order detail", String.valueOf(customerOrderDetails.size()));
                                 listView = (ListView) findViewById(R.id.listview);
                                 listView.setAdapter(null);
                                 // Stuff that updates the UI
                                 listView.setAdapter(adapter);
                             }
-                        });
-                    }
+                        }
+                    });
+
                 } catch (Exception e) {
                     Log.i("Order Detail Exception",e.toString());
                 }
@@ -275,6 +279,14 @@ public class OrderDetail extends AppCompatActivity {
 
     }
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+
+        }
+    };
+
     public void showData(String Showurl,String id){
         try{
             URL url = new URL(Showurl);
@@ -308,7 +320,7 @@ public class OrderDetail extends AppCompatActivity {
     }
     public void newOrder(){
         try{
-            String String_url = "http://10.0.2.2/SQL_Connect/NewOrder.php";
+            String String_url = "http://54.199.33.241/test/NewOrder.php";
             Log.i("Execute order","Please execute"+Customer_ID+Company_Id+ String.valueOf(0)+address+phone+String.valueOf(Gas_Quantity)+time+method);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
                 @Override
@@ -375,7 +387,7 @@ public class OrderDetail extends AppCompatActivity {
         //要那些欄位 order_id, order_quantity, order_type, order_weight
         for(int i=1;i<customerOrderDetails.size();i++){
             int index = i;
-            String String_url = "http://10.0.2.2/SQL_Connect/NewOrderDetail.php";
+            String String_url = "http://54.199.33.241/test/NewOrderDetail.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -550,7 +562,7 @@ public class OrderDetail extends AppCompatActivity {
     }
     public void deleteGasRemain(){
         //三個值 Customer Id Company Id Gas Volume
-        String String_url = "http://10.0.2.2/SQL_Connect/Delete_Gas_Remain.php";
+        String String_url = "http://54.199.33.241/test/Delete_Gas_Remain.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

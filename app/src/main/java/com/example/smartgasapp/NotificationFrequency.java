@@ -182,9 +182,9 @@ public class NotificationFrequency extends AppCompatActivity {
             double fam_id = 0.0;
             try {
                 String Customer_Id = params[0];
-                String Showurl = "http://140.119.146.46:80/SQL_Connect/FrequencyNotification.php";
-                String ShowUrl1 = "http://140.119.146.46:80/SQL_Connect/family_member.php";
-                String ShowUrl2 = "http://140.119.146.46:80/SQL_Connect/find_family_id.php";
+                String Showurl = "http://54.199.33.241/test/FrequencyNotification.php";
+                String ShowUrl1 = "http://54.199.33.241/test/family_member.php";
+                String ShowUrl2 = "http://54.199.33.241/test/find_family_id.php";
                 URL url = new URL(Showurl);
                 URL url1 = new URL(ShowUrl1);
                 URL url2 = new URL(ShowUrl2);

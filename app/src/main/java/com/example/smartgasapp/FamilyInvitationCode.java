@@ -139,7 +139,7 @@ public class FamilyInvitationCode extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                showData("http://10.0.2.2/SQL_Connect/Show_FamilyMember_2.php",Customer_ID);
+                showData("http://54.199.33.241/test/Show_FamilyMember_2.php",Customer_ID);
                 try {
                     Log.i("family result",result);
                     if(result.equals("failure")){
@@ -180,7 +180,7 @@ public class FamilyInvitationCode extends AppCompatActivity {
 
     public void SaveFamilyMember() {
         try {
-            String URL = "http://10.0.2.2/SQL_Connect/Save_FamilyMember_2.php";
+            String URL = "http://54.199.33.241/test/Save_FamilyMember_2.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

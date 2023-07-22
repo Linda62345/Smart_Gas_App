@@ -74,7 +74,7 @@ public class OrderListUnfinished extends AppCompatActivity {
     ArrayList<OrderListFinishList> orderListFinishLists;
 
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
-    private String URL = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+    private String URL = "http://54.199.33.241/test/customer_UnOrderList.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -229,7 +229,7 @@ public class OrderListUnfinished extends AppCompatActivity {
 
     private void getOrderList() throws MalformedURLException {
         try{
-          String Showurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+          String Showurl = "http://54.199.33.241/test/customer_UnOrderList.php";
            URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -300,7 +300,7 @@ public class OrderListUnfinished extends AppCompatActivity {
     private void getData() throws IOException {
         //還要把customer Id丟過去
 
-        String Showurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+        String Showurl = "http://54.199.33.241/test/customer_UnOrderList.php";
         URL url = new URL(Showurl);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("POST");
@@ -333,7 +333,7 @@ public class OrderListUnfinished extends AppCompatActivity {
         httpURLConnection.disconnect();
 
         try {
-            String dataurl = "http://10.0.2.2/SQL_Connect/customer_UnOrderList.php";
+            String dataurl = "http://54.199.33.241/test/customer_UnOrderList.php";
             URL url1 = new URL(dataurl);
             HttpURLConnection con = (HttpURLConnection) url1.openConnection();
             con.setRequestMethod("GET");

@@ -86,7 +86,7 @@ public class Homepage extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         iot1 = findViewById(R.id.iotSpinner);
-        point = findViewById(R.id.changable_pointButton);
+        //point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
         remainGas = findViewById(R.id.changableVol_progress);
         buy = findViewById(R.id.buyGasButton);
@@ -138,13 +138,13 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-        point.setOnClickListener(new View.OnClickListener() {
+        /*point.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Homepage.this, PointPage.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         homeLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,7 +170,7 @@ public class Homepage extends AppCompatActivity {
                     public void run() {
                         try {
                             Log.i("customer id", Customer_ID);
-                            showData("http://10.0.2.2:80/SQL_Connect/Customer_Order_Detail_2.php", Customer_ID);
+                            showData("http://54.199.33.241/test/Customer_Order_Detail_2.php", Customer_ID);
                             responseJSON = new JSONObject(result);
                             if (responseJSON.getString("response").equals("success")) {
                                 Intent intent = new Intent(Homepage.this, OrderDetail.class);
@@ -265,7 +265,7 @@ public class Homepage extends AppCompatActivity {
                 if (params.length > 0) {
                     selectedSensorId = params[0];
                 }
-                String Showurl = "http://10.0.2.2/SQL_Connect/Iot_Connect.php";
+                String Showurl = "http://54.199.33.241/test/Iot_Connect.php";
                 URL url = new URL(Showurl);
 
                 HttpURLConnection httpURLConnection3 = (HttpURLConnection) url.openConnection();

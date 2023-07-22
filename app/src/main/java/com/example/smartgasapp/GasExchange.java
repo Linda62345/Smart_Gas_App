@@ -180,7 +180,7 @@ public class GasExchange extends AppCompatActivity {
         });
     }
     public void Company(){
-        String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
+        String URL1 = "http://54.199.33.241/test/company.php";
         JsonObjectRequest jsonObjectRequest;
         {
             jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -213,7 +213,7 @@ public class GasExchange extends AppCompatActivity {
 
     public void showGasRemain() {
         try {
-            String Showurl = "http://10.0.2.2/SQL_Connect/Gas_Remain.php";
+            String Showurl = "http://54.199.33.241/test/Gas_Remain.php";
             URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");

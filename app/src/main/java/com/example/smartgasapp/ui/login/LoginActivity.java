@@ -207,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() {
-        String url = "http://10.0.2.2/SQL_Connect/customer_login.php";
+        String url = "http://54.199.33.241/test/customer_login.php";
         email = username.getText().toString().trim();
         password = Password.getText().toString().trim();
         if (!email.equals("") && !password.equals("")) {
@@ -222,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else if (response.contains("failure")) {
-                        Toast.makeText(LoginActivity.this, "Invalid Login Id/Password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "帳號或密碼有誤", Toast.LENGTH_SHORT).show();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
         } else {
-            Toast.makeText(this, "Fields can not be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "帳號密碼欄位必填", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -261,7 +261,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             try {
                 email = username.getText().toString().trim();
-                String Findurl = "http://10.0.2.2/SQL_Connect/Find_Customer_ID.php";
+                String Findurl = "http://54.199.33.241/test/Find_Customer_ID.php";
                 URL url = new URL(Findurl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -293,6 +293,14 @@ public class LoginActivity extends AppCompatActivity {
                 COMPANY_Id = responseJSON.getInt("COMPANY_Id");
                 Log.i("Company_id",String.valueOf(COMPANY_Id));
             } catch (Exception e) {
+                if (e.toString().contains("Failed to connect to")) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(LoginActivity.this, "請連接網路", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
                 Log.i("Here Exception", e.toString());
             }
         }

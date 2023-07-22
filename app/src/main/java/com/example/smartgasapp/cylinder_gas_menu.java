@@ -37,6 +37,9 @@ public class cylinder_gas_menu extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
 
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.edit = false;
+
         a = 0;
         b = 0;
         c = 0;
@@ -101,6 +104,7 @@ public class cylinder_gas_menu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(cylinder_gas_menu.this, DeliveryMethod.class);
                 startActivity(intent);
+                orderDetail.edit = true;
             }
         });
 

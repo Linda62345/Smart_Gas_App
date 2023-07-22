@@ -213,7 +213,7 @@ public class UserDashboard extends AppCompatActivity {
                 if (params.length > 0) {
                     selectedSensorId = params[0];
                 }
-                String Showurl = "http://10.0.2.2/SQL_Connect/Iot_Connect.php";
+                String Showurl = "http://54.199.33.241/test/Iot_Connect.php";
                 URL url = new URL(Showurl);
 
                 HttpURLConnection httpURLConnection3 = (HttpURLConnection) url.openConnection();

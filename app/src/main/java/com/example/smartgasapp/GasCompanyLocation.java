@@ -77,7 +77,7 @@ public class GasCompanyLocation extends AppCompatActivity {
 
 
 
-        String URL1 = "http://10.0.2.2/SQL_Connect/company.php";
+        String URL1 = "http://54.199.33.241/test/company.php";
         JsonObjectRequest jsonObjectRequest;
 
         {
@@ -122,7 +122,7 @@ public class GasCompanyLocation extends AppCompatActivity {
                 Intent intent = new Intent(GasCompanyLocation.this, Homepage.class);
                 startActivity(intent);
 
-                String URL = "http://10.0.2.2/SQL_Connect/customer_gasLocation.php";
+                String URL = "http://54.199.33.241/test/customer_gasLocation.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

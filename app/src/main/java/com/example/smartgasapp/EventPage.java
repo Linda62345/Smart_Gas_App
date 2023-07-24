@@ -143,7 +143,7 @@ public class EventPage extends AppCompatActivity {
 
     public void AnnouncementArray(){
         try{
-            if(result.equals("failure")){
+            if(result.contains("failure")){
                 Toast.makeText(getApplicationContext(), "無活動公告", Toast.LENGTH_LONG).show();
             }
             else if(result!=null){

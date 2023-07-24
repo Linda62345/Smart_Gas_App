@@ -61,7 +61,7 @@ public class OrderDetail extends AppCompatActivity {
     public JSONArray ja;
     public ListView listView;
     public Spinner Time_Spinner;
-    public int Gas_Quantity,orderDetailQuan,Gas_Delete=0;
+    public int Gas_Quantity,orderDetailQuan,Gas_Delete=0,position=-1;
     public static boolean edit=false;
     public static ArrayList<CustomerOrderDetail> customerOrderDetails;
     DatePickerDialog.OnDateSetListener pickerDialog;
@@ -121,15 +121,12 @@ public class OrderDetail extends AppCompatActivity {
                         method = String.valueOf(deliveryMethod.delivery_method);
                         Log.i("配送方式",method);
                         date = deliveryMethod.date;
-                        Expect_Date.setText("送達日期: "+date);
                         time = deliveryMethod.time;
                         Time_Spinner = findViewById(R.id.Time);
                         Log.i("Time_Spinner", deliveryMethod.Time_Select);
+                        //選取時間要一致
                         ArrayAdapter<String> adapter = (ArrayAdapter<String>) Time_Spinner.getAdapter();
-                        int position = adapter.getPosition(deliveryMethod.Time_Select);
-                        Log.i("position", String.valueOf(position));
-                        Time_Spinner.setSelection(position);
-                        //這裡要設定date 跟 time的顯示要正確
+                        position = adapter.getPosition(deliveryMethod.Time_Select);
 
                         Gas_Quantity = compositeGasMenu.a+compositeGasMenu.b+compositeGasMenu.c+cylinder_gas_menu.a+cylinder_gas_menu.b+cylinder_gas_menu.c;
                         if(gasExchange.Gas_Quantity!=0){
@@ -137,7 +134,6 @@ public class OrderDetail extends AppCompatActivity {
                         }
                         //顯示訂單詳細資料
                         setGas_Quantity();
-                        //edit=false;
                     }
                     //有上一筆訂單資料
                     else{
@@ -211,6 +207,13 @@ public class OrderDetail extends AppCompatActivity {
                                 }
                             });
                             TimePick();
+
+                            if(position!=-1){
+                                Log.i("position", String.valueOf(position));
+                                Time_Spinner.setSelection(position);
+                            }
+
+                            //這裡要設定date 跟 time的顯示要正確
                     /*Time();
                     Expect_Time.setOnClickListener(new View.OnClickListener() {
                         @Override

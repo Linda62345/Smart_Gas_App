@@ -179,37 +179,7 @@ public class GasExchange extends AppCompatActivity {
             }
         });
     }
-    public void Company(){
-        String URL1 = "http://54.199.33.241/test/company.php";
-        JsonObjectRequest jsonObjectRequest;
-        {
-            jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                    URL1, null, new Response.Listener<JSONObject>() {
-                public void onResponse(JSONObject response) {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("company");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String companyName = jsonObject.optString("COMPANY_Name");
-                            companyList.add(companyName);
-                            companyAdapter = new ArrayAdapter<>(GasExchange.this,
-                                    android.R.layout.simple_spinner_item, companyList);
-                            companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            Company.setAdapter(companyAdapter);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
 
-                }
-            });
-            requestQueue.add(jsonObjectRequest);
-        }
-    }
 
     public void showGasRemain() {
         try {
@@ -246,11 +216,20 @@ public class GasExchange extends AppCompatActivity {
             volume.setText("目前累積殘氣: "+Gas_Volume+"公斤");
             Company_Name = responseJSON.getString("Company_Name");
             name.setText("瓦斯行: "+Company_Name);
-            if(responseJSON.getString("response").equals("failure")){
-                volume.setText("目前無累積殘氣");
+            if(responseJSON.getString("response").contains("failure")){
+                volume.setText("目前累積殘氣: 0 公斤");
+                Toast.makeText(getApplicationContext(), "無殘氣", Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(e.toString().contains("No value for Gas_Volume")){
+                        Toast.makeText(getApplicationContext(), "無殘氣", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
             Log.i("GasExchange Exception",e.toString());
         }
     }

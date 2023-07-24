@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
-            android:text="目前累計殘氣：xxx公斤"
+            android:text="目前累計殘氣：0 公斤"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold" />

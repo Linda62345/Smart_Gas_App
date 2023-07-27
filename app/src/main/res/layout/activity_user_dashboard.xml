@@ -19,10 +19,10 @@
         <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingVertical="18dp"
-            android:layout_marginHorizontal="10dp">
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
 
             <GridLayout
                 android:layout_width="wrap_content"
@@ -84,16 +84,17 @@
 
             <LinearLayout
                 android:id="@+id/constraintUserInfo"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:background="@drawable/corners"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:orientation="horizontal"
                     android:paddingHorizontal="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="5dp">
@@ -104,7 +105,7 @@
                         android:layout_width="43dp"
                         android:layout_height="54dp"
                         android:layout_marginRight="8dp"
-                        android:src="@drawable/baseline_propane_tank_gray" />
+                        android:src="@drawable/baseline_propane_tank_gray"/>
 
                     <TextView
                         android:id="@+id/usedGasProgressinfo"
@@ -118,22 +119,23 @@
 
                     <TextView
                         android:id="@+id/progress_text"
-                        android:layout_width="98dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="54dp"
+                        android:layout_marginRight="10dp"
                         android:gravity="left|center"
                         android:text="0"
+                        android:layout_weight="@integer/material_motion_duration_medium_1"
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
                     <Spinner
                         android:id="@+id/iotSpinner"
                         android:contentDescription="iot"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="48dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"
                         android:backgroundTint="#ff1976d2"
-                        android:padding="5dp" />
+                        android:padding="5dp"/>
                     <!--    "#ffd5d5d5"       -->
 <!--                    <androidx.appcompat.widget.AppCompatButton-->
 <!--                        android:id="@+id/seeMoreButtoninfo"-->
@@ -150,19 +152,20 @@
                 <ProgressBar
                     android:id="@+id/progressBarinfo"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="320dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="8dp"
+                    android:layout_marginHorizontal="10dp"
                     android:progressDrawable="@drawable/custom_progress_bg"
                     android:progressTint="#2196F3" />
 
                 <LinearLayout
-                    android:layout_width="360dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/currentVol_progressinfo"
@@ -177,11 +180,11 @@
                         android:id="@+id/changableVol_progressinfo"
                         android:layout_width="wrap_content"
                         android:layout_height="18dp"
-                        android:layout_marginRight="8dp"
                         android:gravity="center|start"
+                        android:layout_marginRight="8dp"
                         android:text="0"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"  />
 
                     <TextView
                         android:id="@+id/currentVol_metreinfo"
@@ -197,8 +200,8 @@
                         android:id="@+id/currentVol_cubicinfo"
                         android:layout_width="11dp"
                         android:layout_height="18dp"
-                        android:layout_gravity="start"
                         android:text=""
+                        android:layout_gravity="start"
                         android:textColor="@color/black"
                         android:textSize="8sp"
                         android:textStyle="bold" />
@@ -207,10 +210,11 @@
 
             <GridLayout
                 android:id="@+id/gridLayout2"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="45dp"
                 android:columnCount="3"
                 android:rowCount="2">
 

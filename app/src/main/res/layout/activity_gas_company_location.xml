@@ -8,11 +8,16 @@
     tools:context=".GasCompanyLocation"
     android:background="@color/white">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:gravity="center|top"
         android:paddingTop="30dp"
+        android:paddingBottom="60dp"
         android:paddingHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -89,14 +94,15 @@
         android:layout_width="match_parent"
         android:layout_height="66dp"
         android:layout_marginStart="67dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="67dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="40dp"
         android:textStyle="bold"
         android:text="@string/confirmString"
         android:textSize="20sp" />
 
     </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

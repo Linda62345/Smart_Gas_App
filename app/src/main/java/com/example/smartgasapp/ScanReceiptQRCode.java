@@ -96,7 +96,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }});
 
-        IOTlistView = findViewById(R.id.IOTlist);
+//        IOTlistView = findViewById(R.id.IOTlist);
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());

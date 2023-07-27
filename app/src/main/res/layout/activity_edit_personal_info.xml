@@ -7,6 +7,12 @@
     tools:context=".EditPersonalInfo"
     android:background="@color/white">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
     <LinearLayout
         android:id="@+id/InfolinearLayout"
         android:layout_width="match_parent"
@@ -28,7 +34,7 @@
 
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="18.0dp"
             android:layout_gravity="center"
             android:text="@string/name"
@@ -38,7 +44,7 @@
 
         <EditText
             android:id="@+id/editName"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:inputType="text"
@@ -47,7 +53,7 @@
             android:text="王大明" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="18.0dp"
             android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
@@ -58,14 +64,14 @@
 
         <EditText
             android:id="@+id/editHousePhone"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:inputType="phone"
             android:text="02-12345567" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="18.0dp"
             android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
@@ -76,14 +82,14 @@
 
         <EditText
             android:id="@+id/editPhoneNo"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:inputType="phone"
             android:text="0912345678" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="18.0dp"
             android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
@@ -94,7 +100,7 @@
 
         <EditText
             android:id="@+id/editCompanyAddress"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:inputType="text"
@@ -103,7 +109,7 @@
             android:text="台北市瓦斯區瓦斯行瓦斯路一段1號" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="23.0dp"
             android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
@@ -114,7 +120,7 @@
 
         <EditText
             android:id="@+id/editEmail"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:inputType="text"
@@ -123,7 +129,7 @@
             android:text="gasgas@gmail.com" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="23.0dp"
             android:layout_gravity="center"
             android:layout_marginTop="20.0dp"
@@ -135,21 +141,19 @@
         <Spinner
             android:id="@+id/company"
             android:contentDescription="Company"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="#ffd5d5d5"
             android:padding="5dp"
             />
 
         <Button
             android:id="@+id/saveInfo_button"
-            android:layout_width="94.9dp"
+            android:layout_width="150dp"
             android:layout_height="56.3dp"
-            android:layout_marginStart="275dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="41dp"
+            android:layout_gravity="end"
             android:layout_marginBottom="17dp"
             android:backgroundTint="#3272D7"
             android:text="@string/save_string"
@@ -163,6 +167,7 @@
 
 
     </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,12 +16,13 @@
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="18dp"
         android:orientation="vertical"
         android:paddingBottom="90dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/compositeGas"
-            android:layout_width="355dp"
+            android:layout_width="match_parent"
             android:layout_height="87dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
@@ -33,7 +34,7 @@
             android:textStyle="bold" />
 
         <GridLayout
-            android:layout_width="345dp"
+            android:layout_width="match_parent"
             android:layout_height="239dp"
             android:layout_gravity="center"
             android:background="@drawable/rounded_button_border"
@@ -186,7 +187,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cylinderGas"
-            android:layout_width="355dp"
+            android:layout_width="match_parent"
             android:layout_height="87dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"

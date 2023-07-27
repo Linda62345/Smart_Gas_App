@@ -16,6 +16,7 @@
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="18dp"
         android:orientation="vertical"
         android:paddingBottom="90dp">
 
@@ -26,7 +27,7 @@
         android:padding="15dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_width="355dp"
+        android:layout_width="match_parent"
         android:layout_height="87dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_button_border"
@@ -42,7 +43,7 @@
         android:padding="15dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_width="355dp"
+        android:layout_width="match_parent"
         android:layout_height="87dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_button_border"
@@ -50,7 +51,7 @@
         />
 
     <GridLayout
-        android:layout_width="345dp"
+        android:layout_width="match_parent"
         android:layout_height="239dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_button_border"

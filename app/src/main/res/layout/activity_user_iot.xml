@@ -24,8 +24,9 @@
             android:layout_width="225dp"
             android:layout_height="48dp"
             android:layout_marginRight="10dp"
-            android:textAlignment="center"
-            android:hint="請輸入您的 IOT 賬號"/>
+            android:hint="請輸入您的 IOT 賬號"
+            android:inputType="number"
+            android:textAlignment="center" />
         <ImageButton
             android:id="@+id/qrPage"
             android:layout_width="48dp"
@@ -48,7 +49,7 @@
 
         <ListView
             android:id="@+id/IOTlist"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:columnCount="2"

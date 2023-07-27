@@ -10,21 +10,21 @@
 
 
     <LinearLayout
-        android:paddingTop="210dp"
+        android:layout_marginTop="150dp"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="40dp">
+        android:layout_marginBottom="50dp">
 
 
         <TextView
             android:id="@+id/client_greetingTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
             android:text=""
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -359,7 +359,7 @@
                     android:minHeight="48dp"
                     android:padding="10dp"
                     android:gravity="center"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:background="#ffececec"
                     android:text="累計殘氣兌換 >"
                     android:textColor="@color/black"
@@ -376,7 +376,7 @@
                     android:minWidth="115dp"
                     android:padding="10dp"
                     android:gravity="center"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:layout_marginTop="6.0dp"
                     android:text="現金付款"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -397,7 +397,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="6dp"
                     android:text="是"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
@@ -448,10 +448,9 @@
                     android:minWidth="115dp"
                     android:layout_marginTop="6.0dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:padding="15dp"
                     android:text="元"
-                    android:textAlignment="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
                     android:textStyle="bold" />

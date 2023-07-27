@@ -10,21 +10,20 @@
 
 
     <LinearLayout
-        android:layout_marginTop="150dp"
+        android:paddingTop="5dp"
         android:orientation="vertical"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp">
+        android:paddingBottom="40dp">
 
 
         <TextView
             android:id="@+id/client_greetingTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
             android:text=""
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -96,6 +95,7 @@
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:layout_marginLeft="25.0dp"
                 android:layout_marginTop="7dp"
                 android:text="配送地址: "
                 android:textAppearance="?android:attr/textAppearanceMedium"

@@ -264,6 +264,13 @@ public class UserDashboard extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = new JSONArray(result);
 
+                    // Check if selectedSensorId is null or empty
+                    if (selectedSensorId == null || selectedSensorId.isEmpty()) {
+                        // Get the first sensor ID from the JSON response
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        selectedSensorId = jsonObject.getString("sensorId");
+                    }
+
                     // Find the JSON object with the selected sensor ID
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);

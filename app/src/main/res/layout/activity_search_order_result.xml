@@ -32,7 +32,7 @@
             android:text="@string/CustomerName"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ff757575"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView

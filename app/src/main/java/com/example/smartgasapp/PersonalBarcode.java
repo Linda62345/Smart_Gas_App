@@ -42,10 +42,7 @@ public class PersonalBarcode extends AppCompatActivity {
     private Button backToHome;
 
     public int CUSTOMER_ID;
-
     public String CUSTOMER_Name, CUSTOMER_Sex;
-
-
     private ImageView imageView;
     private TextView userName,sex;
 

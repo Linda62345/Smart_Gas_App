@@ -186,15 +186,15 @@ public class OrderDetail extends AppCompatActivity {
 
                             //將資料顯示在UI上
                             if(method.equals("0")){
-                                Delivery_Method.setText("配送方式: 人員送達");
+                                Delivery_Method.setText("人員送達");
                             }
                             if(method.equals("1")){
-                                Delivery_Method.setText("配送方式: 自取");
+                                Delivery_Method.setText("到店自取");
                             }
                             if(method.equals("3")){
-                                Delivery_Method.setText("配送方式: 錯誤");
+                                Delivery_Method.setText("錯誤");
                             }
-                            Expect_Date.setText("送達日期: "+date);
+                            Expect_Date.setText(date);
                             //Expect_Time.setText("送達時間: "+time);
                             Log.i("AL size", String.valueOf(customerOrderDetails.size()));
 
@@ -434,7 +434,7 @@ public class OrderDetail extends AppCompatActivity {
                 calendar.set(Calendar.MONTH,month);
                 calendar.set(Calendar.DATE,dayOfMonth);
                 date = year+"-"+month+"-"+dayOfMonth+" ";
-                Expect_Date.setText("送達日期："+year+"/"+(month+1)+"/"+dayOfMonth);
+                Expect_Date.setText(year+"/"+(month+1)+"/"+dayOfMonth);
             }
         };
     }
@@ -597,7 +597,7 @@ public class OrderDetail extends AppCompatActivity {
     }
     public void findUI(){
         Expect_Date = findViewById(R.id.ExpectDate);
-        Expect_Time = findViewById(R.id.ExpectTime);
+        //Expect_Time = findViewById(R.id.ExpectTime);
         Delivery_Method = findViewById(R.id.deliveryMethod);
         Greeting = findViewById(R.id.client_greetingTitle);
         Recepit_Name = findViewById(R.id.changable_receiptName);

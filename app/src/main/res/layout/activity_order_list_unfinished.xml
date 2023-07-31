@@ -8,10 +8,11 @@
 
     <LinearLayout
         android:id="@+id/order_button_list_unfinished"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="310dp"
         android:orientation="vertical"
         android:paddingTop="20dp"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,19 +21,22 @@
 
         <Button
             android:id="@+id/enterSearch"
-            android:layout_width="344.9dp"
-            android:layout_height="73.1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:paddingVertical="10dp"
             android:layout_gravity="center"
             android:backgroundTint="#ff3272d7"
             android:text="確認"
             android:textColor="#ffffffff"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            />
+            android:autoSizeMinTextSize="20sp"
+            app:autoSizeTextType="uniform"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/list_item"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             />

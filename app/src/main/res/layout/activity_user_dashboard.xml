@@ -27,9 +27,9 @@
             <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
                 android:layout_marginTop="30dp"
-                android:paddingStart="20dp">
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                             android:id="@+id/show_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_gravity="end"
                             android:text="xxx"
                             android:textColor="@color/black"
                             android:textSize="30sp"
@@ -54,8 +54,8 @@
                             android:id="@+id/gender_call"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="先生/小姐"
+                            android:gravity="end"
+                            android:text="  先生/小姐"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -73,11 +73,11 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="108dp"
-                    android:layout_height="108dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minWidth="104dp"
+                    android:minHeight="98dp"
+                    android:layout_gravity="end"
                     android:src="@drawable/baseline_account_circle_24" />
             </GridLayout>
 
@@ -212,7 +212,6 @@
                 android:id="@+id/gridLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="45dp"
                 android:columnCount="3"
@@ -222,7 +221,8 @@
                     android:id="@+id/search"
                     android:layout_width="120dp"
                     android:layout_height="110dp"
-                    android:layout_gravity="center"
+                    android:layout_row="0"
+                    android:layout_column="0"
                     android:background="@drawable/button_border"
                     android:text="訂單查詢"
                     android:textColor="@color/black"
@@ -234,7 +234,6 @@
                     android:layout_height="110dp"
                     android:layout_row="0"
                     android:layout_column="1"
-                    android:layout_gravity="center"
                     android:background="@drawable/button_border"
                     android:padding="19dp"
                     android:text="歷史用量"
@@ -288,7 +287,7 @@
 
             <Button
                 android:id="@+id/FAQ_button"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
@@ -299,7 +298,7 @@
 
             <Button
                 android:id="@+id/Terms_condition_button"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/white"
@@ -310,7 +309,7 @@
 
             <Button
                 android:id="@+id/logout_button"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="60dp"

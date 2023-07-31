@@ -19,21 +19,21 @@
         <LinearLayout
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingTop="50dp"
             android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
             <GridLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <GridLayout
@@ -47,7 +47,7 @@
                             android:layout_gravity="end"
                             android:text="xxx"
                             android:textColor="@color/black"
-                            android:textSize="30sp"
+                            app:autoSizeTextType="uniform"
                             android:textStyle="bold" />
 
                         <TextView
@@ -57,27 +57,32 @@
                             android:gravity="end"
                             android:text="  先生/小姐"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            app:autoSizeTextType="uniform"
+                            android:autoSizeMinTextSize="70sp"
                             android:textStyle="bold" />
                     </GridLayout>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/go_edit_profile"
-                        android:layout_width="126dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minHeight="48dp"
+                        android:padding="8dp"
                         android:layout_gravity="end"
                         android:background="@drawable/oval_button"
                         android:text="個人資料修改"
+                        app:autoSizeTextType="uniform"
                         android:textColor="@color/main_blue" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:minWidth="104dp"
-                    android:minHeight="98dp"
                     android:layout_gravity="end"
+                    android:minWidth="80dp"
+                    android:minHeight="80dp"
+                    android:layout_marginHorizontal="10dp"
                     android:src="@drawable/baseline_account_circle_24" />
             </GridLayout>
 
@@ -211,76 +216,101 @@
             <GridLayout
                 android:id="@+id/gridLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="45dp"
+                android:layout_gravity="center"
                 android:columnCount="3"
                 android:rowCount="2">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/search"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_height="match_parent"
                     android:layout_row="0"
                     android:layout_column="0"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="30dp"
                     android:background="@drawable/button_border"
                     android:text="訂單查詢"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/usageHistory"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_height="match_parent"
                     android:layout_row="0"
                     android:layout_column="1"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="30dp"
                     android:background="@drawable/button_border"
-                    android:padding="19dp"
                     android:text="歷史用量"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/notificationFrequency"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
-                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="30dp"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_height="match_parent"
                     android:background="@drawable/button_border"
-                    android:padding="19dp"
                     android:text="通知頻率與時間"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/volExchange"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
-                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="30dp"
                     android:background="@drawable/button_border"
-                    android:padding="19dp"
                     android:text="殘氣累積與兌換"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/activityButton"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
-                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_height="match_parent"
                     android:background="@drawable/button_border"
                     android:text="活動公告"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="30dp"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/familyCodeButton"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
-                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="30dp"
                     android:background="@drawable/button_border"
                     android:text="家人邀請碼"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
             </GridLayout>
 

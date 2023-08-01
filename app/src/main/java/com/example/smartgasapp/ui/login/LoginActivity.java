@@ -1,7 +1,10 @@
 package com.example.smartgasapp.ui.login;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -79,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         email = password = "";
         username = findViewById(R.id.username);
         Password = findViewById(R.id.password);
+
+        createNotificationChannel();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,6 +199,14 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("My Notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

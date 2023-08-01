@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="54dp"
                         android:gravity="left|center"
-                        android:text="瓦斯已用："
+                        android:text="剩餘用量："
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -173,33 +173,33 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/currentVol_progressinfo"
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="18dp"
                         android:layout_marginRight="8dp"
-                        android:text="@string/currentVolume"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/changableVol_progressinfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="18dp"
-                        android:gravity="center|start"
-                        android:layout_marginRight="8dp"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"  />
+<!--                    <TextView-->
+<!--                        android:id="@+id/changableVol_progressinfo"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:layout_marginRight="8dp"-->
+<!--                        android:text="0"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp"  />-->
 
-                    <TextView
-                        android:id="@+id/currentVol_metreinfo"
-                        android:layout_width="11dp"
-                        android:layout_height="18dp"
-                        android:gravity="center"
-                        android:text="%"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/currentVol_metreinfo"-->
+<!--                        android:layout_width="11dp"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="%"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold" />-->
 
                     <TextView
                         android:id="@+id/currentVol_cubicinfo"

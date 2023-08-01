@@ -70,7 +70,7 @@ public class UserDashboard extends AppCompatActivity {
         famCoupon = findViewById(R.id.familyCodeButton);
         logout = findViewById(R.id.logout_button);
         progressBar = findViewById(R.id.progressBarinfo);
-        VolumeLeft = findViewById(R.id.changableVol_progressinfo);
+     //   VolumeLeft = findViewById(R.id.changableVol_progressinfo);
 
         showName = findViewById(R.id.show_name);
         LoginActivity loginActivity = new LoginActivity();
@@ -276,7 +276,8 @@ public class UserDashboard extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String sensorId = jsonObject.getString("sensorId");
                         if (sensorId.equals(selectedSensorId)) {
-                            progressValue = jsonObject.getInt("Result");
+//                            progressValue = jsonObject.getInt("Result");
+                            progressValue = jsonObject.getInt("SENSOR_Weight");
                             sensorWeight = jsonObject.getDouble("SENSOR_Weight");
                             break;
                         }
@@ -314,10 +315,11 @@ public class UserDashboard extends AppCompatActivity {
         String formattedSensorWeight = decimalFormat.format(sensorWeight);
 
         progressBar.setProgress(progressValue);
-        VolumeLeft.setText(formattedSensorWeight);
+   //     VolumeLeft.setText(formattedSensorWeight);
 
         TextView progressText = findViewById(R.id.progress_text);
-        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
+        progressText.setText(String.valueOf(decimalFormat.format(sensorWeight) + "%"));
+//        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
     }
 
 

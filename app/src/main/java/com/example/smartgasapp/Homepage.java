@@ -62,7 +62,7 @@ public class Homepage extends AppCompatActivity {
     private ImageButton iot;
     private ImageButton personalBarcode;
     private BottomNavigationView bottomNavigationView;
-    private TextView remainGas;
+    private TextView remainGas, showName;
     private ProgressBar progressBar;
     private ViewPager viewPager;
     private ImageAdapter adapter;
@@ -88,7 +88,7 @@ public class Homepage extends AppCompatActivity {
         iot1 = findViewById(R.id.iotSpinner);
         //point = findViewById(R.id.changable_pointButton);
         homeLogin = findViewById(R.id.loginFromHome);
-        remainGas = findViewById(R.id.changableVol_progress);
+       // remainGas = findViewById(R.id.changableVol_progress);
         buy = findViewById(R.id.buyGasButton);
         search = findViewById(R.id.findOrderListButton);
         iot = findViewById(R.id.iotButton);
@@ -96,8 +96,9 @@ public class Homepage extends AppCompatActivity {
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
         bottomNavigationView = findViewById(R.id.nav_view);
-
-
+        showName = findViewById(R.id.show_name);
+        LoginActivity loginActivity = new LoginActivity();
+        showName.setText("您好，" + loginActivity.Customer_Name);
 
         sliderView = findViewById(R.id.Slider);
 
@@ -109,8 +110,8 @@ public class Homepage extends AppCompatActivity {
         sliderView.startAutoCycle();
 
 
-        LoginActivity loginActivity = new LoginActivity();
-        Customer_ID = String.valueOf(loginActivity.getCustomerID());
+        LoginActivity loginActivity1 = new LoginActivity();
+        Customer_ID = String.valueOf(loginActivity1.getCustomerID());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
         adapter.add("Iot Id: ");
@@ -329,7 +330,8 @@ public class Homepage extends AppCompatActivity {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String sensorId = jsonObject.getString("sensorId");
                     if (sensorId.equals(selectedSensorId)) {
-                        progressValue = jsonObject.getInt("Result");
+//                        progressValue = jsonObject.getInt("Result");
+                        progressValue = jsonObject.getInt("SENSOR_Weight");
                         sensorWeight = jsonObject.getDouble("SENSOR_Weight");
                         break;
                     }
@@ -367,10 +369,11 @@ public class Homepage extends AppCompatActivity {
         String formattedSensorWeight = decimalFormat.format(sensorWeight);
 
         progressBar.setProgress(progressValue);
-        remainGas.setText(formattedSensorWeight);
+       // remainGas.setText(formattedSensorWeight);
 
         TextView progressText = findViewById(R.id.progress_text);
-        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
+//        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
+        progressText.setText(String.valueOf(decimalFormat.format(sensorWeight) + "%"));
     }
 
     public void showData(String Showurl, String id) {

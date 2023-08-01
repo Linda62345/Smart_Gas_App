@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -187,10 +189,33 @@
             android:name="com.example.smartgasapp.MainActivity"
             android:exported="true" />
 
+<!--        <receiver-->
+<!--            android:name="com.example.smartgasapp.NotificationReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true" />-->
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:enabled="false"
+            android:exported="false"
+            tools:node="remove" />
+
         <receiver
-            android:name="com.example.smartgasapp.NotificationReceiver"
+            android:name=".NotificationReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
+
+        <service
+            android:name=".NotificationForegroundService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".MyWorker"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 
 </manifest>

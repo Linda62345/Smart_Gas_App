@@ -4,27 +4,48 @@ import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import androidx.work.WorkManager;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
-public class NotificationReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Intent notificationFrequencyIntent = new Intent(context, NotificationFrequency.class);
-        notificationFrequencyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(notificationFrequencyIntent);
-        double gasVolume = intent.getDoubleExtra("gasVolume", 0.0);
-        showNotification(context, "您的瓦斯容量小於" + 3 + "公斤");
+public class MyWorker extends Worker {
+    private final Context context;
+
+    public MyWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+        this.context = context;
     }
 
-    private void showNotification(Context context, String message ) {
+    @NonNull
+    @Override
+    public Result doWork() {
+        // This method is called when the WorkRequest is executed.
+
+        // Get the gasVolume from input data
+        double gasVolume = getInputData().getDouble("gasVolume", 0.0);
+
+        // Show the notification
+        checkAndNotifyForFrequency(gasVolume);
+        showNotification("您的瓦斯容量小於" + 3 + "公斤");
+
+        // Return the result of the work
+        return Result.success();
+    }
+
+
+    private void checkAndNotifyForFrequency(double gasVolume) {
+        // Your existing logic to check and notify for frequency goes here...
+    }
+    private void showNotification(String message) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("My Notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = context.getSystemService(NotificationManager.class);
@@ -60,3 +81,4 @@ public class NotificationReceiver extends BroadcastReceiver {
         notificationManager.notify(1, builder.build());
     }
 }
+

@@ -356,13 +356,18 @@ public class ScanReceiptQRCode extends AppCompatActivity {
             @Override
             public void onQRCodeFound(String _qrCode) {
                 qrCode = _qrCode;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        enterNewIot.setText(qrCode);
-                    }
-                });
-                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
+                if (qrCode.length() == 15) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            enterNewIot.setText(qrCode);
+                        }
+                    });
+                    Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
+                }
+                else {
+                    Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Not Found: " + qrCode);
+                }
             }
 
             @Override

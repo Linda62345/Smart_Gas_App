@@ -1,5 +1,6 @@
 package com.example.smartgasapp;
 
+import static com.example.smartgasapp.R.id.GasBottleWeightEmpty;
 import static com.example.smartgasapp.R.id.navigation_dashboard;
 
 import androidx.annotation.NonNull;
@@ -49,8 +50,8 @@ import java.util.Objects;
 
 public class userIot extends AppCompatActivity {
 
-    public String Customer_ID, Sensor_ID,result;
-    public EditText E_Sensor_ID;
+    public String Customer_ID, Sensor_ID,GasWeightEmptyString,result;
+    public EditText E_Sensor_ID,gasWeightEmpty;
     public ListView IOTlistView;
     public Button B_addIOT;
     public ImageButton scanner;
@@ -76,25 +77,6 @@ public class userIot extends AppCompatActivity {
         customerOrderDetails.add(od);
 
         E_Sensor_ID = findViewById(R.id.sensor_Id);
-        E_Sensor_ID.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(E_Sensor_ID.getText().length()==15) {
-                    Sensor_ID = E_Sensor_ID.getText().toString().trim();
-                }
-                else {
-                    Toast.makeText(userIot.this, "請輸入正確IOT號碼", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // TODO Auto-generated method stub
-            }});
 
         IOTlistView = findViewById(R.id.IOTlist);
 
@@ -112,7 +94,18 @@ public class userIot extends AppCompatActivity {
         B_addIOT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveIOT();
+                if(E_Sensor_ID.getText().length()==15){
+                    if(gasWeightEmpty.getText().toString().trim()!=null){
+                        Sensor_ID = E_Sensor_ID.getText().toString().trim();
+                        saveIOT();
+                    }
+                    else{
+                        Toast.makeText(userIot.this, "請輸入瓦斯桶空桶重", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(userIot.this, "請輸入正確IOT號碼", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -142,6 +135,8 @@ public class userIot extends AppCompatActivity {
                 return false;
             }
         });
+
+        gasWeightEmpty = findViewById(R.id.GasBottleWeightEmpty);
 
     }
     public void ShowDataDetail(){
@@ -221,6 +216,8 @@ public class userIot extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> data = new HashMap<>();
+                    GasWeightEmptyString = gasWeightEmpty.getText().toString().trim();
+                    data.put("gasEmptyWeight",GasWeightEmptyString);
                     data.put("id", Customer_ID);
                     data.put("sensor_id", Sensor_ID);
                     return data;

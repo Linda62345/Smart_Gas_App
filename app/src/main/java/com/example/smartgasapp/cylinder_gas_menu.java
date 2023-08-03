@@ -23,7 +23,7 @@ public class cylinder_gas_menu extends AppCompatActivity {
     private Button order;
     private Button delivery;
     private AppCompatButton minus1,minus2,minus3,plus1,plus2,plus3;
-    private TextView first,second,third;
+    private TextView first,second,third,gasWeight5Kg,gasWeight16Kg,gasWeight20Kg;
     public String S_first,S_second,S_third;
     public static int a = 0, b = 0, c = 0;
     private Spinner gasWeightSpinner1,gasWeightSpinner2,gasWeightSpinner3;
@@ -43,53 +43,59 @@ public class cylinder_gas_menu extends AppCompatActivity {
         a = 0;
         b = 0;
         c = 0;
-        gasWeightSpinner1 = findViewById(R.id.gasWeightSpinner);
-        gasWeightSpinner2 = findViewById(R.id.gasWeightSpinner2);
-        gasWeightSpinner3 = findViewById(R.id.gasWeightSpinner3);
+//        gasWeightSpinner1 = findViewById(R.id.gasWeightSpinner);
+//        gasWeightSpinner2 = findViewById(R.id.gasWeightSpinner2);
+//        gasWeightSpinner3 = findViewById(R.id.gasWeightSpinner3);
         composite = findViewById(R.id.compositeGas);
         order = findViewById(R.id.cylinderGas);
         delivery = findViewById(R.id.ChooseDeliverMethod);
 
         Minus_Add();
+        gasWeight5Kg = findViewById(R.id.GasWeight5Kg);
+        gasWeight16Kg = findViewById(R.id.GasWeight16Kg);
+        gasWeight20Kg = findViewById(R.id.GasWeight20Kg);
+        weight1 = "5";
+        weight2 = "16";
+        weight3 = "20";
 
-        gasWeightSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                weight1 = parent.getItemAtPosition(position).toString();
-                weight1 = weight1.replace("kg","");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
-
-        gasWeightSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                weight2 = parent.getItemAtPosition(position).toString();
-                weight2 = weight2.replace("kg","");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
-
-        gasWeightSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                weight3 = parent.getItemAtPosition(position).toString();
-                weight3 = weight3.replace("kg","");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
+//        gasWeightSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                weight1 = parent.getItemAtPosition(position).toString();
+//                weight1 = weight1.replace("kg","");
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // do nothing
+//            }
+//        });
+//
+//        gasWeightSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                weight2 = parent.getItemAtPosition(position).toString();
+//                weight2 = weight2.replace("kg","");
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // do nothing
+//            }
+//        });
+//
+//        gasWeightSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                weight3 = parent.getItemAtPosition(position).toString();
+//                weight3 = weight3.replace("kg","");
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // do nothing
+//            }
+//        });
 
         order.setOnClickListener(new View.OnClickListener() {
             @Override

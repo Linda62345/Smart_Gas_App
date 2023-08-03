@@ -142,12 +142,34 @@ public class OrderDetail extends AppCompatActivity {
                         time = "";
                         Order_Id = responseJSON.getString("ORDER_Id");
                         method = responseJSON.getString("Delivery_Method");
-                        Total_time = responseJSON.getString("Expect_time");
-                        Log.i("Original Total time",Total_time);
-                        date = Total_time.substring(0,10);
-                        Log.i("Original date",date);
-                        time = Total_time.substring(11,19);
-                        Log.i("Original time",time);
+                        //Total_time = responseJSON.getString("Expect_time");
+                        //Log.i("Original Total time",Total_time);
+                        //date = Total_time.substring(0,10);
+                        //Log.i("Original date",date);
+
+                        TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        dateFormat.setTimeZone(timeZone);
+
+                        // Get the current date and time
+                        Date currentDate = new Date();
+
+                        // Create a Calendar instance and set it to the current date
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(currentDate);
+
+                        // Add two days to the current date
+                        calendar.add(Calendar.DAY_OF_MONTH, 2);
+
+                        // Get the updated date after adding two days
+                        Date twoDaysLater = calendar.getTime();
+
+                        // Format the updated date as a string in the correct format
+                        date = dateFormat.format(twoDaysLater);
+                        Log.i("date two",date);
+
+                        //time = Total_time.substring(11,19);
+                        //Log.i("Original time",time);
                         Gas_Quantity = responseJSON.getInt("Gas_Quantity");
 
                         // 1. 秀訂單明細 欄位有: 格式 數量 配送方式 時間

@@ -11,20 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="請輸入IOT ID"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_gravity="left"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_gravity="center"
+        android:layout_gravity="left"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/sensor_Id"
-            android:layout_width="225dp"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:hint="請輸入您的 IOT 賬號"
+            android:hint="      請輸入您的 IOT      "
             android:inputType="number"
             android:textAlignment="center" />
         <ImageButton
@@ -34,9 +42,22 @@
             android:layout_marginRight="5dp"
             android:src="@drawable/baseline_qr_code_2_24"
             android:contentDescription="TODO" />
-
-
     </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="請輸入瓦斯空桶重"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_gravity="left"/>
+
+        <EditText
+            android:id="@+id/GasBottleWeightEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="    請輸入瓦斯空桶重    "
+            android:layout_gravity="left"/>
 
         <Button
             android:id="@+id/ButtonAddIOT"

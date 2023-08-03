@@ -87,7 +87,7 @@ public class Homepage extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         iot1 = findViewById(R.id.iotSpinner);
         //point = findViewById(R.id.changable_pointButton);
-        homeLogin = findViewById(R.id.loginFromHome);
+        // homeLogin = findViewById(R.id.loginFromHome);
        // remainGas = findViewById(R.id.changableVol_progress);
         buy = findViewById(R.id.buyGasButton);
         search = findViewById(R.id.findOrderListButton);
@@ -96,9 +96,9 @@ public class Homepage extends AppCompatActivity {
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
         bottomNavigationView = findViewById(R.id.nav_view);
-        showName = findViewById(R.id.show_name);
+        //showName = findViewById(R.id.show_name);
         LoginActivity loginActivity = new LoginActivity();
-        showName.setText("您好，" + loginActivity.Customer_Name);
+        //showName.setText("您好，" + loginActivity.Customer_Name);
 
         sliderView = findViewById(R.id.Slider);
 
@@ -147,13 +147,13 @@ public class Homepage extends AppCompatActivity {
             }
         });*/
 
-        homeLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Homepage.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+//        homeLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Homepage.this, LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 //        moreVol.setOnClickListener(new View.OnClickListener() {
 //            @Override

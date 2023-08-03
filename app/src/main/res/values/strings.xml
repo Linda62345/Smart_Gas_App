@@ -4,7 +4,7 @@
     <string name="login_string">登入</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">電子信箱</string>
-    <string name="prompt_gas">選瓦斯行</string>
+    <string name="prompt_gas">你的瓦斯行</string>
     <string name="prompt_password">密碼</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">登入</string>

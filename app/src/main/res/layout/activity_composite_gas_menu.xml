@@ -96,12 +96,21 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Spinner
+            <!--<Spinner
                 android:id="@+id/gasWeightSpinner"
                 android:layout_width="100dp"
                 android:layout_height="52dp"
-                android:entries="@array/weight_options" />
-
+                android:entries="@array/weight_options" />-->
+            <TextView
+                android:id="@+id/GasWeight5Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="5kg"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/minus2"
@@ -136,11 +145,22 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Spinner
+            <TextView
+                android:id="@+id/GasWeight16Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="16kg"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+            <!--<Spinner
                 android:id="@+id/gasWeightSpinner2"
                 android:layout_width="100dp"
                 android:layout_height="52dp"
-                android:entries="@array/weight_options" />
+                android:entries="@array/weight_options" />-->
+
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -176,11 +196,22 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Spinner
+            <TextView
+                android:id="@+id/GasWeight20Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:text="20kg"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+            <!--<Spinner
                 android:id="@+id/gasWeightSpinner3"
                 android:layout_width="100dp"
                 android:layout_height="52dp"
-                android:entries="@array/weight_options" />
+                android:entries="@array/weight_options" />-->
+
 
 
         </GridLayout>

@@ -48,14 +48,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class GasExchange extends AppCompatActivity {
-    public Spinner Company,Spinner_Weight, Spinner_Type;
+    public Spinner Company, Spinner_Weight, Spinner_Type;
     ArrayList<String> companyList = new ArrayList<>();
     ArrayAdapter<String> companyAdapter;
     RequestQueue requestQueue;
-    public static String Gas_Type,Gas_Weight,Gas_Volume;
-    public String Customer_ID,Company_Id,Company_Name;
+    public static String Gas_Type, Gas_Weight, Gas_Volume;
+    public String Customer_ID, Company_Id, Company_Name;
     public static int Gas_Quantity;
-    public TextView volume,name,value;
+    public TextView volume, name, value;
     public EditText Get_Quantity;
     public Button next;
     int totalValue;
@@ -67,7 +67,7 @@ public class GasExchange extends AppCompatActivity {
         setContentView(R.layout.activity_gas_exchange);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
         //Company = findViewById(R.id.gasCompany_spinner);
         requestQueue = Volley.newRequestQueue(this);
@@ -88,7 +88,7 @@ public class GasExchange extends AppCompatActivity {
 
             @Override
             public void run() {
-                try  {
+                try {
                     showGasRemain();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -106,10 +106,9 @@ public class GasExchange extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getValue();
-                if(totalValue>Integer.parseInt(Gas_Volume)){
+                if (totalValue > Integer.parseInt(Gas_Volume)) {
                     Toast.makeText(getApplicationContext(), "殘氣不足", Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(GasExchange.this, OrderDetail.class);
                     startActivity(intent);
                 }
@@ -130,9 +129,15 @@ public class GasExchange extends AppCompatActivity {
                     Gas_Weight = Spinner_Weight.getSelectedItem().toString();
                     Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
                     totalValue = Integer.parseInt(Gas_Weight) * Gas_Quantity;
-                    value.setText("兌換價值: " + String.valueOf(totalValue));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            value.setText("兌換價值: " + String.valueOf(totalValue));
+                        }
+                    });
                 }
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // TODO Auto-generated method stub
@@ -148,6 +153,7 @@ public class GasExchange extends AppCompatActivity {
                 totalValue = Integer.parseInt(Gas_Weight) * Gas_Quantity;
                 value.setText("兌換價值: " + String.valueOf(totalValue));
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // 未選擇任何項目時的處理
@@ -160,19 +166,18 @@ public class GasExchange extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.navigation_dashboard:
-                        startActivity(new Intent(getApplicationContext(),UserDashboard.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.navigation_home:
-                        startActivity(new Intent(getApplicationContext(),Homepage.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), Homepage.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.navigation_notifications:
-                        startActivity(new Intent(getApplicationContext(),OrderListUnfinished.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), OrderListUnfinished.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
@@ -210,34 +215,36 @@ public class GasExchange extends AppCompatActivity {
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
-            Log.i("Gas Exchange result", "["+result+"]");
+            Log.i("Gas Exchange result", "[" + result + "]");
             JSONObject responseJSON = new JSONObject(result);
             Gas_Volume = responseJSON.getString("Gas_Volume");
-            volume.setText("目前累積殘氣: "+Gas_Volume+"公斤");
             Company_Name = responseJSON.getString("Company_Name");
-            name.setText("瓦斯行: "+Company_Name);
-            if(responseJSON.getString("response").contains("failure")){
-                volume.setText("目前累積殘氣: 0 公斤");
-                Toast.makeText(getApplicationContext(), "無殘氣", Toast.LENGTH_LONG).show();
-            }
-        }
-        catch (Exception e){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(e.toString().contains("No value for Gas_Volume")){
+                    volume.setText("目前累積殘氣: " + Gas_Volume + "公斤");
+                    name.setText("瓦斯行: " + Company_Name);
+                }
+            });
+
+        } catch (Exception e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (e.toString().contains("No value for Gas_Volume")) {
                         Toast.makeText(getApplicationContext(), "無殘氣", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-            Log.i("GasExchange Exception",e.toString());
+            Log.i("GasExchange Exception", e.toString());
         }
     }
-    public void getValue(){
+
+    public void getValue() {
         Gas_Weight = Spinner_Weight.getSelectedItem().toString();
         Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
-        Log.i("Exchange Weight",Gas_Weight);
+        Log.i("Exchange Weight", Gas_Weight);
         Gas_Quantity = Integer.parseInt(Get_Quantity.getText().toString().trim());
-        Log.i("Exchange Quantity",Get_Quantity.getText().toString().trim());
+        Log.i("Exchange Quantity", Get_Quantity.getText().toString().trim());
     }
 }

@@ -56,7 +56,7 @@ public class OrderListFinished extends AppCompatActivity {
     TextView startDateTextView, endDateTextView, space;
     public static String static_order_id;
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
-    private String URL = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
+    private String URL = "http://54.199.33.241/test/customer_OrderList.php";
     ArrayList<OrderListFinishList> orderListFinishLists;
 
     @Override
@@ -230,7 +230,7 @@ public class OrderListFinished extends AppCompatActivity {
     private void getOrderList() throws MalformedURLException {
         try{
 
-            String Showurl = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
+            String Showurl = "http://54.199.33.241/test/customer_OrderList.php";
             URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -304,7 +304,7 @@ public class OrderListFinished extends AppCompatActivity {
     private void getData() throws IOException {
         //還要把customer Id丟過去
 
-        String Showurl = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
+        String Showurl = "http://54.199.33.241/test/customer_OrderList.php";
         URL url = new URL(Showurl);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("POST");
@@ -337,7 +337,7 @@ public class OrderListFinished extends AppCompatActivity {
         httpURLConnection.disconnect();
         Log.i("result", "["+result+"]");
         try {
-            String dataurl = "http://10.0.2.2/SQL_Connect/customer_OrderList.php";
+            String dataurl = "http://54.199.33.241/test/customer_OrderList.php";
             URL url1 = new URL(dataurl);
             HttpURLConnection con = (HttpURLConnection) url1.openConnection();
             con.setRequestMethod("GET");

@@ -22,7 +22,25 @@
             android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
 
-
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/Slider"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="2"
+                app:sliderStartAutoCycle="true" />
 
 
             <LinearLayout
@@ -55,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="54dp"
                         android:gravity="left|center"
-                        android:text="剩餘用量 ："
+                        android:text="瓦斯已用："
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -101,33 +119,33 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/show_name"
+                        android:id="@+id/currentVol_progress"
                         android:layout_width="wrap_content"
                         android:layout_height="18dp"
                         android:layout_marginRight="8dp"
-                        android:text=""
+                        android:text="@string/currentVolume"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/changableVol_progress"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="18dp"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:layout_marginRight="8dp"-->
-<!--                        android:text="0"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="12sp" />-->
+                    <TextView
+                        android:id="@+id/changableVol_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:gravity="center|start"
+                        android:layout_marginRight="8dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/currentVol_metre"-->
-<!--                        android:layout_width="11dp"-->
-<!--                        android:layout_height="18dp"-->
-<!--                        android:gravity="center"-->
-<!--                        android:text="%"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="12sp"-->
-<!--                        android:textStyle="bold" />-->
+                    <TextView
+                        android:id="@+id/currentVol_metre"
+                        android:layout_width="11dp"
+                        android:layout_height="18dp"
+                        android:gravity="center"
+                        android:text="%"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/currentVol_cubic"
@@ -147,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="45dp"
                 android:columnCount="3"
                 android:rowCount="4"
                 android:useDefaultMargins="true">
@@ -219,8 +237,8 @@
 
                 <TextView
                     android:id="@+id/iotTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_columnWeight="@integer/material_motion_duration_medium_1"
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:text="我的 IOT"
@@ -234,8 +252,8 @@
 
                 <ImageButton
                     android:id="@+id/companyButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_columnWeight="@integer/material_motion_duration_medium_1"
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:layout_gravity="center"
@@ -265,8 +283,8 @@
 
                 <TextView
                     android:id="@+id/companyTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_columnWeight="@integer/material_motion_duration_medium_1"
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:layout_gravity="center"
@@ -291,26 +309,6 @@
 
 
             </GridLayout>
-
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/Slider"
-                android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="45dp"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="back_and_forth"
-                app:sliderAutoCycleEnabled="true"
-                app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderIndicatorMargin="15dp"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorPadding="3dp"
-                app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="#5A5A5A"
-                app:sliderIndicatorUnselectedColor="#FFF"
-                app:sliderScrollTimeInSec="2"
-                app:sliderStartAutoCycle="true" />
 
         </LinearLayout>
 

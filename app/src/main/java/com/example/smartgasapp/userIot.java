@@ -84,7 +84,12 @@ public class userIot extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Sensor_ID = E_Sensor_ID.getText().toString().trim();
+                if(E_Sensor_ID.getText().length()==15) {
+                    Sensor_ID = E_Sensor_ID.getText().toString().trim();
+                }
+                else {
+                    Toast.makeText(userIot.this, "請輸入正確IOT號碼", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -53,13 +53,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import android.util.Pair;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-public class NotificationFrequency extends AppCompatActivity {
+public class NotificationFrequency extends AppCompatActivity  {
 
     private RadioGroup radioGroup;
     private static RadioButton radioButton;
@@ -81,41 +80,35 @@ public class NotificationFrequency extends AppCompatActivity {
         setContentView(R.layout.activity_notification_frequency);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        radioGroup = findViewById(R.id.radioGroup);
-        two = findViewById(R.id.weightRadioTwo);
-        three = findViewById(R.id.weightRadioThree);
-        spinner = findViewById(R.id.frequency_spinner);
+        // Start the Foreground Service
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            ContextCompat.startForegroundService(this, new Intent(this, NotificationForegroundService.class));
+//        } else {
+//            startService(new Intent(this, NotificationForegroundService.class));
+//        }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.notificationFrequency_options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                selectedFrequency = adapterView.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                selectedFrequency = "";
-            }
-        });
+//        radioGroup = findViewById(R.id.radioGroup);
+//        two = findViewById(R.id.weightRadioTwo);
+//        three = findViewById(R.id.weightRadioThree);
+//        spinner = findViewById(R.id.frequency_spinner);
 
         Button enterButton = findViewById(R.id.enter);
         enterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try {
-                    frequency();
-                    // Create an explicit intent to navigate to the homepage layout
-                    Intent intent = new Intent(NotificationFrequency.this, Homepage.class);
-                    startActivity(intent);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                //frequency();
+                // Create an explicit intent to navigate to the homepage layout
+                Intent intent = new Intent(NotificationFrequency.this, Homepage.class);
+                startActivity(intent);
             }
         });
         family_Id = new ArrayList<Integer>();
-        startNotificationCheck();
+
+        try {
+            double gasVolume = frequency(); // Retrieve the gasVolume value from the frequency() method
+           // startNotificationCheck(gasVolume); // Pass the gasVolume value to startNotificationCheck()
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         createNotificationChannel();
 
 
@@ -145,19 +138,36 @@ public class NotificationFrequency extends AppCompatActivity {
         });
     }
 
-    private void startNotificationCheck() {
+    private void startNotificationCheck(double gasVolume) {
         handler = new Handler();
         notificationRunnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    frequency();
+                   // frequency();
+                    double gasVolume = frequency(); // Retrieve the gasVolume value from the frequency() method
+                    startNotificationCheck(gasVolume);
+
+                    Data inputData = new Data.Builder()
+                            .putDouble("gasVolume", gasVolume) // Pass the gasVolume value to the Worker
+                            .build();
+//                    PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 1, TimeUnit.MINUTES)
+//                            .setInputData(inputData)
+//                            .build();
+
+                    OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class)
+                            .setInputData(new Data.Builder().putDouble("gasVolume", gasVolume).build())
+                            .build();
+
+                    WorkManager.getInstance(NotificationFrequency.this).enqueue(workRequest);
+                    handler.postDelayed(this, 60000);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                // Schedule the next notification check after a specific interval (e.g., every 1 minute)
-                handler.postDelayed(this, 60000);
+//                // Schedule the next notification check after a specific interval (e.g., every 1 minute)
+//                handler.postDelayed(this, 60000);
             }
         };
 
@@ -174,15 +184,21 @@ public class NotificationFrequency extends AppCompatActivity {
     }
 
 
-    public void frequency() throws IOException {
+    public double frequency() throws IOException {
         try {
             Customer_Id = String.valueOf(LoginActivity.getCustomerID());
             Log.i("finish: ", Customer_Id);
-            new SendRequest().execute(Customer_Id);
-
+            double gasVolume = new SendRequest().execute(Customer_Id).get();
+            Log.i("gasVolume: ", String.valueOf(gasVolume));
+           // startNotificationCheck(gasVolume);
+            if (gasVolume < 3) {
+                startNotificationCheck(gasVolume);
+            }
+            return gasVolume;
         } catch (Exception e) {
             Log.i("Frequency JSON Exception", e.toString());
         }
+        return 0;
     }
 
     private class SendRequest extends AsyncTask<String, Void, Double> {
@@ -325,7 +341,7 @@ public class NotificationFrequency extends AppCompatActivity {
                                 fam_id = family_id.getDouble(i);
                                 family_Id.add((int) fam_id);
                                 Log.i("Cus_Id", String.valueOf(fam_id));
-                                checkAndNotifyForFrequency(gasVolume);
+                               // checkAndNotifyForFrequency(gasVolume);
                             }
                         }
                     }
@@ -366,42 +382,50 @@ public class NotificationFrequency extends AppCompatActivity {
         }
         protected void onPostExecute(Double gasVolume) {
             // Call the method to check and notify for frequency with the retrieved gasVolume value
-            checkAndNotifyForFrequency(gasVolume);
+           // checkAndNotifyForFrequency(gasVolume);
         }
 
 
         private void checkAndNotifyForFrequency(double gasVolume) {
+            if (gasVolume < 3) {
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
 
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+                int desiredHour = hour;
+                int desiredMinute = minute;
 
-            int desiredHour = hour;
-            int desiredMinute = minute;
-
-            if (gasVolume < 3 && (hour == 23 && minute == 32 || hour == 21 && minute == 36)) {
+            if (gasVolume < 3 && (hour == 14 && minute == 00 || hour == 18 && minute == 00)) {
                         showNotification("您的瓦斯容量小於" + 3 + "kg");
                         if (hour >= 14 || (hour == 13 && minute >= 30)) {
                             // Afternoon, schedule the next notification for tomorrow morning
-                            desiredHour = 23;
-                            desiredMinute = 32;
-                            showNotification("您的瓦斯容量小於" + 3 + "公斤");
+                            desiredHour = 14;
+                            desiredMinute = 00;
+                            showNotification("您的瓦斯容量小於" +  3 + "公斤");
                         } else if (hour >= 8 && minute == 0) {
                             // Morning, schedule the next notification for this afternoon
-                            desiredHour = 21;
-                            desiredMinute = 36;
+                            desiredHour = 18;
+                            desiredMinute = 00;
                             showNotification("您的瓦斯容量小於" + 3 + "公斤");
                         }
                     }
-            scheduleNotification(desiredHour, desiredMinute, gasVolume);
+                scheduleNotification(desiredHour, desiredMinute, gasVolume);
+            }
         }
+
+
+
         private void scheduleNotification(int desiredHour, int desiredMinute, double gasVolume) {
+            // Get the current time and add one minute
+            long notificationTime = System.currentTimeMillis() + 60000;
+
             Calendar calendar = Calendar.getInstance();
+
             calendar.set(Calendar.HOUR_OF_DAY, desiredHour);
             calendar.set(Calendar.MINUTE, desiredMinute);
             calendar.set(Calendar.SECOND, 0);
 
-            long notificationTime = calendar.getTimeInMillis();
+            //long notificationTime = calendar.getTimeInMillis();
 
             // If the desired time has already passed, schedule it for the next day
             if (notificationTime < System.currentTimeMillis()) {
@@ -432,11 +456,19 @@ public class NotificationFrequency extends AppCompatActivity {
                 NotificationManager manager = getSystemService(NotificationManager.class);
                 manager.createNotificationChannel(channel);
             }
+
+            Intent homepageIntent = new Intent(NotificationFrequency.this, Homepage.class);
+            homepageIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent homepagePendingIntent = PendingIntent.getActivity(NotificationFrequency.this, 0, homepageIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(NotificationFrequency.this, "My Notification");
             builder.setContentTitle("SmartGasApp Notification");
             builder.setContentText(message);
             builder.setSmallIcon(R.drawable.baseline_shopping_cart_24);
             builder.setAutoCancel(true);
+
+            builder.setContentIntent(homepagePendingIntent);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NotificationFrequency.this);
             if (ActivityCompat.checkSelfPermission(NotificationFrequency.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -451,5 +483,6 @@ public class NotificationFrequency extends AppCompatActivity {
             }
             notificationManager.notify(1, builder.build());
         }
+
     }
 }

@@ -12,6 +12,7 @@
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:gravity="center"
+        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,105 +22,105 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
             android:background="@color/white"
             android:text="剩餘容量警示通知"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/gridLayout3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <GridLayout
-            android:id="@+id/gridLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/rounded_button_border">
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="5dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content">
-
-
-                <RadioButton
-                    android:id="@+id/weightRadioTwo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2.5 kg"
-                    android:layout_weight="@integer/material_motion_duration_medium_1"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-                <RadioButton
-                    android:id="@+id/weightRadioThree"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_weight="@integer/material_motion_duration_medium_1"
-                    android:text="3.5 kg"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </RadioGroup>
-
-
-        </GridLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:paddingHorizontal="15dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout3">
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/frequency_NotificationTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="通知頻率"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_marginVertical="30dp"
+            android:text="剩餘用量小於 3公斤已，本系統會開始發通知每 下午14:00 和 18:00"
+            android:textSize="17sp"/>
 
-        <Spinner
-            android:id="@+id/frequency_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginBottom="35dp"
-            android:backgroundTint="#ffd5d5d5"
-            android:entries="@array/notificationFrequency_options"
-            android:padding="5dp" />
+<!--        <GridLayout-->
+<!--            android:id="@+id/gridLayout3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="66dp"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:layout_marginEnd="50dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            android:background="@drawable/rounded_button_border">-->
+
+<!--            <RadioGroup-->
+<!--                android:id="@+id/radioGroup"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginStart="35dp"-->
+<!--                android:layout_marginEnd="5dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="wrap_content">-->
 
 
-    </LinearLayout>
+<!--                <RadioButton-->
+<!--                    android:id="@+id/weightRadioTwo"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="2.5 kg"-->
+<!--                    android:layout_weight="@integer/material_motion_duration_medium_1"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textStyle="bold" />-->
+
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/weightRadioThree"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:layout_column="1"-->
+<!--                    android:layout_weight="@integer/material_motion_duration_medium_1"-->
+<!--                    android:text="3.5 kg"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </RadioGroup>-->
+
+
+<!--        </GridLayout>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="50dp"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:paddingHorizontal="15dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/gridLayout3">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/frequency_NotificationTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            android:text="通知頻率"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/frequency_spinner"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_marginBottom="35dp"-->
+<!--            android:backgroundTint="#ffd5d5d5"-->
+<!--            android:entries="@array/notificationFrequency_options"-->
+<!--            android:padding="5dp" />-->
+
+
+<!--    </LinearLayout>-->
         <Button
             android:id="@+id/enter"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
             android:textSize="20sp"
             android:layout_gravity="center"
             android:layout_marginBottom="90dp"

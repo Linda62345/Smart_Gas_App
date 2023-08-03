@@ -49,23 +49,16 @@ public class NotificationForegroundService extends Service {
     private static final String CHANNEL_ID = "NotificationForegroundServiceChannel";
     private Handler handler;
     private Runnable notificationRunnable;
+    private double gasVolume;
 
     @Override
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
-        startNotificationCheck();
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        // Start the notification check task here
-        return START_STICKY;
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void setGasVolume(double gasVolume) {
+        this.gasVolume = gasVolume;
     }
 
     private void startNotificationCheck() {
@@ -73,12 +66,14 @@ public class NotificationForegroundService extends Service {
         notificationRunnable = new Runnable() {
             @Override
             public void run() {
-//                try {
-//                    NotificationFrequency.frequency();
-//                    handler.postDelayed(this, 60000); // Schedule the check every 1 minute
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    frequency();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Schedule the next notification check after a specific interval (e.g., every 1 minute)
+                handler.postDelayed(this, 60000);
             }
         };
 
@@ -87,7 +82,54 @@ public class NotificationForegroundService extends Service {
 
         // Schedule the first notification check using AlarmManager
         scheduleNotificationCheck();
+        //NotificationForegroundService.setGasVolume(gasVolume);
     }
+
+
+    private void frequency() throws IOException {
+        try {
+
+            // Check if gasVolume is less than 3 and show the notification if needed
+            if (gasVolume < 3) {
+                showNotification("您的瓦斯容量小於" + 3 + "kg"); // Adjust the message as per your requirement
+            }
+
+        } catch (Exception e) {
+            Log.i("Frequency JSON Exception", e.toString());
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Notification notification = buildNotification();
+        startForeground(1, notification);
+
+        // Start the notification check task here
+        return START_STICKY;
+    }
+
+    private Notification buildNotification() {
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("SmartGasApp Notification")
+                .setContentText("您的瓦斯容量小於" + 3 + "kg")
+                .setSmallIcon(R.drawable.baseline_shopping_cart_24)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+
+        return notification;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+
+        return null;
+    }
+
+
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -100,6 +142,21 @@ public class NotificationForegroundService extends Service {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
         }
+    }
+
+    private void showNotification(String message) {
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("SmartGasApp Notification")
+                .setContentText("您的瓦斯容量小於" + 3 + "kg")
+                .setSmallIcon(R.drawable.baseline_shopping_cart_24)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+
+        startForeground(1, notification);
     }
 
     private void scheduleNotificationCheck() {

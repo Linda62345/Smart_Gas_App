@@ -17,7 +17,7 @@ import androidx.core.app.NotificationManagerCompat;
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent notificationFrequencyIntent = new Intent(context, NotificationFrequency.class);
+        Intent notificationFrequencyIntent = new Intent(context, Homepage.class);
         notificationFrequencyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(notificationFrequencyIntent);
         double gasVolume = intent.getDoubleExtra("gasVolume", 0.0);
@@ -31,7 +31,7 @@ public class NotificationReceiver extends BroadcastReceiver {
             manager.createNotificationChannel(channel);
         }
 
-        Intent repeating_intent = new Intent(context, NotificationFrequency.class);
+        Intent repeating_intent = new Intent(context, Homepage.class);
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, repeating_intent,

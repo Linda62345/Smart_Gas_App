@@ -87,8 +87,8 @@ public class Homepage extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         iot1 = findViewById(R.id.iotSpinner);
         //point = findViewById(R.id.changable_pointButton);
-        // homeLogin = findViewById(R.id.loginFromHome);
-       // remainGas = findViewById(R.id.changableVol_progress);
+        //homeLogin = findViewById(R.id.loginFromHome);
+        // remainGas = findViewById(R.id.changableVol_progress);
         buy = findViewById(R.id.buyGasButton);
         search = findViewById(R.id.findOrderListButton);
         iot = findViewById(R.id.iotButton);
@@ -96,9 +96,9 @@ public class Homepage extends AppCompatActivity {
         location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
         bottomNavigationView = findViewById(R.id.nav_view);
-        //showName = findViewById(R.id.show_name);
+        showName = findViewById(R.id.show_name);
         LoginActivity loginActivity = new LoginActivity();
-        //showName.setText("您好，" + loginActivity.Customer_Name);
+        showName.setText("您好，" + loginActivity.Customer_Name);
 
         sliderView = findViewById(R.id.Slider);
 
@@ -312,37 +312,37 @@ public class Homepage extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-               int progressValue = 0;
-               double sensorWeight = 0.0;
+                int progressValue = 0;
+                double sensorWeight = 0.0;
 
-               try{
-                JSONArray jsonArray = new JSONArray(result);
+                try{
+                    JSONArray jsonArray = new JSONArray(result);
 
-                   // Check if selectedSensorId is null or empty
-                   if (selectedSensorId == null || selectedSensorId.isEmpty()) {
-                       // Get the first sensor ID from the JSON response
-                       JSONObject jsonObject = jsonArray.getJSONObject(0);
-                       selectedSensorId = jsonObject.getString("sensorId");
-                   }
-
-                // Find the JSON object with the selected sensor ID
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String sensorId = jsonObject.getString("sensorId");
-                    if (sensorId.equals(selectedSensorId)) {
-//                        progressValue = jsonObject.getInt("Result");
-                        progressValue = jsonObject.getInt("SENSOR_Weight");
-                        sensorWeight = jsonObject.getDouble("SENSOR_Weight");
-                        break;
+                    // Check if selectedSensorId is null or empty
+                    if (selectedSensorId == null || selectedSensorId.isEmpty()) {
+                        // Get the first sensor ID from the JSON response
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        selectedSensorId = jsonObject.getString("sensorId");
                     }
-                }
-                   Log.i("progressBar: ", String.valueOf(progressValue));
-                   Log.i("sensorWeight: ", String.valueOf(sensorWeight));
 
-               }
-               catch (JSONException e) {
-                   e.printStackTrace();
-               }
+                    // Find the JSON object with the selected sensor ID
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String sensorId = jsonObject.getString("sensorId");
+                        if (sensorId.equals(selectedSensorId)) {
+//                        progressValue = jsonObject.getInt("Result");
+                            progressValue = jsonObject.getInt("SENSOR_Weight");
+                            sensorWeight = jsonObject.getDouble("SENSOR_Weight");
+                            break;
+                        }
+                    }
+                    Log.i("progressBar: ", String.valueOf(progressValue));
+                    Log.i("sensorWeight: ", String.valueOf(sensorWeight));
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 updateUI(progressValue, sensorWeight);
 
@@ -369,7 +369,7 @@ public class Homepage extends AppCompatActivity {
         String formattedSensorWeight = decimalFormat.format(sensorWeight);
 
         progressBar.setProgress(progressValue);
-       // remainGas.setText(formattedSensorWeight);
+        // remainGas.setText(formattedSensorWeight);
 
         TextView progressText = findViewById(R.id.progress_text);
 //        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));

@@ -51,6 +51,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -199,6 +201,16 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+        // Check if there is saved login data, if yes, log in automatically
+        if (hasSavedLoginData()) {
+            SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+            String savedEmail = sharedPref.getString("email", "");
+            String savedPassword = sharedPref.getString("password", "");
+            username.setText(savedEmail);
+            Password.setText(savedPassword);
+            loginViewModel.login(savedEmail, savedPassword);
+        }
     }
 
     private void createNotificationChannel() {
@@ -232,6 +244,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, Homepage.class);
                         //要把email傳過去
                         intent.putExtra("email", email);
+                        saveLoginData(email, password);
                         startActivity(intent);
                         finish();
                     } else if (response.contains("failure")) {
@@ -252,7 +265,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     Log.i("login error", error.toString());
                 }
-            }) {
+            })
+
+            {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> data = new HashMap<>();
                     data.put("email", email);
@@ -318,6 +333,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void saveLoginData(String email, String password) {
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("email", email);
+        editor.putString("password", password);
+        editor.apply();
+    }
+
+    private boolean hasSavedLoginData() {
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        return sharedPref.contains("email") && sharedPref.contains("password");
+    }
+
+
 
     public static int getCustomerID() {
         int customer_id = CUSTOMER_ID;

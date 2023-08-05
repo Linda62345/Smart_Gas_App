@@ -104,7 +104,7 @@
                         android:id="@+id/progress_text"
                         android:layout_width="wrap_content"
                         android:layout_height="54dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
                         android:gravity="left|center"
                         android:text="0"
                         android:layout_weight="@integer/material_motion_duration_medium_1"

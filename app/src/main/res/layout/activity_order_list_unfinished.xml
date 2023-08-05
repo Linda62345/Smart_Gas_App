@@ -44,7 +44,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/order_unfinished"
+        android:id="@+id/order_finished"
         android:layout_width="0dp"
         android:layout_height="56.9dp"
         android:backgroundTint="#ebebeb"
@@ -52,14 +52,14 @@
         android:clickable="false"
         android:foregroundGravity="left"
         android:gravity="center"
-        android:text="@string/unfinished"
+        android:text="@string/finished"
         android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/order_finished"
-        app:layout_constraintEnd_toStartOf="@+id/order_finished"
+        app:layout_constraintBaseline_toBaselineOf="@+id/order_unfinished"
+        app:layout_constraintEnd_toStartOf="@+id/order_unfinished"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/order_finished"
+        android:id="@+id/order_unfinished"
         android:layout_width="0dp"
         android:layout_height="56.9dp"
         android:layout_marginBottom="8dp"
@@ -67,12 +67,12 @@
         android:clickable="true"
         android:foregroundGravity="right"
         android:gravity="center"
-        android:text="@string/finished"
+        android:text="@string/unfinished"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/endDate_unfinishedView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/order_unfinished"
+        app:layout_constraintStart_toEndOf="@+id/order_finished"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

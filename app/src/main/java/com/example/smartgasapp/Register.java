@@ -55,8 +55,6 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
     ArrayAdapter<String> companyAdapter;
     private String URL = "http://54.199.33.241/test/customer_register.php";
 
-
-
     private String name, email, address, phone, houseTel, password, reenterPassword, gender, company, city, area, lift, postCode, floor;
     RequestQueue requestQueue;
 

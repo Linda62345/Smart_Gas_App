@@ -131,7 +131,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
 //                    @Override
 //                    public void run() {
 //                        Log.i("iot here","iot here");
-//                        showIOT("http://140.119.146.46:80/SQL_Connect/Show_IOT.php");
+//                        showIOT("http://54.199.33.241/SQL_Connect/Show_IOT.php");
 //                        //這裡要做修正
 //                        if (result.contains("\"\"response\":\"0\"")) {
 //                            runOnUiThread(new Runnable() {
@@ -177,7 +177,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
 
     public void saveIOT(){
         try {
-            String URL = "http://140.119.146.46:80/SQL_Connect/Save_IOT.php";
+            String URL = "http://54.199.33.241/SQL_Connect/Save_IOT.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -185,7 +185,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                     if (response.contains("success")) {
                         Toast.makeText(getApplicationContext(), "IOT新增成功", Toast.LENGTH_LONG).show();
                         enterNewIot.setText("");
-                        showIOT("http://140.119.146.46:80/SQL_Connect/Show_IOT.php");
+                        showIOT("http://54.199.33.241/SQL_Connect/Show_IOT.php");
                     } else if (response.contains("Duplicate")) {
                         Toast.makeText(getApplicationContext(), "新增失敗，此IOT已在資料庫中", Toast.LENGTH_LONG).show();
 
@@ -366,7 +366,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                     Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
                 }
                 else {
-                    Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Not Found: " + qrCode);
+                    Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code ID Length Incorrect");
                 }
             }
 
@@ -375,6 +375,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Not Found");
 //                        enterNewIot.setText(""); // Clear the EditText when QR code is not found
                     }
                 });

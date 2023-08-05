@@ -93,7 +93,7 @@ public class Homepage extends AppCompatActivity {
         search = findViewById(R.id.findOrderListButton);
         iot = findViewById(R.id.iotButton);
 
-        location = findViewById(R.id.companyButton);
+        //location = findViewById(R.id.companyButton);
         personalBarcode = findViewById(R.id.myIDButton);
         bottomNavigationView = findViewById(R.id.nav_view);
         showName = findViewById(R.id.show_name);
@@ -200,13 +200,13 @@ public class Homepage extends AppCompatActivity {
         });
 
 
-        location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Homepage.this, GasCompanyLocation.class);
-                startActivity(intent);
-            }
-        });
+//        location.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Homepage.this, GasCompanyLocation.class);
+//                startActivity(intent);
+//            }
+//        });
 
         personalBarcode.setOnClickListener(new View.OnClickListener() {
             @Override

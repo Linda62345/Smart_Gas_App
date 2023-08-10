@@ -72,6 +72,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+
+        // Check login status from SharedPreferences
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
+
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -139,6 +146,8 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
+                    saveLoginData(email, password);
+                    //setLoggedInStatus(true);
                     login();
                     Thread thread = new Thread(new Runnable() {
 
@@ -204,9 +213,9 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check if there is saved login data, if yes, log in automatically
         if (hasSavedLoginData()) {
-            SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
-            String savedEmail = sharedPref.getString("email", "");
-            String savedPassword = sharedPref.getString("password", "");
+            SharedPreferences sharedPref1 = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+            String savedEmail = sharedPref1.getString("email", "");
+            String savedPassword = sharedPref1.getString("password", "");
             username.setText(savedEmail);
             Password.setText(savedPassword);
             loginViewModel.login(savedEmail, savedPassword);
@@ -346,6 +355,14 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
         return sharedPref.contains("email") && sharedPref.contains("password");
     }
+
+//    private static void setLoggedInStatus(boolean isLoggedIn) {
+//        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.putBoolean("isLoggedIn", isLoggedIn);
+//        editor.apply();
+//    }
+
 
 
 

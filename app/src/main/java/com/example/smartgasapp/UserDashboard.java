@@ -1,6 +1,8 @@
 package com.example.smartgasapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +51,7 @@ public class UserDashboard extends AppCompatActivity {
     private Spinner iot;
     private TextView VolumeLeft,showName;
     private ProgressBar progressBar;
-    private String selectedSensorId;
+    private String selectedSensorId, IotId;
     public String result = "", Customer_ID;
 
 
@@ -76,6 +78,11 @@ public class UserDashboard extends AppCompatActivity {
         LoginActivity loginActivity = new LoginActivity();
         showName.setText(loginActivity.Customer_Name);
 
+        // Initialize selectedSensorId
+        if (selectedSensorId == null) {
+            selectedSensorId = ""; // Set it to an empty string initially
+        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
         adapter.add("Iot Id: ");
         iot.setAdapter(adapter);
@@ -83,7 +90,8 @@ public class UserDashboard extends AppCompatActivity {
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
 
         NetworkTask networkTask1 = new NetworkTask();
-        networkTask1.execute();
+        networkTask1.execute(selectedSensorId, Customer_ID);
+
 
         iot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,7 +101,7 @@ public class UserDashboard extends AppCompatActivity {
                     // Remove the "Iot Id: " part from the selected sensor ID
                     selectedSensorId = selectedSensor.substring("Iot Id: ".length());
                     NetworkTask networkTask = new NetworkTask();
-                    networkTask.execute(selectedSensorId);
+                    networkTask.execute(selectedSensorId, Customer_ID);
                 }
             }
 
@@ -167,10 +175,12 @@ public class UserDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserDashboard.this, LoginActivity.class);
+                clearLoginData();
+               // intent.putExtra("clearCredentials", true); // Add extra information
                 startActivity(intent);
+                finish();
             }
         });
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
@@ -186,13 +196,13 @@ public class UserDashboard extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), UserDashboard.class));
                         overridePendingTransition(0, 0);
                         NetworkTask networkTask = new NetworkTask();
-                        networkTask.execute();
+                        networkTask.execute(selectedSensorId, Customer_ID);
                         return true;
                     case R.id.navigation_home:
                         startActivity(new Intent(getApplicationContext(), Homepage.class));
                         overridePendingTransition(0, 0);
                         NetworkTask networkTask1 = new NetworkTask();
-                        networkTask1.execute();
+                        networkTask1.execute(selectedSensorId, Customer_ID);
                         return true;
                     case R.id.navigation_notifications:
                         startActivity(new Intent(getApplicationContext(), OrderListUnfinished.class));
@@ -204,14 +214,25 @@ public class UserDashboard extends AppCompatActivity {
         });
     }
 
+    private void clearLoginData() {
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove("email");
+        editor.remove("password");
+        editor.apply();
+    }
+
+
     private class NetworkTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
             try {
                 String selectedSensorId = null;
+                String customerID = null;
                 if (params.length > 0) {
                     selectedSensorId = params[0];
+                    customerID = params[1];
                 }
                 String Showurl = "http://54.199.33.241/test/Iot_Connect.php";
                 URL url = new URL(Showurl);
@@ -224,9 +245,13 @@ public class UserDashboard extends AppCompatActivity {
                 BufferedWriter bufferedWriter3 = new BufferedWriter(new OutputStreamWriter(outputStream3, "UTF-8"));
 
                 String post_data3 = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(Customer_ID, "UTF-8");
+                //String post_data4 = URLEncoder.encode("id1", "UTF-8") + "=" + URLEncoder.encode(selectedSensorId, "UTF-8");
+                //String post_data4 = "id1=" + URLEncoder.encode(selectedSensorId, "UTF-8");
+
                 Log.i("customerID: ", post_data3);
 
                 bufferedWriter3.write(post_data3);
+               // bufferedWriter3.write(post_data4);
                 bufferedWriter3.flush();
                 bufferedWriter3.close();
                 outputStream3.close();
@@ -245,6 +270,8 @@ public class UserDashboard extends AppCompatActivity {
                     inputStream3.close();
                     httpURLConnection3.disconnect();
                     Log.i("result3", "[" + result3 + "]");
+
+
 
                     return result3.toString();
                 }

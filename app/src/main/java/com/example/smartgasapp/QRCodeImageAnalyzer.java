@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 
-import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
+import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
-import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.multi.qrcode.QRCodeMultiReader;
-
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.PlanarYUVLuminanceSource;
 import java.nio.ByteBuffer;
 
 import static android.graphics.ImageFormat.YUV_420_888;
@@ -44,7 +44,7 @@ public class QRCodeImageAnalyzer implements ImageAnalysis.Analyzer {
             BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
 
             try {
-                Result result = new QRCodeMultiReader().decode(binaryBitmap);
+                Result result = decodeQRCode(source);
                 listener.onQRCodeFound(result.getText());
             } catch (FormatException | ChecksumException | NotFoundException e) {
                 listener.qrCodeNotFound();
@@ -52,5 +52,15 @@ public class QRCodeImageAnalyzer implements ImageAnalysis.Analyzer {
         }
 
         image.close();
+    }
+
+//    private Result decodeQRCode(PlanarYUVLuminanceSource source) {
+//        return null;
+//    }
+
+    private Result decodeQRCode(LuminanceSource source) throws FormatException, ChecksumException, NotFoundException {
+        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
+        MultiFormatReader multiFormatReader = new MultiFormatReader();
+        return multiFormatReader.decode(binaryBitmap);
     }
 }

@@ -1,61 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".OrderListFinished">
 
-
-    <LinearLayout
-        android:id="@+id/order_button_list_unfinished"
-        android:layout_width="match_parent"
-        android:layout_height="310dp"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="20dp"
-        android:paddingTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEndMonth_unfinishedInput">
-
-        <Button
-            android:id="@+id/enterSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="60dp"
-            android:paddingVertical="10dp"
-            android:layout_gravity="center"
-            android:backgroundTint="#ff3272d7"
-            android:text="確認"
-            android:textColor="#ffffffff"
-            android:autoSizeMinTextSize="20sp"
-            app:autoSizeTextType="uniform"
-            android:textStyle="bold" />
-
-        <ListView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/list_item"/>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/order_finished"
         android:layout_width="0dp"
         android:layout_height="56.9dp"
         android:backgroundTint="#9A9A9A"
-        android:textColor="@color/white"
         android:clickable="false"
         android:foregroundGravity="left"
         android:gravity="center"
         android:text="@string/finished"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/order_unfinished"
         app:layout_constraintEnd_toStartOf="@+id/order_unfinished"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/scrollLayout"
+        />
 
     <Button
         android:id="@+id/order_unfinished"
@@ -63,20 +31,37 @@
         android:layout_height="56.9dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#ebebeb"
-        android:textColor="#6b6a6a"
         android:clickable="true"
         android:foregroundGravity="right"
         android:gravity="center"
         android:text="@string/unfinished"
+        android:textColor="#6b6a6a"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/endDate_unfinishedView"
+        app:layout_constraintBottom_toBottomOf="@+id/order_finished"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/order_finished"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:id="@+id/scrollLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_finished">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nestedConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="56.9dp"
+        android:layout_marginHorizontal="20dp">
+
     <TextView
         android:id="@+id/startDate_unfinishedView"
-        android:layout_width="192dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="right"
@@ -86,36 +71,33 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/startDate_Title_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/untilDate_unfinishedView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_finished" />
+        app:layout_constraintStart_toStartOf="@+id/nestedConstraint"
+        app:layout_constraintTop_toTopOf="@+id/nestedConstraint" />
 
     <TextView
         android:id="@+id/untilDate_unfinishedView"
-        android:layout_width="25dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="51dp"
         android:gravity="center"
-        android:text=""
+        android:paddingHorizontal="5dp"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editStartMonth_unfinishedInput"
+        app:layout_constraintBottom_toBottomOf="@+id/startDate_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/endDate_unfinishedView"
         app:layout_constraintStart_toEndOf="@+id/startDate_unfinishedView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/startDate_unfinishedView" />
 
     <TextView
         android:id="@+id/endDate_unfinishedView"
-        android:layout_width="191dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:text=""
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/month_start_unfinishedView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/untilDate_unfinishedView"
+        app:layout_constraintEnd_toEndOf="@+id/nestedConstraint"
         app:layout_constraintStart_toEndOf="@+id/untilDate_unfinishedView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/untilDate_unfinishedView" />
 
     <TextView
         android:id="@+id/startDate_Title_unfinishedView"
@@ -129,22 +111,21 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editStartYear_unfinishedInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nestedConstraint"
+        app:layout_constraintStart_toStartOf="@+id/nestedConstraint"
         app:layout_constraintTop_toBottomOf="@+id/startDate_unfinishedView" />
 
     <EditText
         android:id="@+id/editStartYear_unfinishedInput"
         android:layout_width="90dp"
         android:layout_height="48dp"
-        android:hint="YYYY"
-        android:layout_marginStart="30dp"
         android:layout_marginBottom="17dp"
         android:ems="10"
+        android:hint="YYYY"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/dateEnd_title_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/year_start_unfinishedView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nestedConstraint"
         app:layout_constraintTop_toBottomOf="@+id/startDate_Title_unfinishedView" />
 
     <TextView
@@ -158,24 +139,24 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/year_end_unfinishedView"
+        app:layout_constraintBottom_toBottomOf="@+id/editStartYear_unfinishedInput"
         app:layout_constraintEnd_toStartOf="@+id/editStartMonth_unfinishedInput"
         app:layout_constraintStart_toEndOf="@+id/editStartYear_unfinishedInput"
-        app:layout_constraintTop_toBottomOf="@+id/startDate_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/editStartYear_unfinishedInput" />
 
     <EditText
         android:id="@+id/editStartMonth_unfinishedInput"
-        android:hint="MM"
         android:layout_width="60dp"
         android:layout_height="48dp"
         android:layout_marginTop="48dp"
         android:layout_marginBottom="50dp"
         android:ems="10"
+        android:hint="MM"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/editEndMonth_unfinishedInput"
+        app:layout_constraintBottom_toBottomOf="@+id/year_start_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/month_start_unfinishedView"
         app:layout_constraintStart_toEndOf="@+id/year_start_unfinishedView"
-        app:layout_constraintTop_toBottomOf="@+id/startDate_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/year_start_unfinishedView" />
 
     <TextView
         android:id="@+id/month_start_unfinishedView"
@@ -188,39 +169,36 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/month_end_unfinishedView"
+        app:layout_constraintBottom_toBottomOf="@+id/year_start_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/editStartDay_unfinishedInput"
         app:layout_constraintStart_toEndOf="@+id/editStartMonth_unfinishedInput"
-        app:layout_constraintTop_toBottomOf="@+id/endDate_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/year_start_unfinishedView" />
 
     <EditText
         android:id="@+id/editStartDay_unfinishedInput"
         android:layout_width="60dp"
-        android:hint="DD"
         android:layout_height="48dp"
-        android:layout_marginTop="48dp"
         android:ems="10"
+        android:hint="DD"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/editEndDay_unfinishedInput"
+        app:layout_constraintBottom_toBottomOf="@+id/month_start_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/day_start_unfinishedView"
         app:layout_constraintStart_toEndOf="@+id/month_start_unfinishedView"
-        app:layout_constraintTop_toBottomOf="@+id/endDate_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/month_start_unfinishedView" />
 
     <TextView
         android:id="@+id/day_start_unfinishedView"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="30dp"
         android:gravity="center"
         android:text="日"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/day_end_unfinishedView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editStartDay_unfinishedInput"
+        app:layout_constraintEnd_toEndOf="@+id/nestedConstraint"
         app:layout_constraintStart_toEndOf="@+id/editStartDay_unfinishedInput"
-        app:layout_constraintTop_toBottomOf="@+id/endDate_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/editStartDay_unfinishedInput" />
 
     <TextView
         android:id="@+id/dateEnd_title_unfinishedView"
@@ -233,38 +211,36 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editEndYear_unfinishedInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nestedConstraint"
+        app:layout_constraintStart_toStartOf="@+id/nestedConstraint"
         app:layout_constraintTop_toBottomOf="@+id/editStartYear_unfinishedInput" />
 
     <EditText
         android:id="@+id/editEndYear_unfinishedInput"
         android:layout_width="90dp"
-        android:hint="YYYY"
         android:layout_height="48dp"
-        android:layout_marginStart="30dp"
         android:layout_marginBottom="22dp"
         android:ems="10"
+        android:hint="YYYY"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/order_button_list_unfinished"
         app:layout_constraintEnd_toStartOf="@+id/year_end_unfinishedView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nestedConstraint"
         app:layout_constraintTop_toBottomOf="@+id/dateEnd_title_unfinishedView" />
 
     <TextView
         android:id="@+id/year_end_unfinishedView"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="22dp"
         android:gravity="center"
         android:text="年"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/order_button_list_unfinished"
+        app:layout_constraintBottom_toBottomOf="@+id/editEndYear_unfinishedInput"
         app:layout_constraintEnd_toStartOf="@+id/editEndMonth_unfinishedInput"
         app:layout_constraintStart_toEndOf="@+id/editEndYear_unfinishedInput"
-        app:layout_constraintTop_toBottomOf="@+id/year_start_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/editEndYear_unfinishedInput" />
 
     <EditText
         android:id="@+id/editEndMonth_unfinishedInput"
@@ -273,58 +249,87 @@
         android:ems="10"
         android:hint="MM"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/order_button_list_unfinished"
+        app:layout_constraintBottom_toBottomOf="@+id/year_end_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/month_end_unfinishedView"
         app:layout_constraintStart_toEndOf="@+id/year_end_unfinishedView"
-        app:layout_constraintTop_toBottomOf="@+id/editStartMonth_unfinishedInput" />
+        app:layout_constraintTop_toTopOf="@+id/year_end_unfinishedView" />
 
     <TextView
         android:id="@+id/month_end_unfinishedView"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="22dp"
         android:gravity="center"
         android:text="月"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/order_button_list_unfinished"
+        app:layout_constraintBottom_toBottomOf="@+id/editEndMonth_unfinishedInput"
         app:layout_constraintEnd_toStartOf="@+id/editEndDay_unfinishedInput"
         app:layout_constraintStart_toEndOf="@+id/editEndMonth_unfinishedInput"
-        app:layout_constraintTop_toBottomOf="@+id/month_start_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/editEndMonth_unfinishedInput" />
 
     <EditText
         android:id="@+id/editEndDay_unfinishedInput"
         android:layout_width="60dp"
         android:layout_height="48dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="22dp"
         android:ems="10"
         android:hint="DD"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/order_button_list_unfinished"
+        app:layout_constraintBottom_toBottomOf="@+id/month_end_unfinishedView"
         app:layout_constraintEnd_toStartOf="@+id/day_end_unfinishedView"
         app:layout_constraintStart_toEndOf="@+id/month_end_unfinishedView"
-        app:layout_constraintTop_toBottomOf="@+id/editStartDay_unfinishedInput"
-        />
+        app:layout_constraintTop_toTopOf="@+id/month_end_unfinishedView" />
 
     <TextView
         android:id="@+id/day_end_unfinishedView"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="22dp"
         android:gravity="center"
         android:text="日"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/order_button_list_unfinished"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editEndDay_unfinishedInput"
+        app:layout_constraintEnd_toEndOf="@+id/nestedConstraint"
         app:layout_constraintStart_toEndOf="@+id/editEndDay_unfinishedInput"
-        app:layout_constraintTop_toBottomOf="@+id/day_start_unfinishedView" />
+        app:layout_constraintTop_toTopOf="@+id/editEndDay_unfinishedInput" />
 
+    <LinearLayout
+        android:id="@+id/order_button_list_unfinished"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedConstraint"
+        app:layout_constraintEnd_toEndOf="@+id/nestedConstraint"
+        app:layout_constraintStart_toStartOf="@+id/nestedConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/editEndMonth_unfinishedInput">
+
+        <Button
+            android:id="@+id/enterSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:autoSizeMinTextSize="20sp"
+            android:backgroundTint="#ff3272d7"
+            android:minHeight="60dp"
+            android:paddingVertical="10dp"
+            android:text="確認"
+            android:textColor="#ffffffff"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform" />
+
+        <ListView
+            android:id="@+id/list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -338,7 +343,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

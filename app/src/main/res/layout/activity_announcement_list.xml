@@ -26,13 +26,16 @@
                 <TextView
                     android:id="@+id/announcement_text"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:paddingHorizontal="7dp"
+                    android:minHeight="65dp"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:gravity="center|left"
                     android:text=""
-                    android:textSize="24sp"/>
+                    android:textSize="24sp"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"/>
         </LinearLayout>
 </LinearLayout>

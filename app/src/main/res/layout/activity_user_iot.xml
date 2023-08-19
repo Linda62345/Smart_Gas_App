@@ -52,7 +52,7 @@
             android:textColor="@color/black"
             android:textSize="16dp"
             android:textStyle="bold"
-            android:layout_gravity="left"/>
+            android:textAlignment="center"/>
 
         <EditText
             android:id="@+id/GasBottleWeightEmpty"

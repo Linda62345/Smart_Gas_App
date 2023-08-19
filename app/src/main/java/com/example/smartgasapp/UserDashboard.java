@@ -294,8 +294,15 @@ public class UserDashboard extends AppCompatActivity {
                     // Check if selectedSensorId is null or empty
                     if (selectedSensorId == null || selectedSensorId.isEmpty()) {
                         // Get the first sensor ID from the JSON response
-                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-                        selectedSensorId = jsonObject.getString("sensorId");
+                        if(jsonArray!=null){
+                            try {
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                selectedSensorId = jsonObject.getString("sensorId");
+                            }
+                            catch (Exception e){
+                                Log.i("userDashBoard iot exception",e.toString());
+                            }
+                        }
                     }
 
                     // Find the JSON object with the selected sensor ID

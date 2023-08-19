@@ -168,7 +168,7 @@
     <string name="title_orders">歷史訂單</string>
     <string name="title_user_dashboard">個人資料</string>
     <string name="point">紅利點數</string>
-    <string name="buyGasString">瓦斯訂購</string>
+    <string name="buyGasString">一鍵叫瓦斯</string>
     <string name="searchOrderList">訂單查詢</string>
     <string name="scanString">掃描</string>
     <string name="volumeExchange">累積/兌換</string>

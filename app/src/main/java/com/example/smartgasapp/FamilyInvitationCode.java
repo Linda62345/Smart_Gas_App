@@ -153,7 +153,7 @@ public class FamilyInvitationCode extends AppCompatActivity {
                             for(int i = 0;i<ja.length();i++){
                                 jo = ja.getJSONObject(i);
                                 Log.i("customer name",jo.getString("Customer_Name"));
-                                name.add(jo.getString("Customer_Name"));
+                                name.add(new String(jo.getString("Customer_Name").getBytes("ISO-8859-1"), "UTF-8"));
                                 family_Id.add(jo.getInt("Customer_Id"));
                             }
                         }

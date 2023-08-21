@@ -75,31 +75,6 @@ public class PersonalBarcode extends AppCompatActivity {
         });
         thread.start();
 
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-
-        try {
-            String customerIdString = String.valueOf(CUSTOMER_ID);
-            BitMatrix bitMatrix = multiFormatWriter.encode(customerIdString, BarcodeFormat.QR_CODE, imageView.getWidth(), imageView.getHeight());
-            int width = bitMatrix.getWidth();
-            int height = bitMatrix.getHeight();
-            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
-//            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(CUSTOMER_ID), BarcodeFormat.CODE_128, imageView.getWidth(),imageView.getHeight() );
-//            Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(),imageView.getHeight(), Bitmap.Config.RGB_565);
-//            for(int i = 0;i<imageView.getWidth();i++){
-//                for (int j = 0;j< imageView.getHeight();j++){
-//                    bitmap.setPixel(i,j,bitMatrix.get(i,j)? Color.BLACK:Color.WHITE);
-                }
-            }
-
-            imageView.setImageBitmap(bitmap);
-
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
 
         backToHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +111,33 @@ public class PersonalBarcode extends AppCompatActivity {
         imageView= findViewById(R.id.changableBarcode);
         userName= findViewById(R.id.Changable_UserName_View);
         sex = findViewById(R.id.userGenderDescView);
+
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+
+        try {
+            String customerIdString = String.valueOf(CUSTOMER_ID);
+            int size = 500; // Adjust this size as needed
+            BitMatrix bitMatrix = multiFormatWriter.encode(customerIdString, BarcodeFormat.QR_CODE, size, size);
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+//            BitMatrix bitMatrix = multiFormatWriter.encode(String.valueOf(CUSTOMER_ID), BarcodeFormat.CODE_128, imageView.getWidth(),imageView.getHeight() );
+//            Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(),imageView.getHeight(), Bitmap.Config.RGB_565);
+//            for(int i = 0;i<imageView.getWidth();i++){
+//                for (int j = 0;j< imageView.getHeight();j++){
+//                    bitmap.setPixel(i,j,bitMatrix.get(i,j)? Color.BLACK:Color.WHITE);
+                }
+            }
+
+            imageView.setImageBitmap(bitmap);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showData() throws MalformedURLException {
@@ -170,15 +172,20 @@ public class PersonalBarcode extends AppCompatActivity {
             userName.setText(CUSTOMER_Name);
             CUSTOMER_ID = responseJSON.getInt("CUSTOMER_Id");
             CUSTOMER_Sex = responseJSON.getString("CUSTOMER_Sex");
-            if(CUSTOMER_Sex=="1"){
-                sex.setText("小姐");
-            }
-            else{
-                sex.setText("先生");
-            }
 
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    userName.setText(CUSTOMER_Name);
+                    if (CUSTOMER_Sex.equals("1")) {
+                        sex.setText("小姐");
+                    } else {
+                        sex.setText("先生");
+                    }
+                }
+            });
 
-            Log.i("CUSTOMER_Name",CUSTOMER_Name);
+            Log.i("CUSTOMER_Name", CUSTOMER_Name);
         } catch (Exception e) {
             Log.i("Edit Exception", e.toString());
         }

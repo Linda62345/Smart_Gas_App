@@ -26,12 +26,14 @@
                 android:id="@+id/show_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"
                 android:text=""
                 android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                />
 
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/Slider"
@@ -130,7 +132,9 @@
                         android:minWidth="40dp"
                         android:layout_marginLeft="10dp"
                         android:textStyle="bold"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:autoSizeTextType="uniform"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
@@ -150,6 +154,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="15sp"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:textStyle="bold" />
 
                 <TextView
@@ -222,6 +228,8 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     tools:layout_editor_absoluteX="18dp"
                     tools:layout_editor_absoluteY="28dp" />
 
@@ -233,6 +241,8 @@
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:layout_gravity="center"
                     android:text="@string/searchOrderList"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -247,6 +257,8 @@
                     android:layout_columnWeight="@integer/material_motion_duration_medium_1"
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:text="我的 IOT"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -277,6 +289,7 @@
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:layout_gravity="center"
                     android:backgroundTint="@color/white"
+                    android:onClick="@barcodeButtonClick"
                     android:contentDescription="TODO"
                     android:src="@drawable/baseline_qr_code_2_24" />
 
@@ -309,6 +322,8 @@
                     android:layout_columnWeight="@integer/material_motion_duration_medium_1"
                     android:layout_rowWeight="@integer/material_motion_duration_medium_1"
                     android:layout_gravity="center"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:text="QRCODE"
                     android:textAlignment="center"
                     android:textColor="@color/black"

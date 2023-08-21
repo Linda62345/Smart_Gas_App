@@ -240,6 +240,14 @@ public class UsageHistory extends AppCompatActivity {
                                 JSONObject jsonObject = ja.getJSONObject(i);
                                 String SENSOR_Time = jsonObject.optString("SENSOR_Time");
                                 String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
+                                //根據sensor_id 去 iot table 拿空桶重
+
+//                                if(){
+//                                    String Gas_Weight_Empty =
+//                                }
+//                                else{
+//                                    Toast.makeText(getApplicationContext(), "此重量尚未扣除空桶重", Toast.LENGTH_LONG).show();
+//                                }
                                 sensorListString.add("時間: " + SENSOR_Time + " 流量: " + SENSOR_Weight);
                                 //目前最後一筆資料
                                 iot_gas1.setText(SENSOR_Weight);

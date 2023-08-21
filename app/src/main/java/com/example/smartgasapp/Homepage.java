@@ -330,7 +330,7 @@ public class Homepage extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String sensorId = jsonObject.getString("sensorId");
                         if (sensorId.equals(selectedSensorId)) {
-//                        progressValue = jsonObject.getInt("Result");
+
                             progressValue = jsonObject.getInt("SENSOR_Weight");
                             sensorWeight = jsonObject.getDouble("SENSOR_Weight");
                             break;

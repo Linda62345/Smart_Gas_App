@@ -1,203 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchOrderResult">
+    tools:context=".SearchOrderResultFinished">
 
-    <GridLayout
-        android:id="@+id/TableLayout1"
-        android:layout_width="360.6dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:backgroundTint="#ffececec"
-        android:columnCount="2"
-        android:rowCount="5"
-        app:backgroundTint="#ffffffff"
-        app:layout_constraintBottom_toTopOf="@+id/list_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="90dp"
+        android:layout_marginHorizontal="20dp">
 
-
-        <TextView
-            android:id="@+id/customer_name"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/TableLayout1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/CustomerName"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:padding="10dp"
+            android:background="@android:color/white"
+            android:backgroundTint="#ffececec"
+            app:backgroundTint="#ffffffff">
+
+
+            <TextView
+                android:id="@+id/customer_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:text="@string/CustomerName"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/contactNumber"
+                app:layout_constraintEnd_toStartOf="@+id/changable_customer_name"
+                app:layout_constraintStart_toStartOf="@+id/TableLayout1"
+                app:layout_constraintTop_toTopOf="@+id/TableLayout1" />
+
+            <TextView
+                android:id="@+id/changable_customer_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle=""
+                app:layout_constraintStart_toEndOf="@+id/customer_name"
+                app:layout_constraintEnd_toEndOf="@+id/TableLayout1"
+                app:layout_constraintTop_toTopOf="@+id/customer_name"
+                app:layout_constraintBottom_toBottomOf="@+id/customer_name"/>
+
+            <TextView
+                android:id="@+id/contactNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:text="@string/contactNo"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/deliveryAddress"
+                app:layout_constraintEnd_toStartOf="@+id/changable_contactNumber"
+                app:layout_constraintStart_toStartOf="@+id/TableLayout1"
+                app:layout_constraintTop_toBottomOf="@+id/customer_name" />
+
+            <TextView
+                android:id="@+id/changable_contactNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="@+id/contactNumber"
+                app:layout_constraintEnd_toEndOf="@+id/TableLayout1"
+                app:layout_constraintStart_toEndOf="@+id/contactNumber"
+                app:layout_constraintTop_toTopOf="@+id/contactNumber" />
+
+            <TextView
+                android:id="@+id/deliveryAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:autoSizeTextType="uniform"
+                android:text="@string/deliveryAddress"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/gasDeliveryType"
+                app:layout_constraintEnd_toStartOf="@+id/changable_deliveryAddress"
+                app:layout_constraintStart_toStartOf="@+id/TableLayout1"
+                app:layout_constraintTop_toBottomOf="@+id/contactNumber" />
+
+            <TextView
+                android:id="@+id/changable_deliveryAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:autoSizeTextType="uniform"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="@+id/deliveryAddress"
+                app:layout_constraintEnd_toEndOf="@+id/TableLayout1"
+                app:layout_constraintStart_toEndOf="@+id/deliveryAddress"
+                app:layout_constraintTop_toTopOf="@+id/deliveryAddress" />
+
+            <TextView
+                android:id="@+id/gasDeliveryType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:text="配送方法: "
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/gasQty"
+                app:layout_constraintEnd_toStartOf="@+id/changable_deliveryType"
+                app:layout_constraintStart_toStartOf="@+id/TableLayout1"
+                app:layout_constraintTop_toBottomOf="@+id/deliveryAddress" />
+
+            <TextView
+                android:id="@+id/changable_deliveryType"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="@+id/gasDeliveryType"
+                app:layout_constraintEnd_toEndOf="@+id/TableLayout1"
+                app:layout_constraintStart_toEndOf="@+id/gasDeliveryType"
+                app:layout_constraintTop_toTopOf="@+id/gasDeliveryType" />
+
+            <TextView
+                android:id="@+id/gasQty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:autoSizeTextType="uniform"
+                android:text="@string/gasQuantity"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/predictionTime"
+                app:layout_constraintEnd_toStartOf="@+id/changable_gasQTY"
+                app:layout_constraintStart_toStartOf="@+id/TableLayout1"
+                app:layout_constraintTop_toBottomOf="@+id/gasDeliveryType" />
+
+            <TextView
+                android:id="@+id/changable_gasQTY"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="@+id/gasQty"
+                app:layout_constraintEnd_toEndOf="@+id/TableLayout1"
+                app:layout_constraintStart_toEndOf="@+id/gasQty"
+                app:layout_constraintTop_toTopOf="@+id/gasQty" />
+
+            <TextView
+                android:id="@+id/predictionTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="預約時間："
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/TableLayout1"
+                app:layout_constraintEnd_toStartOf="@+id/changable_time"
+                app:layout_constraintBottom_toBottomOf="@+id/TableLayout1"
+                app:layout_constraintTop_toBottomOf="@+id/gasQty"/>
+
+            <TextView
+                android:id="@+id/changable_time"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff757575"
+                android:textSize="20.0sp"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="@+id/predictionTime"
+                app:layout_constraintEnd_toEndOf="@+id/TableLayout1"
+                app:layout_constraintStart_toEndOf="@+id/predictionTime"
+                app:layout_constraintTop_toTopOf="@+id/predictionTime" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ListView
+            android:id="@+id/list_item"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"/>
+
+        <Button
+            android:id="@+id/confirmOrder"
+            android:layout_width="match_parent"
+            android:layout_height="70.9dp"
+            android:layout_marginHorizontal="50dp"
+            android:backgroundTint="#3272D7"
+            android:backgroundTintMode="src_over"
+            android:layout_gravity="center"
+            android:shadowColor="#ff2c2c2c"
+            android:text="@string/confirmString"
+            android:textColor="#ffffff"
+            android:textSize="20.0sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/changable_customer_name"
-            android:layout_width="148dp"
-            android:layout_height="22dp"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="20dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/contactNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="6.0dp"
-            android:text="@string/contactNo"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/changable_contactNumber"
-            android:layout_width="157dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="6dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/deliveryAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="6.0dp"
-            android:text="@string/deliveryAddress"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/changable_deliveryAddress"
-            android:layout_width="157dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="6dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/gasDeliveryType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="6.0dp"
-            android:text="配送方法: "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/changable_deliveryType"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:layout_marginTop="6dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/gasQty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:text="@string/gasQuantity"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/changable_gasQTY"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="" />
-
-        <TextView
-            android:id="@+id/predictionTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:text="預約時間："
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/changable_time"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:layout_marginStart="25.0dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff757575"
-            android:textSize="24.0sp"
-            android:textStyle="" />
-    </GridLayout>
-
-    <ListView
-        android:id="@+id/list_item"
-        android:layout_width="360.6dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/confirmOrder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TableLayout1"
-        app:layout_constraintVertical_bias="0.417"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/confirmOrder"
-        android:layout_width="186.3dp"
-        android:layout_height="70.9dp"
-        android:backgroundTint="#3272D7"
-        android:backgroundTintMode="src_over"
-        android:shadowColor="#ff2c2c2c"
-        android:text="@string/confirmString"
-        android:textColor="#ffffff"
-        android:textSize="20.0sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

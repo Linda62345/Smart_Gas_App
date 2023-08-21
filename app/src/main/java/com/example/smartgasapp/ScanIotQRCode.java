@@ -34,10 +34,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.smartgasapp.ui.login.LoginActivity;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.zxing.Result;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -55,7 +53,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class ScanReceiptQRCode extends AppCompatActivity {
+public class ScanIotQRCode extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private PreviewView previewView;
     private EditText enterNewIot;
@@ -74,7 +72,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_receipt_qrcode);
+        setContentView(R.layout.activity_scan_iot_qrcode);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         previewView = findViewById(R.id.receiptScanner);
@@ -115,7 +113,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                // enterNewIot.setText(""); // Clear the EditText
 //                enterNewIot.setText(qrCode);
 //                Toast.makeText(getApplicationContext(), qrCode, Toast.LENGTH_SHORT).show();
-//                Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
+//                Log.i(ScanIotQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
             }
         });
 
@@ -137,7 +135,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
 //                            runOnUiThread(new Runnable() {
 //                                @Override
 //                                public void run() {
-//                                    Toast.makeText(ScanReceiptQRCode.this, "無IoT連結", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(ScanIotQRCode.this, "無IoT連結", Toast.LENGTH_SHORT).show();
 //                                }
 //                            });
 //                        }
@@ -244,7 +242,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ScanReceiptQRCode.this, "無IoT連結", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ScanIotQRCode.this, "無IoT連結", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -291,7 +289,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
             startCamera();
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                ActivityCompat.requestPermissions(ScanReceiptQRCode.this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
+                ActivityCompat.requestPermissions(ScanIotQRCode.this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
             }
@@ -363,10 +361,10 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                             enterNewIot.setText(qrCode);
                         }
                     });
-                    Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
+                    Log.i(ScanIotQRCode.class.getSimpleName(), "QR Code Found: " + qrCode);
                 }
                 else {
-                    Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Code ID Length Incorrect");
+                    Log.i(ScanIotQRCode.class.getSimpleName(), "QR Code ID Length Incorrect");
                 }
             }
 
@@ -375,7 +373,7 @@ public class ScanReceiptQRCode extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i(ScanReceiptQRCode.class.getSimpleName(), "QR Not Found");
+                        Log.i(ScanIotQRCode.class.getSimpleName(), "QR Not Found");
 //                        enterNewIot.setText(""); // Clear the EditText when QR code is not found
                     }
                 });

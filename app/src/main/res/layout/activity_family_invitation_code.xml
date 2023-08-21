@@ -8,6 +8,9 @@
     tools:context=".FamilyInvitationCode"
     android:background="@color/white">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -15,7 +18,8 @@
         android:layout_height="match_parent"
         android:gravity="center|top"
         android:orientation="vertical"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="90dp"
         tools:layout_editor_absoluteX="60dp"
         tools:layout_editor_absoluteY="-163dp">
 
@@ -23,37 +27,34 @@
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="29dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:paddingHorizontal="10dp"
             android:background="@drawable/grey_rounded_background"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/familyListTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/userID_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="我的ID："
                 android:textSize="16sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/changable_userID"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:textAlignment="center"
+                android:paddingVertical="10dp"
                 android:text="ID: dhekdu"
                 android:textColor="@color/black"
                 android:textSize="22sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
             <View
@@ -67,7 +68,6 @@
                 android:id="@+id/requestID_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="家人的手機號碼："
                 android:textSize="16sp"
@@ -80,19 +80,24 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="請輸入家人的手機號碼"
+                android:textColorHint="@android:color/darker_gray"
                 android:inputType="phone"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="20sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/confirm_exchange_button"
-                android:layout_width="277dp"
-                android:layout_height="66dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:paddingVertical="11dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="10dp"
                 android:text="@string/confirmString"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -110,6 +115,8 @@
             android:text="關聯家人"
             android:textColor="@color/black"
             android:textSize="22sp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,11 +130,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="14dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/familyListTitle" />
+            android:background="@android:color/darker_gray" />
 
 
         <LinearLayout
@@ -139,18 +142,13 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="116dp"
             android:background="@drawable/grey_rounded_background"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view">
+            android:orientation="vertical">
 
             <ListView
                 android:id="@+id/listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
                 android:animationCache="false"
                 android:divider="@null"
                 android:scrollingCache="false"
@@ -158,6 +156,7 @@
         </LinearLayout>
 
     </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

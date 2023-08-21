@@ -1,20 +1,15 @@
 package com.example.smartgasapp;
 
-import static com.example.smartgasapp.R.id.GasBottleWeightEmpty;
 import static com.example.smartgasapp.R.id.navigation_dashboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -85,7 +80,7 @@ public class userIot extends AppCompatActivity {
         scanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(userIot.this, ScanReceiptQRCode.class);
+                Intent intent = new Intent(userIot.this, ScanIotQRCode.class);
                 startActivity(intent);
             }
         });

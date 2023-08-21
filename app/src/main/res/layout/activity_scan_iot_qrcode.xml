@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ScanReceiptQRCode"
+    tools:context=".ScanIotQRCode"
     android:background="@color/white">
 
 
@@ -29,7 +29,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/enterReceiptCode"
+        android:text="IOT 編號:"
         android:textColor="@android:color/black"
         android:textSize="20.0sp"
         android:textStyle="bold" />
@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:background="#ffeeeeee"
         android:gravity="center"
-        android:hint="@string/enterReceiptCode" />
+        android:hint="請輸入IOT編號" />
 
     <Button
         android:id="@+id/qrCodeFoundButton"

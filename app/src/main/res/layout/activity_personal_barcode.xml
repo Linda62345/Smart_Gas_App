@@ -7,11 +7,16 @@
     android:background="@color/white"
     tools:context=".PersonalBarcode">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="90dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -31,6 +36,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
             <TextView
@@ -42,6 +49,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -65,18 +74,20 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/showBarcodeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/main_blue"
-                android:contentDescription="TODO"
-                android:onClick="barcodeButtonClick"
-                android:src="@drawable/baseline_remove_red_eye_24"
-                android:textSize="20sp" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/showBarcodeButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:backgroundTint="@color/main_blue"-->
+<!--                android:contentDescription="TODO"-->
+<!--                android:onClick="barcodeButtonClick"-->
+<!--                android:src="@drawable/baseline_remove_red_eye_24"-->
+<!--                android:textSize="20sp" />-->
 
 
         </LinearLayout>
@@ -89,7 +100,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="10dp"
-            tools:srcCompat="" />
+            tools:srcCompat=" " />
 
 
         <Button
@@ -104,6 +115,7 @@
 
 
     </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

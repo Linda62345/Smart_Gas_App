@@ -70,7 +70,7 @@ public class FamilyInvitationCode extends AppCompatActivity {
         loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
         myId = findViewById(R.id.changable_userID);
-        myId.setText("ID: "+Customer_ID);
+        myId.setText(Customer_ID);
 
         FamilyMember = findViewById(R.id.requestID_Input);
         FamilyMember.addTextChangedListener(new TextWatcher() {

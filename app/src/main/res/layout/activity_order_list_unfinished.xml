@@ -8,38 +8,38 @@
 
 
     <Button
-        android:id="@+id/order_finished"
+        android:id="@+id/order_unfinished"
         android:layout_width="0dp"
         android:layout_height="56.9dp"
-        android:backgroundTint="#ebebeb"
+        android:backgroundTint="#9A9A9A"
         android:clickable="false"
         android:foregroundGravity="left"
         android:gravity="center"
-        android:text="@string/finished"
+        android:text="@string/unfinished"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/order_unfinished"
-        app:layout_constraintEnd_toStartOf="@+id/order_unfinished"
+        app:layout_constraintBaseline_toBaselineOf="@+id/order_finished"
+        app:layout_constraintEnd_toStartOf="@+id/order_finished"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/scrollLayout"
         />
 
     <Button
-        android:id="@+id/order_unfinished"
+        android:id="@+id/order_finished"
         android:layout_width="0dp"
         android:layout_height="56.9dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#9A9A9A"
+        android:backgroundTint="#ebebeb"
         android:clickable="true"
         android:foregroundGravity="right"
         android:gravity="center"
-        android:text="@string/unfinished"
+        android:text="@string/finished"
         android:textColor="#6b6a6a"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/order_finished"
+        app:layout_constraintBottom_toBottomOf="@+id/order_unfinished"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/order_finished"
+        app:layout_constraintStart_toEndOf="@+id/order_unfinished"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_finished">
+        app:layout_constraintTop_toBottomOf="@+id/order_unfinished">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

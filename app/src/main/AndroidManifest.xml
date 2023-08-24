@@ -70,9 +70,9 @@
             android:label="@string/scanNewString"
             android:parentActivityName="com.example.smartgasapp.ScanOriginalQRCode" />
         <activity
-            android:name="com.example.smartgasapp.ScanReceiptQRCode"
+            android:name="com.example.smartgasapp.ScanIotQRCode"
             android:exported="false"
-            android:label="@string/scanReceiptString"
+            android:label="掃描IOT的QrCode"
             android:parentActivityName="com.example.smartgasapp.userIot"/>
         <activity
             android:name="com.example.smartgasapp.OrderListFinished"

@@ -15,7 +15,7 @@
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:paddingBottom="90dp"
         android:orientation="vertical">
 
@@ -23,7 +23,7 @@
             android:id="@+id/LinearTitle"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:layout_margin="40dp"
+            android:layout_margin="30dp"
             android:background="@drawable/rounded_button_border"
             android:gravity="center">
 

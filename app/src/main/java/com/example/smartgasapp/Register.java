@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -78,6 +80,38 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         etPassword = findViewById(R.id.register_pass_input);
         etReenterPassword = findViewById(R.id.register_pass_con_input);
         name = email = password = reenterPassword = address = phone = houseTel = "";
+
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                updatePasswordError();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        etReenterPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                updatePasswordError();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+
         register = findViewById(R.id.register_next_button);
         tvStatus = findViewById(R.id.tvStatus);
         etLift = findViewById(R.id.lift);
@@ -153,16 +187,17 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         }
 
     }
+
     // 連到地區的資料庫
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView.getId() == R.id.citySpinner){
+        if (adapterView.getId() == R.id.citySpinner) {
             cityList.clear();
             String selectedCountry = adapterView.getSelectedItem().toString();
-            String url = "http://54.199.33.241/test/city.php?country_name="+selectedCountry;
+            String url = "http://54.199.33.241/test/city.php?country_name=" + selectedCountry;
             requestQueue = Volley.newRequestQueue(this);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                    url,null , new Response.Listener<JSONObject>() {
+                    url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -180,7 +215,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                         e.printStackTrace();
                     }
                 }
-            }, new Response.ErrorListener(){
+            }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -210,93 +245,112 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
 
     public void save(View view) {
         //這裡要加個警告 姓名欄一定要填
-        if (etMale.isChecked()) {
-            gender = "Male";
-        } else {
-            gender = "Female";
-        }
+        if (etPassword.getError() == null && etReenterPassword.getError() == null) {
+            if (etMale.isChecked()) {
+                gender = "Male";
+            } else {
+                gender = "Female";
+            }
 
-        String liftSelection = etLift.getSelectedItem().toString();
-        if (liftSelection.equals("有")) {
-           lift = "有電梯";
-        } else if (liftSelection.equals("否")) {
-            lift = "沒有電梯";
-        }
+            String liftSelection = etLift.getSelectedItem().toString();
+            if (liftSelection.equals("有")) {
+                lift = "有電梯";
+            } else if (liftSelection.equals("否")) {
+                lift = "沒有電梯";
+            }
 
-        city = etCity.getSelectedItem().toString();
-        area = etArea.getSelectedItem().toString();
-        String companyName = etCompanyName.getSelectedItem().toString();
-        company = companyName;
-        floor = etFloor.getText().toString().trim();
-        address = city + area + etAddress.getText().toString().trim() + " (" + floor + "樓" + ")";
-        name = etName.getText().toString().trim();
-        email = etEmail.getText().toString().trim();
-        phone = etPhone.getText().toString().trim();
-        houseTel = etHouseTel.getText().toString().trim();
-        password = etPassword.getText().toString().trim();
-        postCode = etPostCode.getText().toString().trim();
-        reenterPassword = etReenterPassword.getText().toString().trim();
-        if (!password.equals(reenterPassword)) {
-            Toast.makeText(this, "Password Mismatch", Toast.LENGTH_SHORT).show();
-        } else if (!etMale.isChecked() && !etFemale.isChecked()) {
-            Toast.makeText(this, "Gender column must selected one of them.", Toast.LENGTH_SHORT).show();
-        } else if (!name.equals("") && !email.equals("") && !password.equals("")) {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i("Register response",response);
-                    if (response.contains("success")) {
-                        Intent intent = new Intent(Register.this, LoginActivity.class);
-                        startActivity(intent);
-                        tvStatus.setText("Successfully registered.");
-                        register.setClickable(false);
-                    } else if (response.equals("failure")) {
-                        Toast.makeText(Register.this, "資料庫錯誤, 請重新輸入", Toast.LENGTH_SHORT).show();
+            city = etCity.getSelectedItem().toString();
+            area = etArea.getSelectedItem().toString();
+            String companyName = etCompanyName.getSelectedItem().toString();
+            company = companyName;
+            floor = etFloor.getText().toString().trim();
+            address = city + area + etAddress.getText().toString().trim() + " (" + floor + "樓" + ")";
+            name = etName.getText().toString().trim();
+            email = etEmail.getText().toString().trim();
+            phone = etPhone.getText().toString().trim();
+            houseTel = etHouseTel.getText().toString().trim();
+            password = etPassword.getText().toString().trim();
+            postCode = etPostCode.getText().toString().trim();
+            reenterPassword = etReenterPassword.getText().toString().trim();
+            if (!password.equals(reenterPassword)) {
+                Toast.makeText(this, "Password Mismatch", Toast.LENGTH_SHORT).show();
+            } else if (!etMale.isChecked() && !etFemale.isChecked()) {
+                Toast.makeText(this, "Gender column must selected one of them.", Toast.LENGTH_SHORT).show();
+            } else if (!name.equals("") && !email.equals("") && !password.equals("")) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("Register response", response);
+                        if (response.contains("success")) {
+                            Intent intent = new Intent(Register.this, LoginActivity.class);
+                            startActivity(intent);
+                            tvStatus.setText("Successfully registered.");
+                            register.setClickable(false);
+                        } else if (response.equals("failure")) {
+                            Toast.makeText(Register.this, "資料庫錯誤, 請重新輸入", Toast.LENGTH_SHORT).show();
+                        } else if (response.contains("Duplicate") && response.contains("CUSTOMER_Email")) {
+                            Toast.makeText(Register.this, "此email已註冊過", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    else if(response.contains("Duplicate")&&response.contains("CUSTOMER_Email")){
-                        Toast.makeText(Register.this, "此email已註冊過", Toast.LENGTH_SHORT).show();
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                        Log.i("Register error", error.toString());
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-                    Log.i("Register error",error.toString());
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> data = new HashMap<>();
-                    data.put("name", name);
-                    data.put("sex", gender);
-                    data.put("phone", phone);
-                    data.put("houseTel", houseTel);
-                    data.put("email", email);
-                    data.put("password", password);
-                    data.put("address", address);
-                    data.put("company", company);
-                    data.put("lift", lift);
-                    data.put("postCode", postCode);
-                    // Create a DateFormat object and set the timezone to Taiwan
-                    TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    dateFormat.setTimeZone(timeZone);
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        data.put("name", name);
+                        data.put("sex", gender);
+                        data.put("phone", phone);
+                        data.put("houseTel", houseTel);
+                        data.put("email", email);
+                        data.put("password", password);
+                        data.put("address", address);
+                        data.put("company", company);
+                        data.put("lift", lift);
+                        data.put("postCode", postCode);
+                        // Create a DateFormat object and set the timezone to Taiwan
+                        TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        dateFormat.setTimeZone(timeZone);
 
-                    // Format the current date and time as a string in the correct format
-                    String currentDateTimeString = dateFormat.format(new Date());
+                        // Format the current date and time as a string in the correct format
+                        String currentDateTimeString = dateFormat.format(new Date());
 
-                    // Log the string to the console
-                    Log.i("time",currentDateTimeString);
-                    data.put("time", currentDateTimeString);
-                    return data;
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-            requestQueue.add(stringRequest);
+                        // Log the string to the console
+                        Log.i("time", currentDateTimeString);
+                        data.put("time", currentDateTimeString);
+                        return data;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                requestQueue.add(stringRequest);
+            } else {
+                Toast.makeText(this, "Please fill all the field", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, "Please fill all the field", Toast.LENGTH_SHORT).show();
+            // Passwords are invalid, show a message or handle as needed
+            Toast.makeText(this, "Please correct the password errors", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void updatePasswordError() {
+        String password = etPassword.getText().toString().trim();
+        String reenterPassword = etReenterPassword.getText().toString().trim();
 
+        if (password.length() < 5) {
+            etPassword.setError("Password must be at least 5 characters");
+        } else {
+            etPassword.setError(null); // Clear the error
+        }
+
+        if (!password.equals(reenterPassword)) {
+            etReenterPassword.setError("Passwords do not match");
+        } else {
+            etReenterPassword.setError(null); // Clear the error
+        }
+    }
 }

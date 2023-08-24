@@ -333,7 +333,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
             }
         } else {
             // Passwords are invalid, show a message or handle as needed
-            Toast.makeText(this, "Please correct the password errors", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password must be at least 5 characters", Toast.LENGTH_SHORT).show();
         }
     }
 

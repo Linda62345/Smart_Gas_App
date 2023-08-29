@@ -173,10 +173,9 @@
         <activity
             android:name="com.example.smartgasapp.ui.login.LoginActivity"
             android:exported="true"
-            android:label="登入">
+            android:label="Smart Gas App">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>

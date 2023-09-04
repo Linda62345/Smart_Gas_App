@@ -8,140 +8,147 @@
     tools:context=".FamilyInvitationCode"
     android:background="@color/white">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout6"
+    <ScrollView
+        android:id="@+id/scrollFam"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        android:paddingTop="30dp"
-        android:paddingBottom="90dp"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="-163dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout4"
+            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:paddingHorizontal="10dp"
-            android:background="@drawable/grey_rounded_background"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            android:paddingBottom="90dp">
 
-
-            <TextView
-                android:id="@+id/userID_Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="我的ID："
-                android:textSize="16sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/changable_userID"
+            <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:paddingVertical="10dp"
-                android:text="dhekdu"
+                android:layout_marginHorizontal="24dp"
+                android:background="@drawable/grey_rounded_background"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+
+                <TextView
+                    android:id="@+id/userID_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:text="我的ID："
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/changable_userID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:paddingVertical="10dp"
+                    android:text="dhekdu"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/darker_gray" />
+
+
+                <TextView
+                    android:id="@+id/requestID_Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="家人的手機號碼："
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/requestID_Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:autoSizeTextType="uniform"
+                    android:ems="10"
+                    android:hint="請輸入家人的手機號碼"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/confirm_exchange_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:minHeight="48dp"
+                    android:paddingVertical="11dp"
+                    android:text="@string/confirmString"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/familyListTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="4dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:paddingStart="30dp"
+                android:text="關聯家人"
                 android:textColor="@color/black"
                 android:textSize="22sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                android:textStyle="bold" />
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
             <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="14dp"
                 android:background="@android:color/darker_gray" />
 
 
-            <TextView
-                android:id="@+id/requestID_Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="家人的手機號碼："
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/requestID_Input"
+            <ListView
+                android:id="@+id/listview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ems="10"
-                android:hint="請輸入家人的手機號碼"
-                android:textColorHint="@android:color/darker_gray"
-                android:inputType="phone"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                android:textStyle="bold" />
+                android:layout_height="200dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="116dp"
+                android:background="@drawable/grey_rounded_background" />
 
-            <Button
-                android:id="@+id/confirm_exchange_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:paddingVertical="11dp"
-                android:layout_gravity="center"
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:text="@string/confirmString"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+
         </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/familyListTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="4dp"
-            android:paddingStart="30dp"
-            android:text="關聯家人"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:autoSizeTextType="uniform"
-            android:maxLines="1"
-            app:layout_constraintBottom_toTopOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="14dp"
-            android:background="@android:color/darker_gray" />
-
-
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="116dp"
-            android:background="@drawable/grey_rounded_background"/>
-
-
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

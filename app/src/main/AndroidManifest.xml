@@ -95,7 +95,7 @@
         <activity
             android:name="com.example.smartgasapp.PersonalBarcode"
             android:exported="false"
-            android:label="我的條碼"
+            android:label="我的QRCODE"
             android:parentActivityName="com.example.smartgasapp.Homepage" />
         <activity
             android:name="com.example.smartgasapp.GasCompanyLocation"

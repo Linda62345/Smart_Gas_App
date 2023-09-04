@@ -70,9 +70,9 @@
             android:label="@string/scanNewString"
             android:parentActivityName="com.example.smartgasapp.ScanOriginalQRCode" />
         <activity
-            android:name="com.example.smartgasapp.ScanReceiptQRCode"
+            android:name="com.example.smartgasapp.ScanIotQRCode"
             android:exported="false"
-            android:label="@string/scanReceiptString"
+            android:label="掃描IOT的QrCode"
             android:parentActivityName="com.example.smartgasapp.userIot"/>
         <activity
             android:name="com.example.smartgasapp.OrderListFinished"
@@ -173,10 +173,9 @@
         <activity
             android:name="com.example.smartgasapp.ui.login.LoginActivity"
             android:exported="true"
-            android:label="登入">
+            android:label="Smart Gas App">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>

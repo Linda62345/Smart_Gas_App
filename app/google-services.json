@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "63671691275",
+    "project_id": "gasstation-5fc8b",
+    "storage_bucket": "gasstation-5fc8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63671691275:android:ba65a7c9ac28e72f6eff0e",
+        "android_client_info": {
+          "package_name": "com.example.smartgasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63671691275-bb1i4etg9tnvkmlqtlp6dhddej6d5ivl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSAEw-Lj8JP1XRxZSrmfBgNDXTc6GbiEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63671691275-bb1i4etg9tnvkmlqtlp6dhddej6d5ivl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

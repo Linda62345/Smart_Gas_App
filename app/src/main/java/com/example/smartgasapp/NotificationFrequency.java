@@ -151,9 +151,7 @@ public class NotificationFrequency extends AppCompatActivity  {
                     Data inputData = new Data.Builder()
                             .putDouble("gasVolume", gasVolume) // Pass the gasVolume value to the Worker
                             .build();
-//                    PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 1, TimeUnit.MINUTES)
-//                            .setInputData(inputData)
-//                            .build();
+
 
                     OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class)
                             .setInputData(new Data.Builder().putDouble("gasVolume", gasVolume).build())
@@ -397,7 +395,7 @@ public class NotificationFrequency extends AppCompatActivity  {
 
             if (gasVolume < 3 && (hour == 14 && minute == 00 || hour == 18 && minute == 00)) {
                         showNotification("您的瓦斯容量小於" + 3 + "kg");
-                        if (hour >= 14 || (hour == 13 && minute >= 30)) {
+                        if (hour >= 13|| (hour == 13 && minute >= 30)) {
                             // Afternoon, schedule the next notification for tomorrow morning
                             desiredHour = 14;
                             desiredMinute = 00;

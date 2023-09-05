@@ -23,6 +23,8 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,12 +37,14 @@ import com.example.smartgasapp.ForgetPassword1;
 import com.example.smartgasapp.Homepage;
 import com.example.smartgasapp.R;
 import com.example.smartgasapp.Register;
+import com.example.smartgasapp.TokenManager;
 import com.example.smartgasapp.databinding.ActivityLoginBinding;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -48,6 +52,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -68,21 +73,31 @@ public class LoginActivity extends AppCompatActivity {
     public static int CUSTOMER_ID;
     public static int COMPANY_Id;
     public static String Customer_Name;
+    private TokenManager tokenManager;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+        tokenManager = TokenManager.getInstance(this);
 
         // Check login status from SharedPreferences
         SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
         boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
 
-
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
 
         register = findViewById(R.id.login_register_button);
         forget = findViewById(R.id.forget_button);
@@ -132,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
                 }
+
             }
         });
 
@@ -220,6 +236,7 @@ public class LoginActivity extends AppCompatActivity {
             Password.setText(savedPassword);
             loginViewModel.login(savedEmail, savedPassword);
         }
+
     }
 
     private void createNotificationChannel() {
@@ -250,6 +267,19 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     Log.d("res", response);
                     if (response.contains("success")) {
+                        // Save user data to SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", email); // Replace 'email' with the actual username
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.apply();
+
+                        String accessToken = "smartGas7890"; // Extract the token from the response
+                        long expirationTimestamp = 0; // Extract the expiration timestamp
+                        tokenManager.setAccessToken(accessToken, expirationTimestamp);
+                        Log.d("TokenUsage", "Access token set successfully: " + accessToken);
+                       // saveAccessToken(accessToken);
+
                         Intent intent = new Intent(LoginActivity.this, Homepage.class);
                         //要把email傳過去
                         intent.putExtra("email", email);
@@ -290,6 +320,28 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "帳號密碼欄位必填", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void saveAccessToken(String accessToken) throws GeneralSecurityException, IOException {
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                "my_secure_prefs",
+                masterKeyAlias,  // Your master key alias
+                this,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("access_token", accessToken);
+        editor.apply();
     }
 
     public void CustomerID() {

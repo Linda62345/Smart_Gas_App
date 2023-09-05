@@ -3,7 +3,9 @@ package com.example.smartgasapp;
 import static com.example.smartgasapp.R.id.navigation_dashboard;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -23,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.net.HttpHeaders;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -71,12 +75,15 @@ public class Homepage extends AppCompatActivity {
     public JSONObject responseJSON;
     private Spinner iot1;
     private String selectedSensorId;
+    private TokenManager tokenManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        tokenManager = TokenManager.getInstance(this);
 
         // Create sample images
         SliderView sliderView;
@@ -97,6 +104,22 @@ public class Homepage extends AppCompatActivity {
         personalBarcode = findViewById(R.id.myIDButton);
         bottomNavigationView = findViewById(R.id.nav_view);
         showName = findViewById(R.id.show_name);
+
+        // Retrieve user data from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        if (!username.isEmpty() && isLoggedIn) {
+            // User is logged in, update UI accordingly
+            showName.setText("您好，" + username);
+        } else {
+            // User is not logged in, handle it accordingly (e.g., redirect to login screen)
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish(); // Close the current activity
+        }
+
         LoginActivity loginActivity = new LoginActivity();
         showName.setText("您好，" + loginActivity.Customer_Name);
 
@@ -255,6 +278,8 @@ public class Homepage extends AppCompatActivity {
                 return false;
             }
         });
+
+      //  makeAuthenticatedApiRequest();
     }
 
     private class NetworkTask extends AsyncTask<String, Void, String> {

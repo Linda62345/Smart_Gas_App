@@ -45,6 +45,8 @@ public class EventAdapter extends ArrayAdapter<AnnouncementList> {
                 Event_pict.setImageResource(R.drawable.baseline_info_24);
             } else if (type.equals("EMERGENCY")) {
                 Event_pict.setImageResource(R.drawable.baseline_event_busy_24);
+            } else if (type.equals("COMPANY")) {
+                Event_pict.setImageResource(R.drawable.logo);
             }
             // Add more conditions for other types if needed
         }

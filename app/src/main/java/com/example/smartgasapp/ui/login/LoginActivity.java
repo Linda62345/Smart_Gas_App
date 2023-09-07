@@ -74,6 +74,9 @@ public class LoginActivity extends AppCompatActivity {
     public static int COMPANY_Id;
     public static String Customer_Name;
     private TokenManager tokenManager;
+    private static final long SESSION_TIMEOUT_MILLISECONDS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+    private static final String SESSION_TIMEOUT_KEY = "session_timeout";
+
 
 
 
@@ -81,6 +84,13 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        long sessionStartTime = System.currentTimeMillis();
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong(SESSION_TIMEOUT_KEY, sessionStartTime);
+        editor.apply();
+
 
         String masterKeyAlias = null;
         try {
@@ -93,8 +103,8 @@ public class LoginActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(this);
 
         // Check login status from SharedPreferences
-        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPref.getBoolean("isLoggedIn", false);
+        SharedPreferences sharedPref1 = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPref1.getBoolean("isLoggedIn", false);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -229,8 +239,8 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check if there is saved login data, if yes, log in automatically
         if (hasSavedLoginData()) {
-            SharedPreferences sharedPref1 = getSharedPreferences("login_data", Context.MODE_PRIVATE);
-            String savedEmail = sharedPref1.getString("email", "");
+            SharedPreferences sharedPref2 = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+            String savedEmail = sharedPref2.getString("email", "");
             String savedPassword = sharedPref1.getString("password", "");
             username.setText(savedEmail);
             Password.setText(savedPassword);
@@ -238,6 +248,15 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+    private boolean isSessionTimedOut() {
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        long sessionStartTime = sharedPref.getLong(SESSION_TIMEOUT_KEY, 0); // 0 means no session start time found
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = currentTime - sessionStartTime;
+        return elapsedTime >= SESSION_TIMEOUT_MILLISECONDS;
+    }
+
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -289,6 +308,12 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (response.contains("failure")) {
                         Toast.makeText(LoginActivity.this, "帳號或密碼有誤", Toast.LENGTH_SHORT).show();
                     }
+                    if (isSessionTimedOut()) {
+                        // Session has timed out, prompt the user to log in again or perform necessary actions
+                        Toast.makeText(LoginActivity.this, "Session has timed out. Please log in again.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                 }
             }, new Response.ErrorListener() {
                 public void onErrorResponse(VolleyError error) {
@@ -321,6 +346,22 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+    private void logoutAndRedirectToLogin() {
+        // Clear session data
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(SESSION_TIMEOUT_KEY);
+        editor.remove("email"); // Clear saved email
+        editor.remove("password"); // Clear saved password
+        editor.apply();
+
+        // Redirect to the login screen
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish(); // Close the current activity
+    }
+
 
     private void saveAccessToken(String accessToken) throws GeneralSecurityException, IOException {
         String masterKeyAlias = null;

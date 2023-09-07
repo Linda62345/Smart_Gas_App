@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -51,6 +53,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.GeneralSecurityException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -82,6 +85,14 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
 
         tokenManager = TokenManager.getInstance(this);
 
@@ -399,6 +410,28 @@ public class Homepage extends AppCompatActivity {
         TextView progressText = findViewById(R.id.progress_text);
 //        progressText.setText(String.valueOf(decimalFormat.format(progressValue) + "%"));
         progressText.setText(String.valueOf(decimalFormat.format(sensorWeight) + "%"));
+    }
+
+    private void saveAccessToken(String accessToken) throws GeneralSecurityException, IOException {
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+
+        SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                "my_secure_prefs",
+                masterKeyAlias,  // Your master key alias
+                this,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        );
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("access_token", accessToken);
+        editor.apply();
     }
 
     public void showData(String Showurl, String id) {

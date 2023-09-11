@@ -93,7 +93,11 @@
     <string-array name="exchange_options">
         <item>傳統鋼瓶</item>
         <item>複合材料</item>
+    </string-array>
 
+    <string-array name="exchange_remainGas_options">
+        <item>不兌換</item>
+        <item>兌換</item>
     </string-array>
 
     <string name="name">姓名</string>
@@ -188,4 +192,9 @@
     <string name="Changable_GasCompName"></string>
     <string name="userGenderNickname">先生</string>
 
+    <!--瓦斯訂單OrderDetail-->
+    <string name="orderQuantity">數量</string>
+    <string name="orderType">類型</string>
+    <string name="orderWeight">規格</string>
+    <string name="orderRemain">是否兌換</string>
 </resources>

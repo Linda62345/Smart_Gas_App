@@ -173,7 +173,6 @@ public class UsageHistory extends AppCompatActivity {
         protected Void doInBackground(String... params) {
             String selectedSensorId = params[0];
 
-            // Call getData and perform the network operation
             getData("http://54.199.33.241/test/iot_history.php", selectedSensorId);
 
             return null;
@@ -181,8 +180,6 @@ public class UsageHistory extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            // Process the result or update the UI if needed
-            // For example, you can call the sensorlist method here
             sensorlist(selectedSensorId);
         }
     }
@@ -215,8 +212,11 @@ public class UsageHistory extends AppCompatActivity {
             httpURLConnection.disconnect();
             Log.i("result", "[" + result + "]");
 
-            // Process the retrieved data
-            history = new JSONArray(result);
+            if (result != null && !result.isEmpty()) {
+                history = new JSONArray(result);
+            } else {
+                Log.i("get data Exception", "Result is empty or null.");
+            }
 
         } catch (Exception e) {
             Log.i("get data Exception", e.toString());

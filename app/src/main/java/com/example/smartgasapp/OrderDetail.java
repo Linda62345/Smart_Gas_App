@@ -63,13 +63,15 @@ public class OrderDetail extends AppCompatActivity {
     public Spinner Time_Spinner;
     public int Gas_Quantity,orderDetailQuan,Gas_Delete=0,position=-1;
     public static boolean edit=false;
-    public static ArrayList<CustomerOrderDetail> customerOrderDetails;
+    public static ArrayList<OrderDetailItem> customerOrderDetails;
+    public static String Gas_Volume;
     DatePickerDialog.OnDateSetListener pickerDialog;
     Calendar calendar = Calendar.getInstance();
     TimePickerDialog.OnTimeSetListener timeDialog;
     Calendar calendar1 = Calendar.getInstance();
     GasExchange gasExchange;
     CompositeGasMenu compositeGasMenu;
+    OrderDetailListAdapter orderDetailListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,24 +84,24 @@ public class OrderDetail extends AppCompatActivity {
 
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
+        Company_Id = String.valueOf(loginActivity.COMPANY_Id);
+
         DeliveryMethod deliveryMethod = new DeliveryMethod();
         compositeGasMenu = new CompositeGasMenu();
         cylinder_gas_menu cylinder_gas_menu = new cylinder_gas_menu();
         Gas_Delete=0;
 
-        customerOrderDetails = new ArrayList<CustomerOrderDetail>();
+        customerOrderDetails = new ArrayList<OrderDetailItem>();
         customerOrderDetails.clear();
         //殘氣兌換與訂單詳細資料作結合
         Log.i("gasExchange.Gas_Quantity", String.valueOf(gasExchange.Gas_Quantity));
         gasExchange = new GasExchange();
 
-        CustomerOrderDetail od = new CustomerOrderDetail("數量","類別","規格");
-        customerOrderDetails.add(od);
-
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try  {
+                    showGasRemain();
                     showData("http://54.199.33.241/test/Customer_Order_Detail.php",Customer_ID);
                     responseJSON = new JSONObject(result);
                     String Customer_Name = responseJSON.getString("CUSTOMER_Name");
@@ -123,7 +125,6 @@ public class OrderDetail extends AppCompatActivity {
                         date = deliveryMethod.date;
                         time = deliveryMethod.time;
                         Time_Spinner = findViewById(R.id.Time);
-                        Log.i("Time_Spinner", deliveryMethod.Time_Select);
                         //選取時間要一致
                         ArrayAdapter<String> adapter = (ArrayAdapter<String>) Time_Spinner.getAdapter();
                         position = adapter.getPosition(deliveryMethod.Time_Select);
@@ -188,7 +189,8 @@ public class OrderDetail extends AppCompatActivity {
                                 quantity[i] = jo.getString("Order_Quantity");
                                 type[i] = jo.getString("Order_type");
                                 weight[i] = jo.getString("Order_weight");
-                                CustomerOrderDetail od = new CustomerOrderDetail(quantity[i], type[i], weight[i]);
+                                // 一開始都是設置不兌換
+                                OrderDetailItem od = new OrderDetailItem(quantity[i], type[i], weight[i],false);
                                 customerOrderDetails.add(od);
                             }
                         }
@@ -245,10 +247,10 @@ public class OrderDetail extends AppCompatActivity {
                     });*/
 
                             //殘氣結合訂單
-                            RemainGas();
+                            //RemainGas();
 
                             //show訂單詳細資料
-                            CustomerOrderDetailAdapterList adapter = new CustomerOrderDetailAdapterList (getApplicationContext(), R.layout.adapter_view_layout, customerOrderDetails);
+                            OrderDetailListAdapter adapter = new OrderDetailListAdapter (getApplicationContext(), R.layout.adapter_order_detail_list, customerOrderDetails);
                             if (customerOrderDetails.size() > 0) {
                                 Log.i("order detail", String.valueOf(customerOrderDetails.size()));
                                 listView = (ListView) findViewById(R.id.listview);
@@ -269,13 +271,6 @@ public class OrderDetail extends AppCompatActivity {
 
         Log.i("ArrayList size", String.valueOf(customerOrderDetails.size()));
 
-        exchange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OrderDetail.this, GasExchange.class);
-                startActivity(intent);
-            }
-        });
         editReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -291,10 +286,6 @@ public class OrderDetail extends AppCompatActivity {
                 //將新的訂單資訊輸入進去 customer_id, company_id, delivery_condition,delivery_address,delivery_phone,gas_quantity,order_time,expect_time,delivery_method
                 try{
                     newOrder();
-                    //殘氣扣除
-                    if(Gas_Delete>0){
-                        deleteGasRemain();
-                    }
                 }
                 catch (Exception e){
                     Log.i("Create order Exception", e.toString());
@@ -410,7 +401,7 @@ public class OrderDetail extends AppCompatActivity {
         //order id: New_Order_Id
         //拿arrayList裡面的資料 customerOrderDetails
         //要那些欄位 order_id, order_quantity, order_type, order_weight
-        for(int i=1;i<customerOrderDetails.size();i++){
+        for(int i=0;i<customerOrderDetails.size();i++){
             int index = i;
             String String_url = "http://54.199.33.241/test/NewOrderDetail.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, String_url, new Response.Listener<String>() {
@@ -434,19 +425,31 @@ public class OrderDetail extends AppCompatActivity {
                     Map<String, String> data = new HashMap<>();
                     data.put("Order_ID", New_Order_Id);
                     data.put("Quantity", customerOrderDetails.get(index).getQuantity());
+                    Log.i("Quantity", customerOrderDetails.get(index).getQuantity());
                     data.put("Type", customerOrderDetails.get(index).getType());
+                    Log.i("Type", customerOrderDetails.get(index).getType());
                     data.put("Weight", customerOrderDetails.get(index).getWeight());
-                    if(customerOrderDetails.get(index).getExchange()!=null&&customerOrderDetails.get(index).getExchange().equals("1")){
-                        data.put("Exchange",customerOrderDetails.get(index).getExchange());
+                    Log.i("Weight", customerOrderDetails.get(index).getWeight());
+                    if(customerOrderDetails.get(index).getExchange()){
+                        data.put("Exchange","1");
+                        Log.i("1","1");
+                        Gas_Delete += Integer.parseInt(customerOrderDetails.get(index).getQuantity())*Integer.parseInt(customerOrderDetails.get(index).getWeight());
+                        Log.i("Gas_delete123",String.valueOf(Gas_Delete));
+                        //殘氣扣除
+                        if(Gas_Delete>0){
+                            deleteGasRemain();
+                        }
                     }
                     else{
                         data.put("Exchange","0");
+                        Log.i("0","0");
                     }
                     return data;
                 }
             };
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-            requestQueue.add(stringRequest);}
+            requestQueue.add(stringRequest);
+        }
     }
     public void Date(){
         pickerDialog = new DatePickerDialog.OnDateSetListener() {
@@ -460,17 +463,6 @@ public class OrderDetail extends AppCompatActivity {
             }
         };
     }
-    public void Time(){
-        timeDialog = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar1.set(Calendar.HOUR,hourOfDay);
-                calendar1.set(Calendar.MINUTE,minute);
-                time = hourOfDay+":"+minute;
-                Expect_Time.setText("送達時間："+hourOfDay+"時"+minute+"分");
-            }
-        };
-    }
     public void datePicker(View v){
         //建立date的dialog
         DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
@@ -480,15 +472,6 @@ public class OrderDetail extends AppCompatActivity {
                 calendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
     }
-    public void timePicker(View v){
-        TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(),
-                timeDialog,
-                calendar1.get(Calendar.HOUR),
-                calendar1.get(Calendar.MINUTE),
-                false);
-        timePickerDialog.show();
-    }
-
     public void TimePick(){
         Time_Spinner = findViewById(R.id.Time);
 
@@ -510,81 +493,31 @@ public class OrderDetail extends AppCompatActivity {
 
     public void setGas_Quantity(){
         if(compositeGasMenu.a>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.a), "composite", compositeGasMenu.weight1);
+            OrderDetailItem od = new OrderDetailItem(String.valueOf(compositeGasMenu.a), "composite", compositeGasMenu.weight1,false);
             customerOrderDetails.add(od);
         }
         if(compositeGasMenu.b>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.b), "composite", compositeGasMenu.weight2);
+            OrderDetailItem od = new OrderDetailItem(String.valueOf(compositeGasMenu.b), "composite", compositeGasMenu.weight2,false);
             customerOrderDetails.add(od);
         }
         if(compositeGasMenu.c>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(compositeGasMenu.c), "composite", compositeGasMenu.weight3);
+            OrderDetailItem od = new OrderDetailItem(String.valueOf(compositeGasMenu.c), "composite", compositeGasMenu.weight3,false);
             customerOrderDetails.add(od);
         }
         if(cylinder_gas_menu.a>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(cylinder_gas_menu.a), "tradition", cylinder_gas_menu.weight1);
+            OrderDetailItem od = new OrderDetailItem(String.valueOf(cylinder_gas_menu.a), "tradition", cylinder_gas_menu.weight1,false);
             customerOrderDetails.add(od);
         }
         if(cylinder_gas_menu.b>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(cylinder_gas_menu.b), "tradition", cylinder_gas_menu.weight2);
+            OrderDetailItem od = new OrderDetailItem(String.valueOf(cylinder_gas_menu.b), "tradition", cylinder_gas_menu.weight2,false);
             customerOrderDetails.add(od);
         }
         if(cylinder_gas_menu.c>0){
-            CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(cylinder_gas_menu.c), "tradition", cylinder_gas_menu.weight3);
+            OrderDetailItem od = new OrderDetailItem(String.valueOf(cylinder_gas_menu.c), "tradition", cylinder_gas_menu.weight3,false);
             customerOrderDetails.add(od);
         }
     }
-    public void RemainGas(){
-            //customerOrderDetails.add(GasExchangeOrder());
-            for(int i =0;i<customerOrderDetails.size();i++){
-                if (gasExchange.Gas_Quantity != 0 && GasExchangeOrder() != null) {
-                //相同規格
-                if(customerOrderDetails.get(i).getWeight().equals(gasExchange.Gas_Weight)){
-                    //1. 規格 2. 記得扣殘氣
-                    orderDetailQuan = Integer.parseInt(customerOrderDetails.get(i).getQuantity());
-                    if(orderDetailQuan==gasExchange.Gas_Quantity){
-                        customerOrderDetails.get(i).setExchange("1");
-                        gasExchange.Gas_Quantity -= orderDetailQuan;
-                        //記所兌換的容量
-                        Gas_Delete += orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight);
-                        Log.i("Gas_Delete", String.valueOf(Gas_Delete));
-                    }
-                    else if(orderDetailQuan>gasExchange.Gas_Quantity){
-                        Log.i("pass","pass here");
-                        orderDetailQuan -= gasExchange.Gas_Quantity;
-                        customerOrderDetails.get(i).setQuantity(String.valueOf(orderDetailQuan));
-                        CustomerOrderDetail od = new CustomerOrderDetail(String.valueOf(gasExchange.Gas_Quantity), customerOrderDetails.get(i).getType(), customerOrderDetails.get(i).getWeight());
-                        od.setExchange("1");
-                        // 切換到 UI 主線程來添加項目
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                customerOrderDetails.add(od);
-                            }
-                        });
-                        //記所兌換的容量
-                        Gas_Delete += gasExchange.Gas_Quantity*Integer.parseInt(gasExchange.Gas_Weight);
 
-                    }
-                    else if(orderDetailQuan<gasExchange.Gas_Quantity){
-                        gasExchange.Gas_Quantity -= orderDetailQuan;
-                        customerOrderDetails.get(i).setExchange("1");
-                        Gas_Delete += orderDetailQuan*Integer.parseInt(gasExchange.Gas_Weight);
-                    }
-                    else{
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "兌換瓶數已超過可兌換數量，請重新選擇兌換數量", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-            } else {
-                    // Handle the case when Gas_Quantity is 0 or gasExchangeOrder is null
-                    }
-        }
-    }
     public void deleteGasRemain(){
         //三個值 Customer Id Company Id Gas Volume
         String String_url = "http://54.199.33.241/test/Delete_Gas_Remain.php";
@@ -609,8 +542,8 @@ public class OrderDetail extends AppCompatActivity {
                 Map<String, String> data = new HashMap<>();
                 data.put("Customer_ID", Customer_ID);
                 data.put("Company_Id", Company_Id);
-                int weight = Integer.parseInt(gasExchange.Gas_Volume);
-                data.put("Gas_Delete", String.valueOf(weight-Gas_Delete));
+                //int weight = Integer.parseInt(gasExchange.Gas_Volume);
+                data.put("Gas_Delete", String.valueOf(Gas_Delete));
                 return data;
             }
         };
@@ -626,8 +559,46 @@ public class OrderDetail extends AppCompatActivity {
         Receipt_TelNo = findViewById(R.id.changable_receiptTelNo);
         Receipt_Addr = findViewById(R.id.changable_receiptAddr);
 
-        exchange = findViewById(R.id.receipt_exchange_status);
         editReceipt = findViewById(R.id.receipt_edit_button);
         finish = findViewById(R.id.receipt_next_button);
     }
+
+    public void showGasRemain() {
+        try {
+            String Showurl = "http://54.199.33.241/test/Gas_Remain.php";
+            URL url = new URL(Showurl);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String post_data = URLEncoder.encode("Customer_ID", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(Customer_ID), "UTF-8")
+                    + "&" +
+                    URLEncoder.encode("Company_Id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(Company_Id), "UTF-8");
+
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            Log.i("Gas Exchange result", "[" + result + "]");
+            JSONObject responseJSON = new JSONObject(result);
+            Gas_Volume = responseJSON.getString("Gas_Volume");
+            Log.i("Gas_Volume",Gas_Volume);
+        } catch (Exception e) {
+            Log.i("GasExchange Exception", e.toString());
+        }
+    }
+
 }

@@ -79,7 +79,7 @@ public class GasExchange extends AppCompatActivity {
         Company_Id = String.valueOf(loginActivity.COMPANY_Id);
         volume = findViewById(R.id.curentGasVolume);
         name = findViewById(R.id.gasCompanyTitle);
-        value = findViewById(R.id.exchangePriceTitle);
+        //value = findViewById(R.id.exchangePriceTitle);
 
         Gas_Quantity = 0;
 
@@ -99,66 +99,66 @@ public class GasExchange extends AppCompatActivity {
         thread.start();
 
         //Spinner_Type = findViewById(R.id.exchange_option_dropdown);
-        Spinner_Weight = findViewById(R.id.exchange_weight_dropdown);
-        Get_Quantity = findViewById(R.id.editTextNumber);
-        next = findViewById(R.id.confirm_exchange_button);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getValue();
-                if (totalValue > Integer.parseInt(Gas_Volume)) {
-                    Toast.makeText(getApplicationContext(), "殘氣不足", Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(GasExchange.this, OrderDetail.class);
-                    startActivity(intent);
-                }
-            }
-        });
-        Get_Quantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String quantityStr = Get_Quantity.getText().toString().trim();
-                totalValue = 0;
-                if (!quantityStr.isEmpty()) {
-                    Gas_Quantity = Integer.parseInt(quantityStr);
-                    Gas_Weight = Spinner_Weight.getSelectedItem().toString();
-                    Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
-                    totalValue = Integer.parseInt(Gas_Weight) * Gas_Quantity;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            value.setText("兌換價值: " + String.valueOf(totalValue));
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // TODO Auto-generated method stub
-            }
-        });
-        Spinner_Weight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // 在這裡處理 Spinner 選擇的變化
-                Gas_Weight = Spinner_Weight.getSelectedItem().toString();
-                // 做你需要的處理
-                Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
-                totalValue = Integer.parseInt(Gas_Weight) * Gas_Quantity;
-                value.setText("兌換價值: " + String.valueOf(totalValue));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // 未選擇任何項目時的處理
-            }
-        });
+//        Spinner_Weight = findViewById(R.id.exchange_weight_dropdown);
+//        Get_Quantity = findViewById(R.id.editTextNumber);
+//        next = findViewById(R.id.confirm_exchange_button);
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getValue();
+//                if (totalValue > Integer.parseInt(Gas_Volume)) {
+//                    Toast.makeText(getApplicationContext(), "殘氣不足", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Intent intent = new Intent(GasExchange.this, OrderDetail.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+//        Get_Quantity.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String quantityStr = Get_Quantity.getText().toString().trim();
+//                totalValue = 0;
+//                if (!quantityStr.isEmpty()) {
+//                    Gas_Quantity = Integer.parseInt(quantityStr);
+//                    Gas_Weight = Spinner_Weight.getSelectedItem().toString();
+//                    Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
+//                    totalValue = Integer.parseInt(Gas_Weight) * Gas_Quantity;
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            value.setText("兌換價值: " + String.valueOf(totalValue));
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // TODO Auto-generated method stub
+//            }
+//        });
+//        Spinner_Weight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                // 在這裡處理 Spinner 選擇的變化
+//                Gas_Weight = Spinner_Weight.getSelectedItem().toString();
+//                // 做你需要的處理
+//                Gas_Weight = Gas_Weight.substring(0, Gas_Weight.length() - 2);
+//                totalValue = Integer.parseInt(Gas_Weight) * Gas_Quantity;
+//                value.setText("兌換價值: " + String.valueOf(totalValue));
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // 未選擇任何項目時的處理
+//            }
+//        });
 
 
         // Perform item selected listener

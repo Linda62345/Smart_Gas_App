@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/white">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:gravity="center"
+            android:textColor="#ff757575"
+            android:textSize="20.0sp"
+            android:textStyle="bold"
+            android:layout_columnWeight="1"
+            />
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#ff757575"
+            android:textSize="20.0sp"
+            android:textStyle="bold"
+            android:layout_columnWeight="1.5"
+            />
+
+        <TextView
+            android:id="@+id/weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#ff757575"
+            android:textSize="20.0sp"
+            android:textStyle="bold"
+            android:layout_columnWeight="1"
+            />
+        <Spinner
+            android:id="@+id/remainGas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_columnWeight="2"
+            android:entries="@array/exchange_remainGas_options"
+            />
+    </GridLayout>
+
+</LinearLayout>

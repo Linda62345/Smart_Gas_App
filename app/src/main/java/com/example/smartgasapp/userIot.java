@@ -46,7 +46,7 @@ import java.util.Objects;
 public class userIot extends AppCompatActivity {
 
     public String Customer_ID, Sensor_ID,GasWeightEmptyString,result;
-    public EditText E_Sensor_ID,gasWeightEmpty;
+    public EditText E_Sensor_ID,gasWeightEmpty,gasBottleSpec;
     public ListView IOTlistView;
     public Button B_addIOT;
     public ImageButton scanner;
@@ -76,6 +76,7 @@ public class userIot extends AppCompatActivity {
         IOTlistView = findViewById(R.id.IOTlist);
 
         scanner = findViewById(R.id.qrPage);
+        gasBottleSpec = findViewById(R.id.GasBottleSpec);
 
         scanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,17 +90,20 @@ public class userIot extends AppCompatActivity {
         B_addIOT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(E_Sensor_ID.getText().length()==15){
-                    if(gasWeightEmpty.getText().toString().trim()!=null){
-                        Sensor_ID = E_Sensor_ID.getText().toString().trim();
-                        saveIOT();
-                    }
-                    else{
-                        Toast.makeText(userIot.this, "請輸入瓦斯桶空桶重", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
+                String sensorIDInput = E_Sensor_ID.getText().toString().trim();
+                String gasWeightInput = gasWeightEmpty.getText().toString().trim();
+                String gasBottleSpecInput = gasBottleSpec.getText().toString().trim();
+
+                if (sensorIDInput.isEmpty()) {
+                    Toast.makeText(userIot.this, "請輸入IOT號碼", Toast.LENGTH_SHORT).show();
+                } else if (sensorIDInput.length() != 15) {
                     Toast.makeText(userIot.this, "請輸入正確IOT號碼", Toast.LENGTH_SHORT).show();
+                } else if (gasWeightInput.isEmpty()) {
+                    Toast.makeText(userIot.this, "請輸入瓦斯桶空桶重", Toast.LENGTH_SHORT).show();
+                } else if (gasBottleSpecInput.isEmpty()) {
+                    Toast.makeText(userIot.this, "請輸入瓦斯桶規格", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveIOT();
                 }
             }
         });
@@ -211,10 +215,10 @@ public class userIot extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> data = new HashMap<>();
-                    GasWeightEmptyString = gasWeightEmpty.getText().toString().trim();
-                    data.put("gasEmptyWeight",GasWeightEmptyString);
+                    data.put("gasEmptyWeight",gasWeightEmpty.getText().toString().trim());
                     data.put("id", Customer_ID);
-                    data.put("sensor_id", Sensor_ID);
+                    data.put("sensor_id", E_Sensor_ID.getText().toString().trim());
+                    data.put("gasSpecWeight",gasBottleSpec.getText().toString().trim());
                     return data;
                 }
             };

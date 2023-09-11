@@ -64,6 +64,25 @@
             android:hint="請輸入瓦斯空桶重"
             android:layout_gravity="center"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="請輸入瓦斯規格"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/GasBottleSpec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            android:hint="請輸入瓦斯規格"
+            android:layout_gravity="center"/>
+
         <Button
             android:id="@+id/ButtonAddIOT"
             android:layout_width="286dp"

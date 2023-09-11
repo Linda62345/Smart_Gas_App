@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDetail> {
     int mresource;
@@ -40,10 +41,10 @@ public class CustomerOrderDetailAdapterList extends ArrayAdapter<CustomerOrderDe
 
         if(tvQuantity!=null&&tvType!=null&&tvWeight!=null){
             tvQuantity.setText(quantity);
-            if(type.equals("composite")){
+            if(type.toLowerCase(Locale.ROOT).equals("composite")){
                 tvType.setText("複合式鋼瓶");
             }
-            else if(type.equals("tradition")){
+            else if(type.toLowerCase(Locale.ROOT).equals("tradition")){
                 tvType.setText("傳統鋼瓶");
             }
             else if(type.equals("類別")){

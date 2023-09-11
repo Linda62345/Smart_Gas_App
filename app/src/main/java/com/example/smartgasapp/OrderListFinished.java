@@ -2,7 +2,9 @@ package com.example.smartgasapp;
 
 import static com.example.smartgasapp.R.id.navigation_dashboard;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,23 +40,28 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class OrderListFinished extends AppCompatActivity {
 
-    private Button unfinished, finished, order;
+    Calendar calendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener pickerDialog;
+    Calendar calendar2 = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener pickerDialog2;
+    private Button unfinished;
     private ListView orderList;
     public String Customer_Id, start_date, end_date;
     InputStream is = null;
-    String line,result = "";
-    String[] data,order_Id, deliveryPhones, orderIds, orderWeights, orderDetails;
+    String[] data,order_Id;
     Date startDate, endDate;
-    TextView startDateTextView, endDateTextView, space;
+    TextView startDateChangeable, endDateChangeable;
     public static String static_order_id;
     EditText startYearEditText, startMonthEditText, startDateEditText, endYearEditText, endMonthEditText, endDateEditText;
     private String URL = "http://54.199.33.241/test/customer_OrderList.php";
@@ -76,64 +84,44 @@ public class OrderListFinished extends AppCompatActivity {
             }
         });
 
-        // Step 1
-        startYearEditText = findViewById(R.id.editStartYear_unfinishedInput);
-        startMonthEditText = findViewById(R.id.editStartMonth_unfinishedInput);
-        startDateEditText = findViewById(R.id.editStartDay_unfinishedInput);
-        endYearEditText = findViewById(R.id.editEndYear_unfinishedInput);
-        endMonthEditText = findViewById(R.id.editEndMonth_unfinishedInput);
-        endDateEditText = findViewById(R.id.editEndDay_unfinishedInput);
+        startDateChangeable = findViewById(R.id.startDateChangeable);
+        endDateChangeable = findViewById(R.id.endDateChangeable);
+
+        // 日期選擇
+        Date();
+        startDateChangeable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker(v);
+            }
+        });
+        // 日期選擇
+        Date2();
+        endDateChangeable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePicker2(v);
+            }
+        });
 
         Button enterButton = findViewById(R.id.enterSearch);
         enterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String startYearString = startYearEditText.getText().toString();
-                String startMonthString = startMonthEditText.getText().toString();
-                String startDateString = startDateEditText.getText().toString();
-                String endYearString = endYearEditText.getText().toString();
-                String endMonthString = endMonthEditText.getText().toString();
-                String endDateString = endDateEditText.getText().toString();
-
-                SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
-                try {
-                    startDate = dateFormat1.parse(startYearString + "-" + startMonthString + "-" + startDateString);
-                    endDate = dateFormat1.parse(endYearString + "-" + endMonthString + "-" + endDateString);
-
-                    if (startDate.after(endDate)) {
-                        Toast.makeText(OrderListFinished.this, "Start date cannot be bigger than end date", Toast.LENGTH_SHORT).show();
-
-
-                    } else {
-                        getOrderList();
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
+//                try {
+//                    if (startDate.after(endDate)) {
+//                        Toast.makeText(OrderListFinished.this, "Start date cannot be bigger than end date", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        getOrderList();
+//                    }
+//                }  catch (Exception e) {
+//                    Log.i("orderListFinishDate",e.toString());
+//                }
                 LoginActivity loginActivity = new LoginActivity();
                 Customer_Id = String.valueOf(loginActivity.getCustomerID());
                 Log.i("finish: ",Customer_Id);
 
-
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                start_date = dateFormat.format(startDate);
-                end_date = dateFormat.format(endDate);
-
                 Log.i("End Date:", end_date);
                 Log.i("Start Date:", start_date);
-
-                startDateTextView = findViewById(R.id.startDate_unfinishedView);
-                startDateTextView.setText(start_date);
-
-                space = findViewById(R.id.untilDate_unfinishedView);
-                space.setText("-");
-
-                endDateTextView = findViewById(R.id.endDate_unfinishedView);
-                endDateTextView.setText(end_date);
-
 
                 orderList = (ListView)findViewById(R.id.list_item);
                 StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
@@ -144,31 +132,16 @@ public class OrderListFinished extends AppCompatActivity {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                try {
-                    getOrderList();
-                } catch (Exception e) {
-                    Log.i("OrderList create Exception",e.toString());
-                }
+//                try {
+//                    getOrderList();
+//                } catch (Exception e) {
+//                    Log.i("OrderList create Exception",e.toString());
+//                }
                 setAdapter();
 
             }
         });
 
-//        orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //當備案下時
-//                String msg = data[position];
-//                Toast.makeText(OrderListFinished.this, msg, Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(OrderListFinished.this, SearchOrderResult.class);
-
-//                String Id = order_Id[position];
-//                static_order_id = Id;
-//                intent.putExtra("orderId", Id);
-//                startActivity(intent);
-//
-//            }
-//        });
         orderListFinishLists = new ArrayList<OrderListFinishList>();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
@@ -203,10 +176,6 @@ public class OrderListFinished extends AppCompatActivity {
             OrderListFinishAdapterList adapter=
                     new OrderListFinishAdapterList(getApplicationContext(),R.layout.adapter_list_un_finish,orderListFinishLists);
             orderList.setAdapter(adapter);
-
-//        if(data!=null){
-//            ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
-//            orderList.setAdapter(adapter);
             orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -261,7 +230,7 @@ public class OrderListFinished extends AppCompatActivity {
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
-            Log.i("result", "["+result+"]");
+            Log.i("get Order List result", "["+result+"]");
             try{
                 JSONArray ja = new JSONArray(result);
                 JSONObject jo = null;
@@ -335,45 +304,97 @@ public class OrderListFinished extends AppCompatActivity {
         bufferedReader.close();
         inputStream.close();
         httpURLConnection.disconnect();
-        Log.i("result", "["+result+"]");
-        try {
-            String dataurl = "http://54.199.33.241/test/customer_OrderList.php";
-            URL url1 = new URL(dataurl);
-            HttpURLConnection con = (HttpURLConnection) url1.openConnection();
-            con.setRequestMethod("GET");
-            is = new BufferedInputStream(con.getInputStream());
-        }
-        catch(Exception e){
-            Log.i("OrderList Exception",e.toString());
-        }
+        Log.i("result here", "["+result+"]");
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-
-            while((line = br.readLine())!=null){
-                sb.append(line+"\n");
-            }
-            is.close();
-            result = sb.toString();
-            Log.i("OrderList result",result);
-        }catch(Exception e){
-            Log.i("OrderList Exception2",e.toString());
-        }
-        try{
+            Log.i("result try","["+result+"]");
             JSONArray ja = new JSONArray(result);
             JSONObject jo = null;
 
+            orderListFinishLists.clear();
+
             data = new String[ja.length()];
+            order_Id = new String[ja.length()];
 
             for(int i = 0; i<ja.length();i++){
                 jo = ja.getJSONObject(i);
-                data[i] = jo.getString("Order_Id");
+                String orderTime = jo.getString("Order_Time");
+
+                OrderListFinishList order = new OrderListFinishList(orderTime, "已完成");
+                orderListFinishLists.add(order);
+
+                Log.i("order data", order.getTime());
+                order_Id[i] = jo.getString("ORDER_Id");
+
+                data[i] = "訂購時間: " + orderTime + " - " + "已完成";
+
                 Log.i("order data",data[i]);
+                order_Id[i] = jo.getString("ORDER_Id");
             }
         }catch(Exception e){
             Log.i("OrderList JSON Exception",e.toString());
         }
     }
 
+    public void Date(){
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(timeZone);
+
+        // Format the current date and time as a string in the correct format
+        String currentDateTimeString = dateFormat.format(new Date());
+        startDateChangeable.setText(currentDateTimeString);
+        start_date = currentDateTimeString;
+        pickerDialog = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DATE,dayOfMonth);
+                start_date = year+"-"+(month+1)+"-"+dayOfMonth;
+                startDateChangeable.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+            }
+        };
+    }
+
+    public void datePicker(View v){
+        //建立date的dialog
+        DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+                pickerDialog,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    public void Date2(){
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Taipei");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(timeZone);
+
+        // Format the current date and time as a string in the correct format
+        String currentDateTimeString = dateFormat.format(new Date());
+        endDateChangeable.setText(currentDateTimeString);
+        end_date = currentDateTimeString;
+        pickerDialog2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar2.set(Calendar.YEAR,year);
+                calendar2.set(Calendar.MONTH,month);
+                calendar2.set(Calendar.DATE,dayOfMonth);
+                end_date = year+"-"+(month+1)+"-"+dayOfMonth;
+                endDateChangeable.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+            }
+        };
+    }
+
+    public void datePicker2(View v){
+        //建立date的dialog
+        DatePickerDialog dialog = new DatePickerDialog(v.getContext(),
+                pickerDialog2,
+                calendar2.get(Calendar.YEAR),
+                calendar2.get(Calendar.MONTH),
+                calendar2.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
 
 }

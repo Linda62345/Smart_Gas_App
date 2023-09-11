@@ -225,6 +225,7 @@ public class Homepage extends AppCompatActivity {
         });
 
 
+        // 訂單查詢
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

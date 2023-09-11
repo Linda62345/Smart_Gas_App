@@ -180,6 +180,53 @@
 
         </GridLayout>
 
+        <!-- 這裡要加標題 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:columnCount="4">
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/orderQuantity"
+                android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_columnWeight="1"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/orderType"
+                android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_columnWeight="1.5"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/orderWeight"
+                android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_columnWeight="1"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/orderRemain"
+                android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_columnWeight="2"
+                />
+        </GridLayout>
+
         <com.example.smartgasapp.listViewAdjust
             android:id="@+id/listview"
             android:layout_width="match_parent"
@@ -308,24 +355,6 @@
                 android:layout_columnWeight="1">
             </TextView>
         </GridLayout>
-
-
-
-
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/receipt_exchange_status"
-                android:layout_marginHorizontal="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="#ffececec"
-                android:text="累計殘氣兌換 >"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"
-                android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"

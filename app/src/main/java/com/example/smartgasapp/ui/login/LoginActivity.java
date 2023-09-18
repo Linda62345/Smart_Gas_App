@@ -100,6 +100,21 @@ public class LoginActivity extends AppCompatActivity {
             // Handle the exception appropriately
         }
 
+//        SharedPreferences activityPref = getSharedPreferences("activity_data", Context.MODE_PRIVATE);
+//        String currentActivityName = activityPref.getString("current_activity", "");
+//
+//        // Check if the current activity is not empty and is not the LoginActivity itself
+//        if (!currentActivityName.isEmpty() && !currentActivityName.equals(LoginActivity.class.getName())) {
+//            // Redirect to the previously visited activity
+//            try {
+//                Class<?> previousActivity = Class.forName(currentActivityName);
+//                Intent intent = new Intent(this, previousActivity);
+//                startActivity(intent);
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         tokenManager = TokenManager.getInstance(this);
 
         // Check login status from SharedPreferences
@@ -118,6 +133,18 @@ public class LoginActivity extends AppCompatActivity {
         Password = findViewById(R.id.password);
 
         createNotificationChannel();
+
+        // Retrieve email and password extras, if available
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String emailExtra = extras.getString("email");
+            String passwordExtra = extras.getString("password");
+            if (emailExtra != null && passwordExtra != null) {
+                // Automatically fill the email and password fields
+                username.setText(email);
+                Password.setText(password);
+            }
+        }
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

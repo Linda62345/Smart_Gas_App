@@ -55,6 +55,7 @@ public class NotificationForegroundService extends Service {
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
+        scheduleNotificationCheck();
     }
 
     public void setGasVolume(double gasVolume) {
@@ -103,9 +104,31 @@ public class NotificationForegroundService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Notification notification = buildNotification();
         startForeground(1, notification);
-
+        // Schedule the task to run periodically using AlarmManager
+        scheduleTask();
         // Start the notification check task here
         return START_STICKY;
+    }
+
+    private void scheduleTask() {
+        // Create an Intent for your task
+        Intent taskIntent = new Intent(this, NotificationReceiver.class);
+
+        // Create a PendingIntent to be triggered by the AlarmManager
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                0,
+                taskIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE // Add FLAG_IMMUTABLE
+        );
+        // Get the AlarmManager and set the periodic alarm
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        long intervalMillis = 60 * 1000; // 1 minute
+        long triggerAtMillis = System.currentTimeMillis();
+
+        // Schedule the alarm to repeat at the specified interval
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtMillis, intervalMillis, pendingIntent);
     }
 
     private Notification buildNotification() {
@@ -118,6 +141,7 @@ public class NotificationForegroundService extends Service {
                 .setSmallIcon(R.drawable.baseline_shopping_cart_24)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
+                .setOngoing(false) // Make the notification dismissible
                 .build();
 
         return notification;
@@ -136,7 +160,7 @@ public class NotificationForegroundService extends Service {
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
                     "Notification Foreground Service Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_LOW
             );
 
             NotificationManager manager = getSystemService(NotificationManager.class);

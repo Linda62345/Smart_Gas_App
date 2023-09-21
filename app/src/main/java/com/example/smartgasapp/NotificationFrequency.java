@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.ContextCompat;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
@@ -79,13 +80,18 @@ public class NotificationFrequency extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_frequency);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            frequency();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         // Start the Foreground Service
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            ContextCompat.startForegroundService(this, new Intent(this, NotificationForegroundService.class));
-//        } else {
-//            startService(new Intent(this, NotificationForegroundService.class));
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ContextCompat.startForegroundService(this, new Intent(this, NotificationForegroundService.class));
+        } else {
+            startService(new Intent(this, NotificationForegroundService.class));
+        }
 
 //        radioGroup = findViewById(R.id.radioGroup);
 //        two = findViewById(R.id.weightRadioTwo);
@@ -95,14 +101,16 @@ public class NotificationFrequency extends AppCompatActivity  {
         Button enterButton = findViewById(R.id.enter);
         enterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try {
-                    frequency();
-                    // Create an explicit intent to navigate to the homepage layout
-                    Intent intent = new Intent(NotificationFrequency.this, Homepage.class);
-                    startActivity(intent);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                   // frequency();
+//                    // Create an explicit intent to navigate to the homepage layout
+//                    Intent intent = new Intent(NotificationFrequency.this, Homepage.class);
+//                    startActivity(intent);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+                Intent intent = new Intent(NotificationFrequency.this, Homepage.class);
+                startActivity(intent);
             }
         });
         family_Id = new ArrayList<Integer>();
@@ -142,6 +150,7 @@ public class NotificationFrequency extends AppCompatActivity  {
                 return false;
             }
         });
+        startNotificationCheck();
     }
 
     private void startNotificationCheck() {
@@ -416,38 +425,38 @@ public class NotificationFrequency extends AppCompatActivity  {
 
         private void checkAndNotifyForFrequency(double gasVolume) {
             //if (gasVolume < 3) {
-                Calendar calendar = Calendar.getInstance();
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
 
-                int desiredHour = hour;
-                int desiredMinute = minute;
+            int desiredHour = hour;
+            int desiredMinute = minute;
 
-                if (gasVolume < 3 && (hour == 14 && minute == 00 || hour == 18 && minute == 00)) {
-                    showNotification("您的瓦斯容量小於" + 3 + "kg");
-                    if (hour >= 14 || (hour == 13 && minute >= 30)) {
-                        // Afternoon, schedule the next notification for tomorrow morning
-                        desiredHour = 14;
-                        desiredMinute = 00;
-                        showNotification("您的瓦斯容量小於" +  3 + "公斤");
-                    } else if (hour >= 8 && minute == 0) {
-                        // Morning, schedule the next notification for this afternoon
-                        desiredHour = 18;
-                        desiredMinute = 00;
-                        showNotification("您的瓦斯容量小於" + 3 + "公斤");
-                    }
+            if (gasVolume < 3 && (hour == 14 && minute == 0 || hour == 18 && minute == 00)) {
+                showNotification("您的瓦斯容量小於" + 3 + "kg");
+                if (hour >= 14 || (hour == 13 && minute >= 30)) {
+                    // Afternoon, schedule the next notification for tomorrow morning
+                    desiredHour = 14;
+                    desiredMinute = 0;
+                    showNotification("您的瓦斯容量小於" +  3 + "公斤");
+                } else if (hour >= 8 && minute == 0) {
+                    // Morning, schedule the next notification for this afternoon
+                    desiredHour = 18;
+                    desiredMinute = 00;
+                    showNotification("您的瓦斯容量小於" + 3 + "公斤");
                 }
+            }
             scheduleNotification(desiredHour, desiredMinute, gasVolume);
 //                scheduleNotification(14, 0, gasVolume);
 //                scheduleNotification(22,03, gasVolume);
-            }
+        }
 
 
 
 
         private void scheduleNotification(int desiredHour, int desiredMinute, double gasVolume) {
             // Get the current time and add one minute
-           // long notificationTime = System.currentTimeMillis() + 60000;
+            // long notificationTime = System.currentTimeMillis() + 60000;
 
             Calendar calendar = Calendar.getInstance();
 

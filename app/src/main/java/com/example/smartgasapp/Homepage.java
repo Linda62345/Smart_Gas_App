@@ -58,6 +58,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Homepage extends AppCompatActivity {
+    private NotificationFrequency notificationFrequencyInstance;
+    private static final long SESSION_TIMEOUT_MILLISECONDS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+    private static final String SESSION_TIMEOUT_KEY = "session_timeout";
 
     private Button point;
     private Button homeLogin;
@@ -94,6 +97,14 @@ public class Homepage extends AppCompatActivity {
             // Handle the exception appropriately
         }
 
+//        notificationFrequencyInstance = new NotificationFrequency();
+//        try {
+//            notificationFrequencyInstance.frequency();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+
         tokenManager = TokenManager.getInstance(this);
 
         // Create sample images
@@ -119,7 +130,19 @@ public class Homepage extends AppCompatActivity {
         // Retrieve user data from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
+        String savedEmail = sharedPreferences.getString("email", "");
+        String savedPassword = sharedPreferences.getString("password", "");
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        // Check if the session has timed out
+        if (isSessionTimedOut() || !isLoggedIn) {
+            // Handle session timeout or user not logged in, redirect to login screen
+            redirectToLogin(savedEmail,savedPassword);
+            return;
+        }
+
+        // Continue with normal data retrieval and processing
+        showName.setText("您好，" + username);
 
         if (!username.isEmpty() && isLoggedIn) {
             // User is logged in, update UI accordingly
@@ -281,6 +304,7 @@ public class Homepage extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         NetworkTask networkTask1 = new NetworkTask();
                         networkTask1.execute();
+
                         return true;
                     case R.id.navigation_notifications:
                         startActivity(new Intent(getApplicationContext(), OrderListUnfinished.class));
@@ -292,6 +316,37 @@ public class Homepage extends AppCompatActivity {
         });
 
       //  makeAuthenticatedApiRequest();
+    }
+
+    private boolean isSessionTimedOut() {
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        long sessionStartTime = sharedPref.getLong(SESSION_TIMEOUT_KEY, 0); // 0 means no session start time found
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = currentTime - sessionStartTime;
+        return elapsedTime >= SESSION_TIMEOUT_MILLISECONDS;
+    }
+
+    private void redirectToLogin(String savedEmail, String savedPassword) {
+        // Clear session data
+        SharedPreferences sharedPref = getSharedPreferences("login_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(SESSION_TIMEOUT_KEY);
+//        editor.remove("email"); // Clear saved email
+//        editor.remove("password"); // Clear saved password
+        editor.apply();
+
+//        // Save the current activity's class name
+//        SharedPreferences activityPref = getSharedPreferences("activity_data", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor activityEditor = activityPref.edit();
+//        activityEditor.putString("current_activity", getClass().getName());
+//        activityEditor.apply();
+
+        // Redirect to the login screen
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("email", savedEmail);
+        intent.putExtra("password", savedPassword);
+        startActivity(intent);
+        finish(); // Close the current activity
     }
 
     private class NetworkTask extends AsyncTask<String, Void, String> {

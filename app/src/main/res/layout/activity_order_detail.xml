@@ -391,7 +391,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="@integer/material_motion_duration_medium_1"
                 android:background="#ff3272d7"
-                android:text="@string/next_string"
+                android:text="@string/gas_order_complete"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:textColor="#ffffffff"

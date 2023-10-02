@@ -42,15 +42,16 @@
             android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/editName"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:autoSizeTextType="uniform"
+            android:textColor="@color/black"
             android:text="王大明" />
 
         <TextView
@@ -63,13 +64,14 @@
             android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/editHousePhone"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:autoSizeTextType="uniform"
             android:inputType="phone"
+            android:textColor="@color/black"
             android:text="02-12345567" />
 
         <TextView
@@ -82,13 +84,14 @@
             android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/editPhoneNo"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:inputType="phone"
             android:autoSizeTextType="uniform"
+            android:textColor="@color/black"
             android:text="0912345678" />
 
         <TextView
@@ -101,15 +104,16 @@
             android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/editCompanyAddress"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:autoSizeTextType="uniform"
+            android:textColor="@color/black"
             android:text="台北市瓦斯區瓦斯行瓦斯路一段1號" />
 
         <TextView
@@ -122,16 +126,17 @@
             android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/editEmail"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:inputType="text"
             android:minWidth="25dp"
             android:minHeight="25dp"
             android:autoSizeTextType="uniform"
-            android:text="gasgas@gmail.com" />
+            android:text="gasgas@gmail.com"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="0dp"

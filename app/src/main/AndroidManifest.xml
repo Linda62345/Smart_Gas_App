@@ -4,7 +4,7 @@
 
     <uses-sdk
         android:minSdkVersion="26"
-        android:targetSdkVersion="33" />
+        android:maxSdkVersion="34" />
 
     <uses-feature android:name="android.hardware.camera.any" />
 
@@ -193,12 +193,12 @@
 <!--            android:enabled="true"-->
 <!--            android:exported="true" />-->
 
-        <provider
+        <!--<provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
             android:enabled="false"
             android:exported="false"
-            tools:node="remove" />
+            tools:node="remove" />-->
 
         <receiver
             android:name=".NotificationReceiver"

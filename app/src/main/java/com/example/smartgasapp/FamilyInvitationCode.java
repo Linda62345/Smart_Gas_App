@@ -97,7 +97,12 @@ public class FamilyInvitationCode extends AppCompatActivity {
             public void onClick(View v) {
                 name = new ArrayList<String>();
                 family_Id = new ArrayList<Integer>();
-                SaveFamilyMember();
+                if(Family_Member_Email != null && !Family_Member_Email.equals("")){
+                    SaveFamilyMember();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "請輸入家人手機號碼", Toast.LENGTH_LONG).show();
+                }
                 listView = findViewById(R.id.listview);
             }
         });
@@ -193,9 +198,9 @@ public class FamilyInvitationCode extends AppCompatActivity {
                         Log.i("Save Family", response);
                         //畫面更新
                         dataonlist(); // Refresh the ListView data
-                    } else if (response.equals("failure")) {
-                        Log.i("Family Member failure", response);
-                    } else if (response.equals("No Customer")) {
+                    } else if (response.contains("failure")) {
+                        Toast.makeText(getApplicationContext(), "錯誤", Toast.LENGTH_LONG).show();
+                    } else if (response.contains("No Customer")) {
                         Toast.makeText(getApplicationContext(), "此號碼不存在", Toast.LENGTH_LONG).show();
                     } else if (response.contains("Duplicate entry")) {
                         Toast.makeText(getApplicationContext(), "此號碼已加入群組", Toast.LENGTH_LONG).show();

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
@@ -172,12 +173,22 @@ public class DeliveryMethod extends AppCompatActivity {
     }
     public void TimePick(){
         Time_Spinner = findViewById(R.id.Time);
-        //time = hourOfDay+":"+minute;
-        //Gas_Weight = Spinner_Weight.getSelectedItem().toString();
-        Time_Select = Time_Spinner.getSelectedItem().toString();
-        String[] parts = Time_Select.split("-");
-        time = parts[0];
-        Log.i("time",time);
+        Time_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Time_Select = Time_Spinner.getSelectedItem().toString();
+                Log.i("Spinner Time Select",Time_Select);
+                String[] parts = Time_Select.split("-");
+                time = parts[0];
+                Log.i("Spinner time",time);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
 }

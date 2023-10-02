@@ -222,7 +222,7 @@
             app:layout_constraintTop_toTopOf="@+id/predictionTime" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
+    <com.example.smartgasapp.listViewAdjust
         android:id="@+id/list_item"
         android:layout_gravity="center"
         android:layout_width="match_parent"

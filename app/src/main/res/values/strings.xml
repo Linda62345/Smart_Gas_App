@@ -124,6 +124,7 @@
     <string name="unfinished">未完成</string>
     <string name="companyAddress">瓦斯行地址</string>
     <string name="save_string">儲存</string>
+    <string name="gas_order_complete">送出訂單</string>
 
     <string-array name="frequency_dropdown">
         <item>每天</item>

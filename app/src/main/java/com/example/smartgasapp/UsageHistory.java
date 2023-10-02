@@ -102,7 +102,6 @@ public class UsageHistory extends AppCompatActivity {
                                 String selectedSensor = iot.getSelectedItem().toString();
                                 String[] selectedSensorParts = selectedSensor.split(" ");
                                 selectedSensorId = selectedSensorParts[1];
-                                Log.i("選擇id",selectedSensorId.toString());
                             }
                             catch (Exception e){
                                 Log.i("歷史用量UI Exception", e.toString());
@@ -111,16 +110,13 @@ public class UsageHistory extends AppCompatActivity {
                     });
 
 
-                    //瓦斯桶記錄sensor_history
-                    getData("http://54.199.33.241/test/iot_history.php",selectedSensorId);
-                    sensorlist(selectedSensorId);
-
                     iot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             String selectedSensor = iot.getSelectedItem().toString();
                             String[] selectedSensorParts = selectedSensor.split(" ");
                             selectedSensorId = selectedSensorParts[1];
+                            Log.i("selectedSensorId",selectedSensorId);
                             new GetHistoryTask().execute(selectedSensorId);
                             sensorlist(selectedSensorId);
                         }
@@ -129,7 +125,6 @@ public class UsageHistory extends AppCompatActivity {
                             // 未選擇任何項目時的處理
                         }
                     });
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -167,14 +162,12 @@ public class UsageHistory extends AppCompatActivity {
             }
         });
     }
-    private class GetHistoryTask extends AsyncTask<String, Void, Void> {
 
+    private class GetHistoryTask extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            String selectedSensorId = params[0];
-
+            Log.i("background",selectedSensorId);
             getData("http://54.199.33.241/test/iot_history.php", selectedSensorId);
-
             return null;
         }
 
@@ -185,7 +178,6 @@ public class UsageHistory extends AppCompatActivity {
     }
     public void getData(String Showurl,String id) {
         try {
-
             URL url = new URL(Showurl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -210,9 +202,9 @@ public class UsageHistory extends AppCompatActivity {
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
-            Log.i("result", "[" + result + "]");
+            Log.i("UsageHistory result", "[" + result + "]");
 
-            if (result != null && !result.isEmpty()) {
+            if (result != null) {
                 history = new JSONArray(result);
             } else {
                 Log.i("get data Exception", "Result is empty or null.");
@@ -240,23 +232,17 @@ public class UsageHistory extends AppCompatActivity {
                                 JSONObject jsonObject = ja.getJSONObject(i);
                                 String SENSOR_Time = jsonObject.optString("SENSOR_Time");
                                 String SENSOR_Weight = jsonObject.optString("SENSOR_Weight");
-                                //根據sensor_id 去 iot table 拿空桶重
-
-//                                if(){
-//                                    String Gas_Weight_Empty =
-//                                }
-//                                else{
-//                                    Toast.makeText(getApplicationContext(), "此重量尚未扣除空桶重", Toast.LENGTH_LONG).show();
-//                                }
                                 sensorListString.add("時間: " + SENSOR_Time + " 流量: " + SENSOR_Weight);
                                 //目前最後一筆資料
                                 iot_gas1.setText(SENSOR_Weight);
                                 iot_gas2.setText(SENSOR_Weight);
                             }
-
+                            if(ja.length()==0){
+                                iot_gas1.setText("近一個月內無資料");
+                                iot_gas2.setText("近一個月內無資料");
+                            }
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(UsageHistory.this,
-                                android.R.layout.simple_list_item_1, sensorListString);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(UsageHistory.this, android.R.layout.simple_list_item_1, sensorListString);
                         sensorlistView.setAdapter(adapter);
                     }
                     catch (Exception e){

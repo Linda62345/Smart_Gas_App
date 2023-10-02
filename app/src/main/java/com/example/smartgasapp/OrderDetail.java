@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -85,6 +86,7 @@ public class OrderDetail extends AppCompatActivity {
         LoginActivity loginActivity = new LoginActivity();
         Customer_ID = String.valueOf(loginActivity.getCustomerID());
         Company_Id = String.valueOf(loginActivity.COMPANY_Id);
+        Time_Spinner = findViewById(R.id.Time);
 
         DeliveryMethod deliveryMethod = new DeliveryMethod();
         compositeGasMenu = new CompositeGasMenu();
@@ -124,7 +126,6 @@ public class OrderDetail extends AppCompatActivity {
                         Log.i("配送方式",method);
                         date = deliveryMethod.date;
                         time = deliveryMethod.time;
-                        Time_Spinner = findViewById(R.id.Time);
                         //選取時間要一致
                         ArrayAdapter<String> adapter = (ArrayAdapter<String>) Time_Spinner.getAdapter();
                         position = adapter.getPosition(deliveryMethod.Time_Select);
@@ -135,6 +136,8 @@ public class OrderDetail extends AppCompatActivity {
                         }
                         //顯示訂單詳細資料
                         setGas_Quantity();
+
+
                     }
                     //有上一筆訂單資料
                     else{
@@ -230,6 +233,7 @@ public class OrderDetail extends AppCompatActivity {
                                     datePicker(v);
                                 }
                             });
+
                             TimePick();
 
                             if(position!=-1){
@@ -473,13 +477,24 @@ public class OrderDetail extends AppCompatActivity {
         dialog.show();
     }
     public void TimePick(){
-        Time_Spinner = findViewById(R.id.Time);
-
-        String Time_Select = Time_Spinner.getSelectedItem().toString();
-        String[] parts = Time_Select.split("-");
-        Time_Select = parts[0];
-        time = Time_Select;
-        Log.i("time",time);
+        Time_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String Time_Select = Time_Spinner.getSelectedItem().toString();
+                String[] parts = Time_Select.split("-");
+                Time_Select = parts[0];
+                time = Time_Select;
+                Log.i("Spinner time",time);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                String Time_Select = Time_Spinner.getSelectedItem().toString();
+                String[] parts = Time_Select.split("-");
+                Time_Select = parts[0];
+                time = Time_Select;
+                Log.i("Spinner time",time);
+            }
+        });
     }
 
     public CustomerOrderDetail GasExchangeOrder(){
